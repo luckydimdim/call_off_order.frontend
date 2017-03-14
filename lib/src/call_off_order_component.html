@@ -1,0 +1,165 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-xl-8 col-md-12">
+
+      <div class="card mt-1">
+        <div class="card-header">
+          <i class="fa fa-flash"></i> Создание наряд-заказа
+        </div>
+        <form>
+          <div class="card-block">
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="employee-name">Ф.И.О СПЕЦИАЛИСТА</label>
+                  <input type="text" class="form-control" id="employee-name"
+                         autocomplete="off"
+                         placeholder="Укажите номер наряд-заказа" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="employee-number">Табельный номер</label>
+                  <input type="text" class="form-control" id="employee-number"
+                         autocomplete="off"
+                         placeholder="Укажите номер наряд-заказа" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="position">Должность</label>
+                  <input type="text" class="form-control" id="position"
+                         autocomplete="off"
+                         placeholder="" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="position-number">Номер позиции</label>
+                  <input type="text" class="form-control" id="position-number"
+                         autocomplete="off"
+                         placeholder="" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="peronnel-source">Происхождение персонала</label>
+                  <input type="text" class="form-control" id="peronnel-source"
+                         autocomplete="off"
+                         placeholder="" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="paaf">Номер PAAF</label>
+                  <input type="text" class="form-control" id="paaf"
+                         autocomplete="off"
+                         placeholder="" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="mob-plan">Ссылка плана мобилизации</label>
+                  <input type="text" class="form-control" id="mob-plan"
+                         autocomplete="off"
+                         placeholder="" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="location">Место работы</label>
+                  <input type="text" class="form-control" id="location"
+                         autocomplete="off"
+                         placeholder="" />
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="mob-date">Дата мобилизации</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input daterangepicker type="text" class="form-control" id="mob-date"
+                           placeholder=""
+                           [options]="dateRangePickerOptions"/>
+                  </div>
+                </div>
+              </div>
+
+              <!-- /col -->
+            </div>
+            <!-- /row -->
+
+            <div class="form-group">
+              <label for="description">Описание</label>
+              <textarea id="description" name="description" rows="5" class="form-control"
+                        placeholder=""></textarea>
+            </div>
+
+          </div>
+          <!-- /card-block -->
+        </form>
+      </div>
+      <!-- /card -->
+
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+</div>
