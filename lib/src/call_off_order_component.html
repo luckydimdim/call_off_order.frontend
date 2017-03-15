@@ -8,44 +8,27 @@
         </div>
         <form>
           <div class="card-block">
+
+            <p class="text-muted">Укажите наименование услуги и срок ее предоставления</p>
+
             <div class="row">
 
               <div class="col-md-8">
                 <div class="form-group">
-                  <label for="work-name">Наименование услуги</label>
                   <input type="text" class="form-control" id="work-name"
                          autocomplete="off"
-                         placeholder="Введите наименование услуги" />
-                </div>
-              </div>
-
-              <!-- /col -->
-            </div>
-            <!-- /row -->
-
-            <div class="row">
-
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="start-date">Дата начала</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input daterangepicker type="text" class="form-control" id="start-date"
-                           placeholder=""
-                           [options]="dateRangePickerOptions" />
-                  </div>
+                         placeholder="Наименование услуги"/>
                 </div>
               </div>
               <!-- /col -->
 
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="finish-date">Дата окончания</label>
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input daterangepicker type="text" class="form-control" id="finish-date"
+                    <span class="input-group-addon" style="background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65);"><i class="fa fa-calendar"></i></span>
+                    <input daterangepicker type="text" class="form-control" id="date"
                            placeholder=""
-                           [options]="dateRangePickerOptions" />
+                           [options]="dateRangePickerOptions"/>
                   </div>
                 </div>
               </div>
@@ -54,21 +37,35 @@
             </div>
             <!-- /row -->
 
+            <p class="text-muted">Укажите группы ставок и ставки</p>
+
             <div class="row">
-              <div class="col-md-5">
-                <div class="input-group">
-                  <div class="input-group-btn">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Группа
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a href="javascript:void(0)">Группа</a>
-                      </li>
-                      <li><a href="javascript:void(0)">Ставка</a>
-                      </li>
-                    </ul>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group">
+                      <span class="input-group-addon" style="font-variant: small-caps; background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65);">группа</span>
+                      <input type="text" id="group-0" name="group-0" class="form-control" placeholder=""/>
+                    </div>
                   </div>
-                  <input type="text" id="input1-group3" name="input1-group3" class="form-control" placeholder="">
+                </div>
+              </div>
+              <!-- /col -->
+
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-6 offset-md-1">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group">
+                      <span class="input-group-addon" style="font-variant: small-caps; background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65);">ставка</span>
+                      <input type="text" id="rate-name-0" name="rate-name-0" class="form-control" placeholder=""/>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- /col -->
@@ -77,21 +74,162 @@
                 <div class="form-group">
                   <input type="text" class="form-control" id="amount"
                          placeholder="Сумма"
-                         autocomplete="off" />
+                         autocomplete="off"/>
                 </div>
               </div>
               <!-- /col -->
 
-              <div class="col-md-1">
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary"><span class="font-xs">час</span><i class="fa fa-caret-down"></i>
-                    </button>
-                </span>
+              <div class="col-md-3">
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65)">
+                        <span style="font-variant: small-caps;">день</span>
+                        <span class="caret"></span>
+                      </button>
+                    </span>
+                  </div>
+                  <!-- /col -->
+
+                  <div class="col-md-1 offset-md-2">
+                    <i class="fa fa-minus-square-o text-muted" style="line-height: 2.3"></i>
+                  </div>
+                  <!-- /col -->
+
+                  <div class="col-md-3">
+                    <i class="fa fa-plus-square-o text-muted" style="line-height: 2.3"></i>
+                  </div>
+                  <!-- /col -->
+
+                </div>
+                <!-- /row -->
               </div>
               <!-- /col -->
 
             </div>
             <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-6 offset-md-1">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group">
+                      <span class="input-group-addon" style="font-variant: small-caps; background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65);">ставка</span>
+                      <input type="text" id="rate-name-1" name="rate-name-1" class="form-control" placeholder=""/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <input type="text" class="form-control"
+                         placeholder="Сумма"
+                         autocomplete="off"/>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-3">
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65)">
+                        <span style="font-variant: small-caps">день</span>
+                        <span class="caret"></span>
+                      </button>
+                    </span>
+                  </div>
+                  <!-- /col -->
+
+                  <div class="col-md-1 offset-md-2">
+                    <i class="fa fa-minus-square-o text-muted" style="line-height: 2.3"></i>
+                  </div>
+                  <!-- /col -->
+
+                  <div class="col-md-3">
+                    <i class="fa fa-plus-square-o text-muted" style="line-height: 2.3"></i>
+                  </div>
+                  <!-- /col -->
+
+                </div>
+                <!-- /row -->
+              </div>
+              <!-- /col -->
+
+            </div>
+            <!-- /row -->
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65); line-height: 1.4">
+                        <span style="font-variant: small-caps">ставка</span>
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">Ставка</a>
+                        </li>
+                        <li><a href="javascript:void(0)">Ставка</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <input type="text" id="group-5" name="group-0" class="form-control" placeholder=""/>
+                  </div>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <input type="text" class="form-control"
+                         placeholder="Сумма"
+                         autocomplete="off"/>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-3">
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #fff; border-color: rgba(0, 0, 0, 0.15); color: rgba(0, 0, 0, 0.65);">
+                          <span style="font-variant: small-caps">день</span>
+                          <span class="caret"></span>
+                        </button>
+                    </span>
+                  </div>
+                  <!-- /col -->
+
+                  <div class="col-md-1 offset-md-2">
+                    <i class="fa fa-minus-square-o text-muted" style="line-height: 2.3"></i>
+                  </div>
+                  <!-- /col -->
+
+                  <div class="col-md-3">
+                    <i class="fa fa-plus-square-o text-muted" style="line-height: 2.3"></i>
+                  </div>
+                  <!-- /col -->
+
+                </div>
+                <!-- /row -->
+              </div>
+              <!-- /col -->
+
+            </div>
+            <!-- /row -->
+
+            <div>
+              <i class="fa fa-plus-square-o text-muted"></i>
+            </div>
 
           </div>
           <!-- /card-block -->

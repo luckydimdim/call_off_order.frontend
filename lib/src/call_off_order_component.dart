@@ -39,7 +39,6 @@ class CallOffOrderComponent {
       'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 
     dateRangePickerOptions = new DateRangePickerOptions()
-      ..singleDatePicker = true
       ..locale = locale;
   }
 }
