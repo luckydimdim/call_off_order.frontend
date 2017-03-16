@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:math' as math;
-
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
@@ -20,10 +17,9 @@ class CallOffOrderComponent {
     name: CallOffOrderComponent.route_name,
     useAsDefault: true);
 
-  final Router _router;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
-  CallOffOrderComponent(this._router) {
+  CallOffOrderComponent() {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
