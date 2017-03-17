@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /**
  * Ставка наряд-заказа
  */
@@ -54,23 +56,23 @@ class CallOffRate {
 
   factory CallOffRate.fromJson(dynamic json) {
     return new CallOffRate()
-      ..id = json['id']
-      ..name = json['name']
-      ..isRate = json['isRate']
-      ..amount = double.parse(json['amount'].toString())
-      ..currency = json['currency']
-      ..unitName = json['unitName'];
+      ..id = JSON.decode(json['id'])
+      ..name = JSON.decode(json['name'])
+      ..isRate = JSON.decode(json['isRate'])
+      ..amount = double.parse(JSON.decode(json['amount']).toString())
+      ..currency = JSON.decode(json['currency'])
+      ..unitName = JSON.decode(json['unitName']);
   }
 
   String toJsonString() {
     var map = new Map();
 
-    map['id'] = id.toString();
-    map['name'] = name;
-    map['isRate'] = isRate;
-    map['amount'] = amount.toString();
-    map['currency'] = currency;
-    map['unitName'] = unitName;
+    map['id'] = JSON.encode(id);
+    map['name'] = JSON.encode(name);
+    map['isRate'] = JSON.encode(isRate);
+    map['amount'] = JSON.encode(amount);
+    map['currency'] = JSON.encode(currency);
+    map['unitName'] = JSON.encode(unitName);
 
     return map;
   }
