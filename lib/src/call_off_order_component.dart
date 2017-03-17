@@ -53,7 +53,7 @@ class CallOffOrderComponent {
       ..locale = locale;
 
     // FIXME: initial data, remove it
-    model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showPlusMinus: true, unitName: 'день'));
+    model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showMinus: true, unitName: 'день'));
   }
 
   /**
@@ -92,7 +92,7 @@ class CallOffOrderComponent {
       isChild: false,
       isRate: false,
       canToggle: true,
-      showPlusMinus: true,
+      showMinus: true,
       unitName: 'день'));
   }
 
@@ -114,13 +114,13 @@ class CallOffOrderComponent {
       isChild: true,
       isRate: true,
       canToggle: false,
-      showPlusMinus: true,
+      showMinus: true,
       unitName: 'день'));
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
     if (!sourceRate.isChild)
-      sourceRate.showPlusMinus = false;
+      sourceRate.showMinus = false;
   }
 
   /**
@@ -138,8 +138,6 @@ class CallOffOrderComponent {
     if (previousRateIndex >= 0) {
       CallOffRate previousRate = model.rates.elementAt(previousRateIndex);
 
-      //previousRate.showPlusMinus = true;
-
       // Если это группа ставок, а не ставка
       if (!previousRate.isChild) {
 
@@ -151,13 +149,13 @@ class CallOffOrderComponent {
           if (!nextRate.isChild)
           {
             // Отображается +/-
-            previousRate.showPlusMinus = true;
+            previousRate.showMinus = true;
           }
         // Если после этой родительской ставки вообще нет никаких ставок
         } else {
 
           // Отображается +/-
-          previousRate.showPlusMinus = true;
+          previousRate.showMinus = true;
         }
       }
     }

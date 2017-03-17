@@ -48,9 +48,9 @@ class CallOffRate {
   /**
    * Отображать или нет контролы удаления и добавления ставки
    */
-  bool showPlusMinus = true;
+  bool showMinus = true;
 
-  CallOffRate({ this.id, this.isChild, this.isRate, this.canToggle, this.showPlusMinus, this.unitName });
+  CallOffRate({ this.id, this.isChild, this.isRate, this.canToggle, this.showMinus, this.unitName });
 
   factory CallOffRate.fromJson(dynamic json) {
     return new CallOffRate(
@@ -58,7 +58,7 @@ class CallOffRate {
       isChild: json['name'],
       isRate: json['isRate'],
       canToggle: json['amount'],
-      showPlusMinus: json['currency'],
+      showMinus: json['currency'],
       unitName: json['unitName']);
   }
 

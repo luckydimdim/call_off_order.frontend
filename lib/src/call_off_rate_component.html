@@ -39,13 +39,17 @@
         </div>
         <!-- /col -->
 
-        <div class="col-md-1 offset-md-1" *ngIf="model.showPlusMinus" (click)="emitRemoveRate()">
-          <i class="fa fa-minus-square-o text-muted cm-minus"></i>
+        <div class="col-md-2"
+             *ngIf="model.showMinus"
+             (click)="emitRemoveRate()">
+          <button type="button" class="btn btn-secondary text-muted cm-minus"><span>—</span></button>
         </div>
         <!-- /col -->
 
-        <div class="col-md-3" *ngIf="model.showPlusMinus" (click)="emitAddRate()">
-          <i class="fa fa-plus-square-o text-muted cm-plus"></i>
+        <div class="col-md-2"
+             (click)="emitAddRate()"
+             [class.offset-md-1]="model.showMinus">
+          <button type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
         </div>
         <!-- /col -->
 
