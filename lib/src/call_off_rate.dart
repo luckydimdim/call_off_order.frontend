@@ -56,10 +56,10 @@ class CallOffRate {
 
   factory CallOffRate.fromJson(dynamic json) {
     return new CallOffRate()
-      ..id = JSON.decode(json['id'])
+      ..id = json['id']
       ..name = JSON.decode(json['name'])
       ..isRate = JSON.decode(json['isRate'])
-      ..amount = double.parse(JSON.decode(json['amount']).toString())
+      ..amount = double.parse(json['amount'].toString())
       ..currency = JSON.decode(json['currency'])
       ..unitName = JSON.decode(json['unitName']);
   }
