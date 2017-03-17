@@ -53,14 +53,14 @@ class CallOffOrderComponent {
       ..locale = locale;
 
     // FIXME: initial data, remove it
-    model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showPlusMinus: true));
+    model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showPlusMinus: true, unitName: 'день'));
   }
 
   /**
    * Обновление наряд-заказа
    */
   updateCallOffOrder() async {
-    //await _service.updateCallOffOrder(model);
+    await _service.updateCallOffOrder(model);
   }
 
   /**
@@ -92,7 +92,8 @@ class CallOffOrderComponent {
       isChild: false,
       isRate: false,
       canToggle: true,
-      showPlusMinus: true));
+      showPlusMinus: true,
+      unitName: 'день'));
   }
 
   /**
@@ -113,7 +114,8 @@ class CallOffOrderComponent {
       isChild: true,
       isRate: true,
       canToggle: false,
-      showPlusMinus: true));
+      showPlusMinus: true,
+      unitName: 'день'));
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки

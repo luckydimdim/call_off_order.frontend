@@ -129,7 +129,7 @@ class CallOffService {
     if (!_initialized)
       await _init();
 
-    _logger.trace('Editing call off order ${model.toJsonString()}');
+    _logger.trace('Updating call off order ${model.toJsonString()}');
 
     try {
       await _http.put(
