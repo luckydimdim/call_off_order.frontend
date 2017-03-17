@@ -36,6 +36,15 @@ class CallOffOrderComponent implements OnInit {
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
+  @Input()
+  String id = '';
+
+  @Output()
+  /**
+   * Событие добавления ставки во внешний компонент
+   */
+  dynamic callOfChanged = new EventEmitter<CallOffOrder>();
+
   CallOffOrder model = new CallOffOrder();
   String dates = '';
 
@@ -76,6 +85,8 @@ class CallOffOrderComponent implements OnInit {
   Future updateCallOffOrder() async {
     // FiXME: remove it
     return null;
+
+    callOfChanged.emit(model);
 
     // await _service.updateCallOffOrder(model);
   }
@@ -202,6 +213,6 @@ class CallOffOrderComponent implements OnInit {
     // FIXME: remove it
     return null;
 
-    //model = await _service.getCallOfOrder();
+    model = await _service.getCallOffOrder(id);
   }
 }
