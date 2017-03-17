@@ -1,14 +1,14 @@
 <div class="animated fadeIn">
   <div class="row">
 
-    <div class="col-md-6 offset-md-{{isChild ? 1 : 0}}">
+    <div class="col-md-6 offset-md-{{model.isChild ? 1 : 0}}">
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-btn">
             <button type="button" class="btn btn-light"
-              [class.dropdown-toggle]="canToggle"
-              (click)="canToggle ? isRate = !isRate : null">
-              <span class="small-caps">{{isRate ? 'ставка' : 'группа' }}</span>
+              [class.dropdown-toggle]="model.canToggle"
+              (click)="model.canToggle ? model.isRate = !model.isRate : null">
+              <span class="small-caps">{{model.isRate ? 'ставка' : 'группа' }}</span>
             </button>
           </div>
           <input type="text" id="group-5" name="group-0" class="form-control" placeholder=""/>
@@ -17,7 +17,7 @@
     </div>
     <!-- /col -->
 
-    <div class="col-md-2" *ngIf="isRate">
+    <div class="col-md-2" *ngIf="model.isRate">
       <div class="form-group">
         <input type="text" class="form-control"
                placeholder="Сумма"
@@ -29,22 +29,22 @@
     <div class="col-md-3">
       <div class="row">
 
-        <div class="col-md-4" *ngIf="isRate">
+        <div class="col-md-4" *ngIf="model.isRate">
           <div class="input-group-btn">
             <button type="button" class="btn btn-light dropdown-toggle"
-              (click)="unitName = unitName == 'день' ? 'час' : 'день'">
-              <span class="small-caps">{{unitName}}</span>
+              (click)="model.unitName = model.unitName == 'день' ? 'час' : 'день'">
+              <span class="small-caps">{{model.unitName}}</span>
             </button>
           </div>
         </div>
         <!-- /col -->
 
-        <div class="col-md-1 offset-md-1" *ngIf="showPlusMinus" (click)="emitRemoveRate()">
+        <div class="col-md-1 offset-md-1" *ngIf="model.showPlusMinus" (click)="emitRemoveRate()">
           <i class="fa fa-minus-square-o text-muted cm-minus"></i>
         </div>
         <!-- /col -->
 
-        <div class="col-md-3" *ngIf="showPlusMinus" (click)="emitAddRate()">
+        <div class="col-md-3" *ngIf="model.showPlusMinus" (click)="emitAddRate()">
           <i class="fa fa-plus-square-o text-muted cm-plus"></i>
         </div>
         <!-- /col -->

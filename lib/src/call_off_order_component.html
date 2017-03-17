@@ -6,18 +6,27 @@
         <div class="card-header">
           <i class="fa fa-flash"></i> Создание наряд-заказа
         </div>
-        <form>
+        <form (change)="updateCallOffOrder()" #CallOffOrderForm="ngForm">
           <div class="card-block">
 
-            <p class="text-muted">Укажите наименование услуги и срок ее предоставления</p>
+            <p class="text-muted">Укажите наименование услуги, номер и срок ее предоставления</p>
 
             <div class="row">
 
-              <div class="col-md-8">
+              <div class="col-md-7">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="work-name"
+                  <input type="text" class="form-control"
                          autocomplete="off"
                          placeholder="Наименование услуги"/>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Номер заказа"/>
                 </div>
               </div>
               <!-- /col -->
@@ -26,7 +35,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
-                    <input daterangepicker type="text" class="form-control" id="date"
+                    <input daterangepicker type="text" class="form-control"
                            placeholder=""
                            [options]="dateRangePickerOptions"/>
                   </div>
@@ -39,15 +48,8 @@
 
             <p class="text-muted">Укажите группы ставок и ставки</p>
 
-            <div *ngFor="let rate of rates">
-              <call-off-rate
-                [id]="rate.id"
-                [isChild]="rate.isChild"
-                [isRate]="rate.isRate"
-                [canToggle]="rate.canToggle"
-                [showPlusMinus]="rate.showPlusMinus"
-                (addRate)="addRate($event)"
-                (removeRate)="removeRate($event)"></call-off-rate>
+            <div *ngFor="let rate of model.rates">
+              <call-off-rate [model]="rate" (addRate)="addRate($event)" (removeRate)="removeRate($event)"></call-off-rate>
             </div>
 
             <div class="cm-plus" (click)="addRate(null)">

@@ -3,15 +3,21 @@ import 'dart:math';
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
+import 'package:logger/logger_service.dart';
+import 'package:config/config_service.dart';
+
 import 'package:daterangepicker/daterangepicker.dart';
 import 'package:daterangepicker/daterangepicker_directive.dart';
 
 import 'package:call_off_order/src/call_off_rate.dart';
+import 'package:call_off_order/src/call_off_order.dart';
 import 'package:call_off_order/call_off_rate_component.dart';
+import 'package:call_off_order/call_off_service.dart';
 
 @Component(
   selector: 'call-off-order',
   templateUrl: 'call_off_order_component.html',
+  providers: const [CallOffService],
   directives: const [DateRangePickerDirective, CallOffRateComponent])
 class CallOffOrderComponent {
   static const String route_name = 'CallOffOrder';
@@ -22,10 +28,13 @@ class CallOffOrderComponent {
     name: CallOffOrderComponent.route_name,
     useAsDefault: true);
 
+  final LoggerService _logger;
+  final ConfigService _config;
+  final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
-  List<CallOffRate> rates = new List<CallOffRate>();
+  CallOffOrder model = new CallOffOrder();
 
-  CallOffOrderComponent() {
+  CallOffOrderComponent(this._logger, this._config, this._service) {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
@@ -43,7 +52,15 @@ class CallOffOrderComponent {
     dateRangePickerOptions = new DateRangePickerOptions()
       ..locale = locale;
 
-    rates.add(new CallOffRate(1, isChild: false, isRate: false, canToggle: true, showPlusMinus: true));
+    // FIXME: initial data, remove it
+    model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showPlusMinus: true));
+  }
+
+  /**
+   * Обновление наряд-заказа
+   */
+  updateCallOffOrder() async {
+    //await _service.updateCallOffOrder(model);
   }
 
   /**
@@ -52,7 +69,7 @@ class CallOffOrderComponent {
   void addRate(CallOffRateComponent rate) {
     // Если исходная ставка не задана или если задана,
     // но она корневая и не является группой
-    if (rate == null || (!rate.isChild && rate.isRate)) {
+    if (rate == null || (!rate.model.isChild && rate.model.isRate)) {
 
       // Создание группы ставок
       _addRateParent();
@@ -69,9 +86,9 @@ class CallOffOrderComponent {
   void _addRateParent() {
     var rnd = new Random();
 
-    rates.add(new CallOffRate(
+    model.rates.add(new CallOffRate(
       /*rate.id,*/
-      rnd.nextInt(100),
+      id: rnd.nextInt(100),
       isChild: false,
       isRate: false,
       canToggle: true,
@@ -86,13 +103,13 @@ class CallOffOrderComponent {
 
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
-    CallOffRate sourceRate = rates.singleWhere(
-        (item) => item.id == sourceRateComponent.id);
-    int sourceRateIndex = rates.indexOf(sourceRate);
+    CallOffRate sourceRate = model.rates.singleWhere(
+        (item) => item.id == sourceRateComponent.model.id);
+    int sourceRateIndex = model.rates.indexOf(sourceRate);
 
-    rates.insert(sourceRateIndex + 1, new CallOffRate(
+    model.rates.insert(sourceRateIndex + 1, new CallOffRate(
       /*rate.id,*/
-      rnd.nextInt(100),
+      id: rnd.nextInt(100),
       isChild: true,
       isRate: true,
       canToggle: false,
@@ -109,15 +126,15 @@ class CallOffOrderComponent {
    */
   void removeRate(CallOffRateComponent sourceRateComponent) {
     // Получение индекса предыдущей по очереди ставки
-    CallOffRate sourceRate = rates.singleWhere(
-        (item) => item.id == sourceRateComponent.id);
+    CallOffRate sourceRate = model.rates.singleWhere(
+        (item) => item.id == sourceRateComponent.model.id);
 
-    int rateIndex = rates.indexOf(sourceRate);
+    int rateIndex = model.rates.indexOf(sourceRate);
     int previousRateIndex = rateIndex - 1;
     int nextRateIndex = rateIndex + 1;
 
     if (previousRateIndex >= 0) {
-      CallOffRate previousRate = rates.elementAt(previousRateIndex);
+      CallOffRate previousRate = model.rates.elementAt(previousRateIndex);
 
       //previousRate.showPlusMinus = true;
 
@@ -125,8 +142,8 @@ class CallOffOrderComponent {
       if (!previousRate.isChild) {
 
         // Если следующая по очереди ставка существует
-        if (rates.length >= nextRateIndex + 1) {
-          CallOffRate nextRate = rates.elementAt(nextRateIndex);
+        if (model.rates.length >= nextRateIndex + 1) {
+          CallOffRate nextRate = model.rates.elementAt(nextRateIndex);
 
           // ...и это ставка, а не группа ставок
           if (!nextRate.isChild)
@@ -143,6 +160,6 @@ class CallOffOrderComponent {
       }
     }
 
-    rates.removeWhere((item) => item.id == sourceRateComponent.id);
+    model.rates.removeWhere((item) => item.id == sourceRateComponent.model.id);
   }
 }
