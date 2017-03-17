@@ -53,13 +53,13 @@ class CallOffRate {
   CallOffRate({ this.id, this.isChild, this.isRate, this.canToggle, this.showMinus, this.unitName });
 
   factory CallOffRate.fromJson(dynamic json) {
-    return new CallOffRate(
-      id: json['id'],
-      isChild: json['name'],
-      isRate: json['isRate'],
-      canToggle: json['amount'],
-      showMinus: json['currency'],
-      unitName: json['unitName']);
+    return new CallOffRate()
+      ..id = json['id']
+      ..name = json['name']
+      ..isRate = json['isRate']
+      ..amount = json['amount']
+      ..currency = json['currency']
+      ..unitName = json['unitName'];
   }
 
   String toJsonString() {
