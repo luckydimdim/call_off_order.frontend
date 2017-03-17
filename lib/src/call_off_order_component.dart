@@ -41,9 +41,9 @@ class CallOffOrderComponent implements OnInit {
 
   @Output()
   /**
-   * Событие добавления ставки во внешний компонент
+   * Событие обновления ставки во внешний компонент
    */
-  dynamic callOfChanged = new EventEmitter<CallOffOrder>();
+  dynamic callOfChanged = new EventEmitter<String>();
 
   CallOffOrder model = new CallOffOrder();
   String dates = '';
@@ -86,7 +86,7 @@ class CallOffOrderComponent implements OnInit {
     // FiXME: remove it
     return null;
 
-    callOfChanged.emit(model);
+    callOfChanged.emit(model.toJsonString());
 
     // await _service.updateCallOffOrder(model);
   }
