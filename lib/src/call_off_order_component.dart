@@ -43,7 +43,7 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Событие обновления ставки во внешний компонент
    */
-  dynamic callOfChanged = new EventEmitter<String>();
+  dynamic callOfChanged = new EventEmitter<Map>();
 
   CallOffOrder model = new CallOffOrder();
   String dates = '';
@@ -67,7 +67,7 @@ class CallOffOrderComponent implements OnInit {
       ..locale = locale;
 
     // FIXME: initial data, remove it
-    model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showMinus: true, unitName: 'день'));
+    // model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showMinus: true, unitName: 'день'));
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
@@ -83,12 +83,10 @@ class CallOffOrderComponent implements OnInit {
    * Обновление наряд-заказа
    */
   Future updateCallOffOrder() async {
-    // FiXME: remove it
-    return null;
 
-    callOfChanged.emit(model.toJsonString());
+    callOfChanged.emit(model.toMap());
 
-    // await _service.updateCallOffOrder(model);
+    await _service.updateCallOffOrder(model);
   }
 
   /**
@@ -112,23 +110,22 @@ class CallOffOrderComponent implements OnInit {
    * Добавление группы ставок
    */
   void _addRateParent() {
-    var rnd = new Random();
+    var id = model.rates.length + 1;
 
-    model.rates.add(new CallOffRate(
-      /*rate.id,*/
-      id: rnd.nextInt(100),
-      isChild: false,
-      isRate: false,
-      canToggle: true,
-      showMinus: true,
-      unitName: 'день'));
+    model.rates.add(new CallOffRate()
+      ..id = id
+      ..isChild = false
+      ..isRate = false
+      ..canToggle = true
+      ..showMinus = true
+      ..unitName = 'день');
   }
 
   /**
    * Добавление ставки
    */
   void _addRateChild(CallOffRateComponent sourceRateComponent) {
-    var rnd = new Random();
+    var id = model.rates.length + 1;
 
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
@@ -136,14 +133,13 @@ class CallOffOrderComponent implements OnInit {
         (item) => item.id == sourceRateComponent.model.id);
     int sourceRateIndex = model.rates.indexOf(sourceRate);
 
-    model.rates.insert(sourceRateIndex + 1, new CallOffRate(
-      /*rate.id,*/
-      id: rnd.nextInt(100),
-      isChild: true,
-      isRate: true,
-      canToggle: false,
-      showMinus: true,
-      unitName: 'день'));
+    model.rates.insert(sourceRateIndex + 1, new CallOffRate()
+      ..id = id
+      ..isChild = true
+      ..isRate = true
+      ..canToggle = false
+      ..showMinus = true
+      ..unitName = 'день');
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
@@ -210,9 +206,8 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
-    // FIXME: remove it
-    return null;
-
     model = await _service.getCallOffOrder(id);
+
+    dates = '${model.startDate} - ${model.finishDate}';
   }
 }

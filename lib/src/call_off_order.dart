@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:call_off_order/src/call_off_rate.dart';
+import 'call_off_rate.dart';
 
 /**
  * Наряд-заказ
@@ -52,27 +52,42 @@ class CallOffOrder {
     );
 
     return new CallOffOrder()
-      ..id = JSON.decode(json['id'])
-      ..contractId = JSON.decode(json['contractId'])
-      ..name = JSON.decode(json['name'])
-      ..number = JSON.decode(json['number'])
-      ..startDate = JSON.decode(json['startDate'])
-      ..finishDate = JSON.decode(json['finishDate'])
+      ..id = json['id']
+      ..contractId = json['contractId']
+      ..name = json['name']
+      ..number = json['number']
+      ..startDate = json['startDate']
+      ..finishDate = json['finishDate']
       ..rates = rateList;
   }
 
   String toJsonString() {
-    var map = new Map();
 
-    map['id'] = JSON.encode(id);
-    map['contractId'] = JSON.encode(contractId);
-    map['name'] = JSON.encode(name);
-    map['number'] = JSON.encode(number);
-    map['startDate'] = JSON.encode(startDate);
-    map['finishDate'] = JSON.encode(finishDate);
-
-    rates.forEach((rate) => map['rates'] += rate.toJsonString());
+    var map = toMap();
 
     return JSON.encode(map);
+  }
+
+  Map toMap() {
+    var map = new Map();
+
+    map['id'] = id;
+    map['contractId'] = contractId;
+    map['name'] = name;
+    map['number'] = number;
+    map['startDate'] = startDate;
+    map['finishDate'] = finishDate;
+
+    var list = new List<Map>();
+
+    for (CallOffRate rate in rates) {
+      list.add(rate.toMap());
+    }
+
+    //map['rates'] = JSON.encode(list);
+    map['rates'] = list;
+    //rates.forEach((rate) => map['rates'] += rate.toJsonString());
+
+    return map;
   }
 }

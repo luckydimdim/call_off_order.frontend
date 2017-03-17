@@ -52,27 +52,33 @@ class CallOffRate {
    */
   bool showMinus = true;
 
-  CallOffRate({ this.id, this.isChild, this.isRate, this.canToggle, this.showMinus, this.unitName });
+  CallOffRate();
 
   factory CallOffRate.fromJson(dynamic json) {
     return new CallOffRate()
       ..id = json['id']
-      ..name = JSON.decode(json['name'])
-      ..isRate = JSON.decode(json['isRate'])
+      ..name = json['name']
+      ..isRate = json['isRate']
       ..amount = double.parse(json['amount'].toString())
-      ..currency = JSON.decode(json['currency'])
-      ..unitName = JSON.decode(json['unitName']);
+      ..currency = json['currency']
+      ..unitName = json['unitName'];
   }
 
   String toJsonString() {
+    var map = toMap();
+
+    return JSON.encode(map);
+  }
+
+  Map toMap() {
     var map = new Map();
 
-    map['id'] = JSON.encode(id);
-    map['name'] = JSON.encode(name);
-    map['isRate'] = JSON.encode(isRate);
-    map['amount'] = JSON.encode(amount);
-    map['currency'] = JSON.encode(currency);
-    map['unitName'] = JSON.encode(unitName);
+    map['id'] = id.toString();
+    map['name'] = name;
+    map['isRate'] = isRate;
+    map['amount'] = amount.toString();
+    map['currency'] = currency;
+    map['unitName'] = unitName;
 
     return map;
   }
