@@ -65,10 +65,10 @@ class CallOffRate {
   String toJsonString() {
     var map = new Map();
 
-    map['id'] = id;
+    map['id'] = id.toString();
     map['name'] = name;
     map['isRate'] = isRate;
-    map['amount'] = amount;
+    map['amount'] = amount.toString();
     map['currency'] = currency;
     map['unitName'] = unitName;
 
