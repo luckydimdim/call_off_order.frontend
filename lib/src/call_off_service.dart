@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:angular2/core.dart';
-import 'package:json_object/json_object.dart';
 
 import 'package:config/config_service.dart';
 import 'package:logger/logger_service.dart';
@@ -11,7 +10,7 @@ import 'package:logger/logger_service.dart';
 import 'package:call_off_order/src/call_off_order.dart';
 
 /**
- * Работа с БД для раздела "Наряд-заказы"
+ * Работа с web-сервисом. Раздел "Наряд-заказы"
  */
 @Injectable()
 class CallOffService {
@@ -49,9 +48,7 @@ class CallOffService {
 
     try {
       response = await _http.get(
-        /*'http://localhost:5000/contracts',*/
         _backendUrl,
-        /*_config.helper.contractsUrl,*/
         headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order list: $e');
@@ -71,19 +68,19 @@ class CallOffService {
   }
 
   /**
-   * Получение наряд-заказа по его id
+   * Получение одного наряд-заказа по его id
    */
-  Future<CallOffOrder> getCallOffOrder(String orderId) async {
+  Future<CallOffOrder> getCallOffOrder(String id) async {
     if (!_initialized)
       await _init();
 
     Response response = null;
 
-    _logger.trace('Requesting call off order. Url: $_backendUrl/$orderId');
+    _logger.trace('Requesting call off order. Url: $_backendUrl/$id');
 
     try {
       response = await _http.get(
-        '$_backendUrl/$orderId',
+        '$_backendUrl/$id',
         headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order: $e');
@@ -139,32 +136,32 @@ class CallOffService {
         _backendUrl,
         headers: {'Content-Type': 'application/json'},
         body: model.toJsonString());
-      _logger.trace('Contract ${model.name} edited');
+      _logger.trace('Call off ${model.name} (${model.number}) successfuly updated');
     } catch (e) {
-      _logger.error('Failed to edit contract: $e');
+      _logger.error('Failed to update call off order: $e');
 
-      throw new Exception('Failed to edit contract. Cause: $e');
+      throw new Exception('Failed to update call off order. Cause: $e');
     }
   }
 
   /**
-   * Удаление договора
+   * Удаление наряд-заказа
    */
-  deleteContract(String contractId) async {
+  deleteContract(String id) async {
     if (!_initialized)
       await _init();
 
-    _logger.trace('Removing contract. Url: $_backendUrl/$contractId');
+    _logger.trace('Removing call off order. Url: $_backendUrl/$id');
 
     try {
       await _http.delete(
-        '$_backendUrl/$contractId',
+        '$_backendUrl/$id',
         headers: {'Content-Type': 'application/json'});
-      _logger.trace('Contract $contractId removed');
+      _logger.trace('Call off order $id removed');
     } catch (e) {
-      _logger.error('Failed to remove contract: $e');
+      _logger.error('Failed to remove call off order: $e');
 
-      throw new Exception('Failed to remove contract. Cause: $e');
+      throw new Exception('Failed to remove call off order. Cause: $e');
     }
   }
 }
