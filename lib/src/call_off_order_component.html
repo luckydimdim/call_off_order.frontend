@@ -14,31 +14,71 @@
             <div class="row">
 
               <div class="col-md-7">
-                <div class="form-group">
+                <div class="form-group"
+                     [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
+                     [class.has-success]="orderNameControl.valid && orderNameControl.touched">
                   <input type="text" class="form-control"
                          autocomplete="off"
-                         placeholder="Наименование услуги"/>
+                         placeholder="Наименование услуги"
+
+                         #orderNameControl="ngForm"
+                         [ngClass]="controlStateClasses(orderNameControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
+                         [class.form-control-success]="orderNameControl.valid && orderNameControl.touched"
+                         [(ngModel)]="model.name"
+                         ngControl="orderName" />
+                  <em *ngIf="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
+                      class="error form-control-feedback">Некорректное наименование</em>
                 </div>
               </div>
               <!-- /col -->
 
               <div class="col-md-2">
-                <div class="form-group">
+                <div class="form-group"
+                     [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                     [class.has-success]="orderNumberControl.valid && orderNumberControl.touched">
                   <input type="text" class="form-control"
                          autocomplete="off"
-                         placeholder="Номер заказа"/>
+                         placeholder="Номер заказа"
+
+                         #orderNumberControl="ngForm"
+                         [ngClass]="controlStateClasses(orderNumberControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                         [class.form-control-success]="orderNumberControl.valid && orderNumberControl.touched"
+                         [(ngModel)]="model.number"
+                         ngControl="orderNumber" />
+                  <em *ngIf="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                      class="error form-control-feedback">Некорректный номер</em>
                 </div>
               </div>
               <!-- /col -->
 
               <div class="col-md-3">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class="input-group"
+                       [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                       [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
                     <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
                     <input daterangepicker type="text" class="form-control"
                            placeholder=""
-                           [options]="dateRangePickerOptions"/>
+                           [options]="dateRangePickerOptions"
+                           (selected)="datesSelected($event)"
+
+                           #orderDatesControl="ngForm"
+                           [ngClass]="controlStateClasses(orderDatesControl)"
+                           required
+                           maxlength="255"
+                           [class.form-control-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                           [class.form-control-success]="orderDatesControl.valid && orderDatesControl.touched"
+                           [(ngModel)]="dates"
+                           ngControl="orderDates" />
                   </div>
+                  <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                      class="error form-control-feedback">Некорректная дата</em>
                 </div>
               </div>
               <!-- /col -->
@@ -52,8 +92,8 @@
               <call-off-rate [model]="rate" (addRate)="addRate($event)" (removeRate)="removeRate($event)"></call-off-rate>
             </div>
 
-            <div (click)="addRate(null)">
-              <button type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
+            <div>
+              <button (click)="addRate(null)" type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
             </div>
 
           </div>

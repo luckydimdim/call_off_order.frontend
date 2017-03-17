@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
+import 'package:intl/intl.dart';
 import 'package:logger/logger_service.dart';
 import 'package:config/config_service.dart';
 
@@ -19,7 +22,7 @@ import 'package:call_off_order/call_off_service.dart';
   templateUrl: 'call_off_order_component.html',
   providers: const [CallOffService],
   directives: const [DateRangePickerDirective, CallOffRateComponent])
-class CallOffOrderComponent {
+class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
   static const String route_path = 'call-off-order';
   static const Route route = const Route(
@@ -32,7 +35,9 @@ class CallOffOrderComponent {
   final ConfigService _config;
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
+
   CallOffOrder model = new CallOffOrder();
+  String dates = '';
 
   CallOffOrderComponent(this._logger, this._config, this._service) {
     var locale = new DateRangePickerLocale()
@@ -56,11 +61,23 @@ class CallOffOrderComponent {
     model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showMinus: true, unitName: 'день'));
   }
 
+  Map<String, bool> controlStateClasses(NgControl control) => {
+    'ng-dirty': control.dirty ?? false,
+    'ng-pristine': control.pristine ?? false,
+    'ng-touched': control.touched ?? false,
+    'ng-untouched': control.untouched ?? false,
+    'ng-valid': control.valid ?? false,
+    'ng-invalid': control.valid == false
+  };
+
   /**
    * Обновление наряд-заказа
    */
-  updateCallOffOrder() async {
-    await _service.updateCallOffOrder(model);
+  Future updateCallOffOrder() async {
+    // FiXME: remove it
+    return null;
+
+    // await _service.updateCallOffOrder(model);
   }
 
   /**
@@ -161,5 +178,30 @@ class CallOffOrderComponent {
     }
 
     model.rates.removeWhere((item) => item.id == sourceRateComponent.model.id);
+  }
+
+  /**
+   * Обновление сроков
+   */
+  Future datesSelected(Map<String, DateTime> value) async {
+
+    var formatter = new DateFormat('dd.MM.yyyy');
+
+    model.startDate = formatter.format(value['start']);
+    model.finishDate = formatter.format(value['end']);
+
+    dates = '${model.startDate} - ${model.finishDate}';
+
+    await updateCallOffOrder();
+
+    return null;
+  }
+
+  @override
+  Future ngOnInit() async {
+    // FIXME: remove it
+    return null;
+
+    //model = await _service.getCallOfOrder();
   }
 }

@@ -2,26 +2,54 @@
   <div class="row">
 
     <div class="col-md-6 offset-md-{{model.isChild ? 1 : 0}}">
-      <div class="form-group">
+      <div class="form-group"
+           [class.has-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
+           [class.has-success]="rateNameControl.valid && rateNameControl.touched">
         <div class="input-group">
           <div class="input-group-btn">
             <button type="button" class="btn btn-light"
-              [class.dropdown-toggle]="model.canToggle"
-              (click)="model.canToggle ? model.isRate = !model.isRate : null">
+                    [class.dropdown-toggle]="model.canToggle"
+                    (click)="model.canToggle ? model.isRate = !model.isRate : null">
               <span class="small-caps">{{model.isRate ? 'ставка' : 'группа' }}</span>
             </button>
           </div>
-          <input type="text" id="group-5" name="group-0" class="form-control" placeholder=""/>
+          <input type="text" class="form-control"
+                 autocomplete="off"
+                 placeholder=""
+
+                 #rateNameControl="ngForm"
+                 [ngClass]="controlStateClasses(rateNameControl)"
+                 required
+                 maxlength="255"
+                 [class.form-control-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
+                 [class.form-control-success]="rateNameControl.valid && rateNameControl.touched"
+                 [(ngModel)]="model.name"
+                 ngControl="rateName" />
         </div>
+        <em *ngIf="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
+            class="error form-control-feedback">Некорректное наименование</em>
       </div>
     </div>
     <!-- /col -->
 
     <div class="col-md-2" *ngIf="model.isRate">
-      <div class="form-group">
+      <div class="form-group"
+           [class.has-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
+           [class.has-success]="rateAmountControl.valid && rateAmountControl.touched">
         <input type="text" class="form-control"
                placeholder="Сумма"
-               autocomplete="off"/>
+               autocomplete="off"
+
+               #rateAmountControl="ngForm"
+               [ngClass]="controlStateClasses(rateAmountControl)"
+               required
+               maxlength="255"
+               [class.form-control-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
+               [class.form-control-success]="rateAmountControl.valid && rateAmountControl.touched"
+               [(ngModel)]="model.name"
+               ngControl="rateName" />
+        <em *ngIf="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
+            class="error form-control-feedback">Некорректное значение</em>
       </div>
     </div>
     <!-- /col -->
