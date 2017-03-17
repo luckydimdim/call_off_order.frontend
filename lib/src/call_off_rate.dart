@@ -57,7 +57,7 @@ class CallOffRate {
       ..id = json['id']
       ..name = json['name']
       ..isRate = json['isRate']
-      ..amount = json['amount']
+      ..amount = double.parse(json['amount'])
       ..currency = json['currency']
       ..unitName = json['unitName'];
   }
