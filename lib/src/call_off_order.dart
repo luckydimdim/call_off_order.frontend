@@ -17,6 +17,11 @@ class CallOffOrder {
   String contractId = '';
 
   /**
+   * ФИО работника
+   */
+  String assignee = '';
+
+  /**
    * Наименование услуги
    */
   String name = '';
@@ -53,6 +58,7 @@ class CallOffOrder {
     return new CallOffOrder()
       ..id = json['id']
       ..contractId = json['contractId']
+      ..assignee = json['assignee']
       ..name = json['name']
       ..number = json['number']
       ..startDate = json['startDate']
@@ -71,6 +77,7 @@ class CallOffOrder {
 
     map['id'] = id;
     map['contractId'] = contractId;
+    map['assignee'] = assignee;
     map['name'] = name;
     map['number'] = number;
     map['startDate'] = startDate;
@@ -82,9 +89,7 @@ class CallOffOrder {
       list.add(rate.toMap());
     }
 
-    //map['rates'] = JSON.encode(list);
     map['rates'] = list;
-    //rates.forEach((rate) => map['rates'] += rate.toJsonString());
 
     return map;
   }

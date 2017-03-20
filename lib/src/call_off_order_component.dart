@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
@@ -7,7 +6,6 @@ import 'package:angular2/router.dart';
 
 import 'package:intl/intl.dart';
 import 'package:logger/logger_service.dart';
-import 'package:config/config_service.dart';
 
 import 'package:daterangepicker/daterangepicker.dart';
 import 'package:daterangepicker/daterangepicker_directive.dart';
@@ -32,7 +30,6 @@ class CallOffOrderComponent implements OnInit {
       useAsDefault: true);
 
   final LoggerService _logger;
-  final ConfigService _config;
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
@@ -48,7 +45,7 @@ class CallOffOrderComponent implements OnInit {
   CallOffOrder model = new CallOffOrder();
   String dates = '';
 
-  CallOffOrderComponent(this._logger, this._config, this._service) {
+  CallOffOrderComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
@@ -76,9 +73,6 @@ class CallOffOrderComponent implements OnInit {
       ];
 
     dateRangePickerOptions = new DateRangePickerOptions()..locale = locale;
-
-    // FIXME: initial data, remove it
-    // model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showMinus: true, unitName: 'день'));
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {

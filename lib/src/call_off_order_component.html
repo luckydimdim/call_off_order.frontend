@@ -1,6 +1,6 @@
 <div class="animated fadeIn">
   <div class="row">
-    <div class="col-xl-8 col-md-12">
+    <div class="col-md-12">
 
       <div class="card mt-1">
         <div class="card-header">
@@ -9,7 +9,31 @@
         <form (change)="updateCallOffOrder()" #CallOffOrderForm="ngForm">
           <div class="card-block">
 
-            <p class="text-muted">Укажите наименование услуги ее номер и срок предоставления</p>
+            <p class="text-muted">Укажите ФИО работника, наименование услуги, ее номер и срок предоставления</p>
+
+            <div class="row">
+              <div class="col-md-7">
+                <div class="form-group"
+                     [class.has-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
+                     [class.has-success]="orderAssigneeControl.valid && orderAssigneeControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="ФИО работника"
+
+                         #orderAssigneeControl="ngForm"
+                         [ngClass]="controlStateClasses(orderAssigneeControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
+                         [class.form-control-success]="orderAssigneeControl.valid && orderAssigneeControl.touched"
+                         [(ngModel)]="model.assignee"
+                         ngControl="orderAssignee" />
+                  <em *ngIf="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
+                      class="error form-control-feedback">Некорректное ФИО</em>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
 
             <div class="row">
 

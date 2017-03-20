@@ -21,7 +21,6 @@
                  #rateNameControl="ngForm"
                  [ngClass]="controlStateClasses(rateNameControl)"
                  required
-                 maxlength="255"
                  [class.form-control-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
                  [class.form-control-success]="rateNameControl.valid && rateNameControl.touched"
                  [(ngModel)]="model.name"
