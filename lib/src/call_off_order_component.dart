@@ -18,18 +18,18 @@ import 'package:call_off_order/call_off_rate_component.dart';
 import 'package:call_off_order/call_off_service.dart';
 
 @Component(
-  selector: 'call-off-order',
-  templateUrl: 'call_off_order_component.html',
-  providers: const [CallOffService],
-  directives: const [DateRangePickerDirective, CallOffRateComponent])
+    selector: 'call-off-order',
+    templateUrl: 'call_off_order_component.html',
+    providers: const [CallOffService],
+    directives: const [DateRangePickerDirective, CallOffRateComponent])
 class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
   static const String route_path = 'call-off-order';
   static const Route route = const Route(
-    path: CallOffOrderComponent.route_path,
-    component: CallOffOrderComponent,
-    name: CallOffOrderComponent.route_name,
-    useAsDefault: true);
+      path: CallOffOrderComponent.route_path,
+      component: CallOffOrderComponent,
+      name: CallOffOrderComponent.route_name,
+      useAsDefault: true);
 
   final LoggerService _logger;
   final ConfigService _config;
@@ -60,30 +60,40 @@ class CallOffOrderComponent implements OnInit {
       ..weekLabel = 'W'
       ..firstDay = 1
       ..daysOfWeek = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
-      ..monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+      ..monthNames = [
+        'Январь',
+        'Февраль',
+        'Март',
+        'Апрель',
+        'Май',
+        'Июнь',
+        'Июль',
+        'Август',
+        'Сентябрь',
+        'Октябрь',
+        'Ноябрь',
+        'Декабрь'
+      ];
 
-    dateRangePickerOptions = new DateRangePickerOptions()
-      ..locale = locale;
+    dateRangePickerOptions = new DateRangePickerOptions()..locale = locale;
 
     // FIXME: initial data, remove it
     // model.rates.add(new CallOffRate(id: 1, isChild: false, isRate: false, canToggle: true, showMinus: true, unitName: 'день'));
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-    'ng-dirty': control.dirty ?? false,
-    'ng-pristine': control.pristine ?? false,
-    'ng-touched': control.touched ?? false,
-    'ng-untouched': control.untouched ?? false,
-    'ng-valid': control.valid ?? false,
-    'ng-invalid': control.valid == false
-  };
+        'ng-dirty': control.dirty ?? false,
+        'ng-pristine': control.pristine ?? false,
+        'ng-touched': control.touched ?? false,
+        'ng-untouched': control.untouched ?? false,
+        'ng-valid': control.valid ?? false,
+        'ng-invalid': control.valid == false
+      };
 
   /**
    * Обновление наряд-заказа
    */
   Future updateCallOffOrder() async {
-
     callOfChanged.emit(model.toMap());
 
     await _service.updateCallOffOrder(model);
@@ -96,11 +106,9 @@ class CallOffOrderComponent implements OnInit {
     // Если исходная ставка не задана или если задана,
     // но она корневая и не является группой
     if (rate == null || (!rate.model.isChild && rate.model.isRate)) {
-
       // Создание группы ставок
       _addRateParent();
     } else {
-
       // Создание ставки
       _addRateChild(rate);
     }
@@ -129,22 +137,23 @@ class CallOffOrderComponent implements OnInit {
 
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
-    CallOffRate sourceRate = model.rates.singleWhere(
-        (item) => item.id == sourceRateComponent.model.id);
+    CallOffRate sourceRate = model.rates
+        .singleWhere((item) => item.id == sourceRateComponent.model.id);
     int sourceRateIndex = model.rates.indexOf(sourceRate);
 
-    model.rates.insert(sourceRateIndex + 1, new CallOffRate()
-      ..id = id
-      ..isChild = true
-      ..isRate = true
-      ..canToggle = false
-      ..showMinus = true
-      ..unitName = 'день');
+    model.rates.insert(
+        sourceRateIndex + 1,
+        new CallOffRate()
+          ..id = id
+          ..isChild = true
+          ..isRate = true
+          ..canToggle = false
+          ..showMinus = true
+          ..unitName = 'день');
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
-    if (!sourceRate.isChild)
-      sourceRate.showMinus = false;
+    if (!sourceRate.isChild) sourceRate.showMinus = false;
   }
 
   /**
@@ -152,8 +161,8 @@ class CallOffOrderComponent implements OnInit {
    */
   void removeRate(CallOffRateComponent sourceRateComponent) {
     // Получение индекса предыдущей по очереди ставки
-    CallOffRate sourceRate = model.rates.singleWhere(
-        (item) => item.id == sourceRateComponent.model.id);
+    CallOffRate sourceRate = model.rates
+        .singleWhere((item) => item.id == sourceRateComponent.model.id);
 
     int rateIndex = model.rates.indexOf(sourceRate);
     int previousRateIndex = rateIndex - 1;
@@ -164,20 +173,17 @@ class CallOffOrderComponent implements OnInit {
 
       // Если это группа ставок, а не ставка
       if (!previousRate.isChild) {
-
         // Если следующая по очереди ставка существует
         if (model.rates.length >= nextRateIndex + 1) {
           CallOffRate nextRate = model.rates.elementAt(nextRateIndex);
 
           // ...и это ставка, а не группа ставок
-          if (!nextRate.isChild)
-          {
+          if (!nextRate.isChild) {
             // Отображается +/-
             previousRate.showMinus = true;
           }
-        // Если после этой родительской ставки вообще нет никаких ставок
+          // Если после этой родительской ставки вообще нет никаких ставок
         } else {
-
           // Отображается +/-
           previousRate.showMinus = true;
         }
@@ -191,7 +197,6 @@ class CallOffOrderComponent implements OnInit {
    * Обновление сроков
    */
   Future datesSelected(Map<String, DateTime> value) async {
-
     var formatter = new DateFormat('dd.MM.yyyy');
 
     model.startDate = formatter.format(value['start']);

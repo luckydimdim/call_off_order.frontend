@@ -28,9 +28,11 @@ class CallOffService {
     String backendScheme = await _config.Get<String>('backend_scheme');
     String backendBaseUrl = await _config.Get<String>('backend_base_url');
     String backendPort = await _config.Get<String>('backend_port');
-    String backendCallOffOrders = await _config.Get<String>('backend_call_off_orders');
+    String backendCallOffOrders =
+        await _config.Get<String>('backend_call_off_orders');
 
-    _backendUrl = '$backendScheme://$backendBaseUrl:$backendPort/$backendCallOffOrders';
+    _backendUrl =
+        '$backendScheme://$backendBaseUrl:$backendPort/$backendCallOffOrders';
 
     _initialized = true;
   }
@@ -39,17 +41,15 @@ class CallOffService {
    * Получение списка наряд-заказов
    */
   Future<List<CallOffOrder>> getCallOfOrders() async {
-    if (!_initialized)
-      await _init();
+    if (!_initialized) await _init();
 
     _logger.trace('Requesting call off orders. Url: ${_backendUrl}');
 
     Response response = null;
 
     try {
-      response = await _http.get(
-        _backendUrl,
-        headers: {'Content-Type': 'application/json'});
+      response = await _http
+          .get(_backendUrl, headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order list: $e');
 
@@ -61,8 +61,8 @@ class CallOffService {
     var result = new List<CallOffOrder>();
     var json = (JSON.decode(response.body) as List<dynamic>);
 
-    json.forEach((callOffOrder) =>
-      result.add(new CallOffOrder.fromJson(callOffOrder)));
+    json.forEach(
+        (callOffOrder) => result.add(new CallOffOrder.fromJson(callOffOrder)));
 
     return result;
   }
@@ -71,17 +71,15 @@ class CallOffService {
    * Получение одного наряд-заказа по его id
    */
   Future<CallOffOrder> getCallOffOrder(String id) async {
-    if (!_initialized)
-      await _init();
+    if (!_initialized) await _init();
 
     Response response = null;
 
     _logger.trace('Requesting call off order. Url: $_backendUrl/$id');
 
     try {
-      response = await _http.get(
-        '$_backendUrl/$id',
-        headers: {'Content-Type': 'application/json'});
+      response = await _http.get('$_backendUrl/$id',
+          headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order: $e');
 
@@ -99,20 +97,17 @@ class CallOffService {
    * Создание нового наряд-заказа
    */
   Future<String> createCallOffOrder() async {
-    if (!_initialized)
-      await _init();
+    if (!_initialized) await _init();
 
     Response response = null;
 
     _logger.trace('Creating call off order');
 
     try {
-      response = await _http.post(
-        _backendUrl,
-        headers: {'Content-Type': 'application/json'});
+      response = await _http
+          .post(_backendUrl, headers: {'Content-Type': 'application/json'});
 
       _logger.trace('Call off order created');
-
     } catch (e) {
       print('Failed to create call off order: $e');
 
@@ -126,17 +121,16 @@ class CallOffService {
    * Изменение данных наряд-заказа
    */
   updateCallOffOrder(CallOffOrder model) async {
-    if (!_initialized)
-      await _init();
+    if (!_initialized) await _init();
 
     _logger.trace('Updating call off order ${model.toJsonString()}');
 
     try {
-      await _http.put(
-        _backendUrl,
-        headers: {'Content-Type': 'application/json'},
-        body: model.toJsonString());
-      _logger.trace('Call off ${model.name} (${model.number}) successfuly updated');
+      await _http.put(_backendUrl,
+          headers: {'Content-Type': 'application/json'},
+          body: model.toJsonString());
+      _logger.trace(
+          'Call off ${model.name} (${model.number}) successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
 
@@ -148,15 +142,13 @@ class CallOffService {
    * Удаление наряд-заказа
    */
   deleteContract(String id) async {
-    if (!_initialized)
-      await _init();
+    if (!_initialized) await _init();
 
     _logger.trace('Removing call off order. Url: $_backendUrl/$id');
 
     try {
-      await _http.delete(
-        '$_backendUrl/$id',
-        headers: {'Content-Type': 'application/json'});
+      await _http.delete('$_backendUrl/$id',
+          headers: {'Content-Type': 'application/json'});
       _logger.trace('Call off order $id removed');
     } catch (e) {
       _logger.error('Failed to remove call off order: $e');

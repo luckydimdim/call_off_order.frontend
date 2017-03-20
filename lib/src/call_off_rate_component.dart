@@ -4,8 +4,7 @@ import 'package:angular2/core.dart';
 import 'package:call_off_order/src/call_off_rate.dart';
 
 @Component(
-  selector: 'call-off-rate',
-  templateUrl: 'call_off_rate_component.html')
+    selector: 'call-off-rate', templateUrl: 'call_off_rate_component.html')
 class CallOffRateComponent {
   @Input()
   CallOffRate model = new CallOffRate();
@@ -37,11 +36,11 @@ class CallOffRateComponent {
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-    'ng-dirty': control.dirty ?? false,
-    'ng-pristine': control.pristine ?? false,
-    'ng-touched': control.touched ?? false,
-    'ng-untouched': control.untouched ?? false,
-    'ng-valid': control.valid ?? false,
-    'ng-invalid': control.valid == false
-  };
+        'ng-dirty': control.dirty ?? false,
+        'ng-pristine': control.pristine ?? false,
+        'ng-touched': control.touched ?? false,
+        'ng-untouched': control.untouched ?? false,
+        'ng-valid': control.valid ?? false,
+        'ng-invalid': control.valid == false
+      };
 }

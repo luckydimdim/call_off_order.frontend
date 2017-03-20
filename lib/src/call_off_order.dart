@@ -47,9 +47,8 @@ class CallOffOrder {
     List<CallOffRate> rateList = new List<CallOffRate>();
 
     var ratesJson = (json['rates'] as List<dynamic>);
-    ratesJson.forEach((rateJson) =>
-      rateList.add(new CallOffRate.fromJson(rateJson))
-    );
+    ratesJson.forEach(
+        (rateJson) => rateList.add(new CallOffRate.fromJson(rateJson)));
 
     return new CallOffOrder()
       ..id = json['id']
@@ -62,7 +61,6 @@ class CallOffOrder {
   }
 
   String toJsonString() {
-
     var map = toMap();
 
     return JSON.encode(map);

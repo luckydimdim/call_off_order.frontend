@@ -27,10 +27,9 @@ bool get isDebug =>
   const Provider(LocationStrategy, useClass: HashLocationStrategy)
 ])
 @View(
-    template: '<master-layout><call-off-order></call-off-order></master-layout>',
-    directives: const [
-      MasterLayoutComponent,
-      CallOffOrderComponent])
+    template:
+        '<master-layout><call-off-order></call-off-order></master-layout>',
+    directives: const [MasterLayoutComponent, CallOffOrderComponent])
 class AppComponent {}
 
 main() async {
