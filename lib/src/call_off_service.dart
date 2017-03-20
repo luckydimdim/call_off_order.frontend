@@ -40,12 +40,16 @@ class CallOffService {
   /**
    * Получение списка наряд-заказов
    */
-  Future<List<CallOffOrder>> getCallOfOrders() async {
+  Future<List<CallOffOrder>> getCallOffOrders([String contractId = null]) async {
     if (!_initialized) await _init();
 
     _logger.trace('Requesting call off orders. Url: ${_backendUrl}');
 
     Response response = null;
+
+    if (contractId != null) {
+      _backendUrl += "?contractId=$contractId";
+    }
 
     try {
       response = await _http
