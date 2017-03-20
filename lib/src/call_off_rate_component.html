@@ -8,6 +8,7 @@
         <div class="input-group">
           <div class="input-group-btn">
             <button type="button" class="btn btn-light"
+                    [class.btn-light-disabled]="!model.canToggle"
                     [class.dropdown-toggle]="model.canToggle"
                     (click)="model.canToggle ? model.isRate = !model.isRate : null">
               <span class="small-caps">{{model.isRate ? 'ставка' : 'группа' }}</span>
