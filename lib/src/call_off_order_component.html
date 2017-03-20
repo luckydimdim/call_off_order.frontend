@@ -34,7 +34,7 @@
               </div>
               <!-- /col -->
 
-              <div class="col-md-5">
+              <div class="col-md-4">
                 <div class="form-group"
                      [class.has-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
                      [class.has-success]="orderAssigneeControl.valid && orderAssigneeControl.touched">
@@ -55,7 +55,7 @@
                 </div>
               </div>
 
-              <div class="col-md-5">
+              <div class="col-md-3">
                 <div class="form-group"
                      [class.has-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
                      [class.has-success]="orderPositionControl.valid && orderPositionControl.touched">
@@ -69,10 +69,31 @@
                          maxlength="255"
                          [class.form-control-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
                          [class.form-control-success]="orderPositionControl.valid && orderPositionControl.touched"
-                         [(ngModel)]="model.name"
-                         ngControl="orderName" />
+                         [(ngModel)]="model.position"
+                         ngControl="orderPosition" />
                   <em *ngIf="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
                       class="error form-control-feedback">Некорректная должность</em>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group"
+                     [class.has-danger]="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
+                     [class.has-success]="orderLocationControl.valid && orderLocationControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Место работы"
+
+                         #orderLocationControl="ngForm"
+                         [ngClass]="controlStateClasses(orderLocationControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
+                         [class.form-control-success]="orderLocationControl.valid && orderLocationControl.touched"
+                         [(ngModel)]="model.location"
+                         ngControl="orderLocation" />
+                  <em *ngIf="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
+                      class="error form-control-feedback">Некорректное место работы</em>
                 </div>
               </div>
             </div>

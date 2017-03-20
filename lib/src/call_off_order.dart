@@ -42,6 +42,16 @@ class CallOffOrder {
   String finishDate = '';
 
   /**
+   * Должность
+   */
+  String position = '';
+
+  /**
+   * Место работы
+   */
+  String location = '';
+
+  /**
    * Список ставок наряд-заказа
    */
   List<CallOffRate> rates = new List<CallOffRate>();
@@ -63,6 +73,8 @@ class CallOffOrder {
       ..number = json['number']
       ..startDate = json['startDate']
       ..finishDate = json['finishDate']
+      ..position = json['position']
+      ..location = json['location']
       ..rates = rateList;
   }
 
@@ -82,6 +94,8 @@ class CallOffOrder {
     map['number'] = number;
     map['startDate'] = startDate;
     map['finishDate'] = finishDate;
+    map['position'] = position;
+    map['location'] = location;
 
     var list = new List<Map>();
 
