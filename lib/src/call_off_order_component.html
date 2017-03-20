@@ -9,10 +9,32 @@
         <form (change)="updateCallOffOrder()" #CallOffOrderForm="ngForm">
           <div class="card-block">
 
-            <p class="text-muted">Укажите ФИО работника, наименование услуги, ее номер и срок предоставления</p>
+            <p class="text-muted">Заполните данные о заказе и работнике</p>
 
             <div class="row">
-              <div class="col-md-7">
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                     [class.has-success]="orderNumberControl.valid && orderNumberControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Номер заказа"
+
+                         #orderNumberControl="ngForm"
+                         [ngClass]="controlStateClasses(orderNumberControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                         [class.form-control-success]="orderNumberControl.valid && orderNumberControl.touched"
+                         [(ngModel)]="model.number"
+                         ngControl="orderNumber" />
+                  <em *ngIf="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                      class="error form-control-feedback">Некорректный номер</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-5">
                 <div class="form-group"
                      [class.has-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
                      [class.has-success]="orderAssigneeControl.valid && orderAssigneeControl.touched">
@@ -32,12 +54,33 @@
                       class="error form-control-feedback">Некорректное ФИО</em>
                 </div>
               </div>
+
+              <div class="col-md-5">
+                <div class="form-group"
+                     [class.has-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
+                     [class.has-success]="orderPositionControl.valid && orderPositionControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Должность"
+
+                         #orderPositionControl="ngForm"
+                         [ngClass]="controlStateClasses(orderPositionControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
+                         [class.form-control-success]="orderPositionControl.valid && orderPositionControl.touched"
+                         [(ngModel)]="model.name"
+                         ngControl="orderName" />
+                  <em *ngIf="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
+                      class="error form-control-feedback">Некорректная должность</em>
+                </div>
+              </div>
             </div>
             <!-- /.row -->
 
             <div class="row">
 
-              <div class="col-md-7">
+              <div class="col-md-9">
                 <div class="form-group"
                      [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                      [class.has-success]="orderNameControl.valid && orderNameControl.touched">
@@ -55,28 +98,6 @@
                          ngControl="orderName" />
                   <em *ngIf="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                       class="error form-control-feedback">Некорректное наименование</em>
-                </div>
-              </div>
-              <!-- /col -->
-
-              <div class="col-md-2">
-                <div class="form-group"
-                     [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
-                     [class.has-success]="orderNumberControl.valid && orderNumberControl.touched">
-                  <input type="text" class="form-control"
-                         autocomplete="off"
-                         placeholder="Номер заказа"
-
-                         #orderNumberControl="ngForm"
-                         [ngClass]="controlStateClasses(orderNumberControl)"
-                         required
-                         maxlength="255"
-                         [class.form-control-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
-                         [class.form-control-success]="orderNumberControl.valid && orderNumberControl.touched"
-                         [(ngModel)]="model.number"
-                         ngControl="orderNumber" />
-                  <em *ngIf="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
-                      class="error form-control-feedback">Некорректный номер</em>
                 </div>
               </div>
               <!-- /col -->
