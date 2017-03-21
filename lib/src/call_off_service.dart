@@ -7,7 +7,9 @@ import 'package:angular2/core.dart';
 import 'package:config/config_service.dart';
 import 'package:logger/logger_service.dart';
 
-import 'package:call_off_order/src/call_off_order.dart';
+import 'call_off_order.dart';
+import 'templates/call_off_order_template_model_base.dart';
+import 'templates/call_off_order_template_default_model.dart';
 
 /**
  * Работа с web-сервисом. Раздел "Наряд-заказы"
@@ -94,7 +96,31 @@ class CallOffService {
 
     dynamic json = JSON.decode(response.body);
 
-    return new CallOffOrder.fromJson(json);
+    CallOffOrderTemplateModelBase template = instantiateModel(json['templateSysName']);
+
+    var model = new CallOffOrder.fromJson(json);
+    model.template = template.fromJsonString(json);
+
+    return model;
+  }
+
+  /**
+   * Фабричный метод
+   */
+  CallOffOrderTemplateModelBase instantiateModel(String templateSysName) {
+    CallOffOrderTemplateModelBase result;
+
+    switch(templateSysName) {
+      case 'Annotech':
+        result = new CallOffOrderTemplateDefaultModel();
+        break;
+
+      default:
+        result = new CallOffOrderTemplateDefaultModel();
+        break;
+    }
+
+    return result;
   }
 
   /**
@@ -113,8 +139,6 @@ class CallOffService {
 
       _logger.trace('Call off order created');
     } catch (e) {
-      print('Failed to create call off order: $e');
-
       throw new Exception('Failed to create call off order. Cause: $e');
     }
 
@@ -133,8 +157,7 @@ class CallOffService {
       await _http.put(_backendUrl,
           headers: {'Content-Type': 'application/json'},
           body: model.toJsonString());
-      _logger.trace(
-          'Call off ${model.name} (${model.number}) successfuly updated');
+      _logger.trace('Call off successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
 

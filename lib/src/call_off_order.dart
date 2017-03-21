@@ -1,55 +1,20 @@
 import 'dart:convert';
 
 import 'call_off_rate.dart';
+import 'templates/call_off_order_template_default_model.dart';
+import 'templates/call_off_order_template_model_base.dart';
+
 
 /**
  * Наряд-заказ
  */
 class CallOffOrder {
-  /**
-   * Внутренний id
-   */
   String id = '';
 
   /**
-   * Id контракта, к которому отногсится данный наряд-заказ
+   * Шаблон с дополнительными полями ввода
    */
-  String contractId = '';
-
-  /**
-   * ФИО работника
-   */
-  String assignee = '';
-
-  /**
-   * Наименование услуги
-   */
-  String name = '';
-
-  /**
-   * Номер наряд-заказа
-   */
-  String number = '';
-
-  /**
-   * Дата начала действия наряд-заказа
-   */
-  String startDate = '';
-
-  /**
-   * Дата окончания действия наряд-заказа
-   */
-  String finishDate = '';
-
-  /**
-   * Должность
-   */
-  String position = '';
-
-  /**
-   * Место работы
-   */
-  String location = '';
+  CallOffOrderTemplateModelBase template = new CallOffOrderTemplateDefaultModel();
 
   /**
    * Список ставок наряд-заказа
@@ -65,17 +30,7 @@ class CallOffOrder {
     ratesJson.forEach(
         (rateJson) => rateList.add(new CallOffRate.fromJson(rateJson)));
 
-    return new CallOffOrder()
-      ..id = json['id']
-      ..contractId = json['contractId']
-      ..assignee = json['assignee']
-      ..name = json['name']
-      ..number = json['number']
-      ..startDate = json['startDate']
-      ..finishDate = json['finishDate']
-      ..position = json['position']
-      ..location = json['location']
-      ..rates = rateList;
+    return new CallOffOrder()..rates = rateList;
   }
 
   String toJsonString() {
@@ -88,14 +43,7 @@ class CallOffOrder {
     var map = new Map();
 
     map['id'] = id;
-    map['contractId'] = contractId;
-    map['assignee'] = assignee;
-    map['name'] = name;
-    map['number'] = number;
-    map['startDate'] = startDate;
-    map['finishDate'] = finishDate;
-    map['position'] = position;
-    map['location'] = location;
+    map.addAll(template.toMap());
 
     var list = new List<Map>();
 

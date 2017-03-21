@@ -4,22 +4,21 @@ import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'package:intl/intl.dart';
 import 'package:logger/logger_service.dart';
 
 import 'package:daterangepicker/daterangepicker.dart';
-import 'package:daterangepicker/daterangepicker_directive.dart';
 
-import 'package:call_off_order/src/call_off_rate.dart';
-import 'package:call_off_order/src/call_off_order.dart';
-import 'package:call_off_order/call_off_rate_component.dart';
-import 'package:call_off_order/call_off_service.dart';
+import 'call_off_rate.dart';
+import 'call_off_order.dart';
+import 'call_off_rate_component.dart';
+import 'call_off_service.dart';
+import 'templates/call_off_order_template_default_component.dart';
 
 @Component(
     selector: 'call-off-order',
     templateUrl: 'call_off_order_component.html',
     providers: const [CallOffService],
-    directives: const [DateRangePickerDirective, CallOffRateComponent])
+    directives: const [CallOffRateComponent, CallOffOrderTemplateDefaultComponent])
 class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
   static const String route_path = 'call-off-order';
@@ -76,19 +75,19 @@ class CallOffOrderComponent implements OnInit {
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-        'ng-dirty': control.dirty ?? false,
-        'ng-pristine': control.pristine ?? false,
-        'ng-touched': control.touched ?? false,
-        'ng-untouched': control.untouched ?? false,
-        'ng-valid': control.valid ?? false,
-        'ng-invalid': control.valid == false
-      };
+    'ng-dirty': control.dirty ?? false,
+    'ng-pristine': control.pristine ?? false,
+    'ng-touched': control.touched ?? false,
+    'ng-untouched': control.untouched ?? false,
+    'ng-valid': control.valid ?? false,
+    'ng-invalid': control.valid == false
+  };
 
   /**
    * Обновление наряд-заказа
    */
   Future updateCallOffOrder() async {
-    callOfChanged.emit(model.toMap());
+    callOfChanged.emit(model.template.toMap());
 
     await _service.updateCallOffOrder(model);
   }
@@ -187,26 +186,8 @@ class CallOffOrderComponent implements OnInit {
     model.rates.removeWhere((item) => item.id == sourceRateComponent.model.id);
   }
 
-  /**
-   * Обновление сроков
-   */
-  Future datesSelected(Map<String, DateTime> value) async {
-    var formatter = new DateFormat('dd.MM.yyyy');
-
-    model.startDate = formatter.format(value['start']);
-    model.finishDate = formatter.format(value['end']);
-
-    dates = '${model.startDate} - ${model.finishDate}';
-
-    await updateCallOffOrder();
-
-    return null;
-  }
-
   @override
   Future ngOnInit() async {
     model = await _service.getCallOffOrder(id);
-
-    dates = '${model.startDate} - ${model.finishDate}';
   }
 }
