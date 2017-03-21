@@ -17,7 +17,7 @@ import 'call_off_order_template_default_model.dart';
   templateUrl: 'call_off_order_template_default_component.html',
   providers: const [CallOffService],
   directives: const [DateRangePickerDirective])
-class CallOffOrderTemplateDefaultComponent implements OnInit {
+class CallOffOrderTemplateDefaultComponent implements OnInit, AfterViewInit {
   final LoggerService _logger;
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
@@ -26,11 +26,11 @@ class CallOffOrderTemplateDefaultComponent implements OnInit {
   /**
    * Событие обновления ставки во внешний компонент
    */
-  dynamic templateChanged = new EventEmitter<Map>();
+  dynamic templateChanged = new EventEmitter<dynamic>();
 
   @Input()
   CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
-  String dates = '';
+  //String dates = '';
 
   CallOffOrderTemplateDefaultComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
@@ -74,7 +74,7 @@ class CallOffOrderTemplateDefaultComponent implements OnInit {
   /**
    * Обновление наряд-заказа
    */
-  Future updateCallOffOrderTemplate() async {
+  updateCallOffOrderTemplate() {
     templateChanged.emit(model);
   }
 
@@ -87,15 +87,23 @@ class CallOffOrderTemplateDefaultComponent implements OnInit {
     model.startDate = formatter.format(value['start']);
     model.finishDate = formatter.format(value['end']);
 
-    dates = '${model.startDate} - ${model.finishDate}';
+    //dates = '${model.startDate} - ${model.finishDate}';
 
-    await updateCallOffOrderTemplate();
+    updateCallOffOrderTemplate();
 
     return null;
   }
 
   @override
   Future ngOnInit() async {
-    dates = '${model.startDate} - ${model.finishDate}';
+    //dates = '${model.startDate} - ${model.finishDate}';
+  }
+
+  @override
+  Future ngAfterViewInit() async {
+  }
+
+  String getDates() {
+    return '${model.startDate} - ${model.finishDate}';
   }
 }

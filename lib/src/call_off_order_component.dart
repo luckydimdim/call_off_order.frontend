@@ -13,6 +13,7 @@ import 'call_off_order.dart';
 import 'call_off_rate_component.dart';
 import 'call_off_service.dart';
 import 'templates/call_off_order_template_default_component.dart';
+import 'templates/call_off_order_template_model_base.dart';
 
 @Component(
     selector: 'call-off-order',
@@ -86,10 +87,21 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Обновление наряд-заказа
    */
-  Future updateCallOffOrder() async {
-    callOfChanged.emit(model.template.toMap());
+  Future updateCallOffOrderTemplate(CallOffOrderTemplateModelBase template) async {
+    model.template = template;
+    callOfChanged.emit(model.toMap());
 
     await _service.updateCallOffOrder(model);
+
+    return null;
+  }
+
+  Future updateCallOffOrder() async {
+    callOfChanged.emit(model.toMap());
+
+    await _service.updateCallOffOrder(model);
+
+    return null;
   }
 
   /**
@@ -98,7 +110,7 @@ class CallOffOrderComponent implements OnInit {
   void addRate(CallOffRateComponent rate) {
     // Если исходная ставка не задана или если задана,
     // но она корневая и не является группой
-    if (rate == null || (!rate.model.isChild && rate.model.isRate)) {
+    if (rate == null || (rate.model.parentId == null && rate.model.isRate)) {
       // Создание группы ставок
       _addRateParent();
     } else {

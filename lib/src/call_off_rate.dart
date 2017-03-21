@@ -36,10 +36,9 @@ class CallOffRate {
   String unitName = 'день';
 
   /**
-   * Является ли ставка вложенной в родительский элемент
-   * (влияет на отступ слева)
+   *
    */
-  bool isChild = false;
+  int parentId = null;
 
   /**
    * Доступна ли возможность переключения типа элемента:
@@ -61,6 +60,7 @@ class CallOffRate {
       ..isRate = json['isRate']
       ..amount = double.parse(json['amount'].toString())
       ..currency = json['currency']
+      ..parentId = json['parentId']
       ..unitName = json['unitName'];
   }
 
@@ -79,6 +79,7 @@ class CallOffRate {
     map['amount'] = amount.toString();
     map['currency'] = currency;
     map['unitName'] = unitName;
+    map['parentId'] = parentId;
 
     return map;
   }

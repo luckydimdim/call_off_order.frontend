@@ -9,7 +9,7 @@
         <form (change)="updateCallOffOrder()" #CallOffOrderForm="ngForm">
           <div class="card-block">
 
-            <call-off-order-template-default templateChanged="updateCallOffOrder($event)" [model]="model.template"></call-off-order-template-default>
+            <call-off-order-template-default (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template"></call-off-order-template-default>
 
             <p class="text-muted">Укажите группы ставок и ставки</p>
 

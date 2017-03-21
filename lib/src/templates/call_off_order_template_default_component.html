@@ -129,7 +129,7 @@
                            maxlength="255"
                            [class.form-control-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
                            [class.form-control-success]="orderDatesControl.valid && orderDatesControl.touched"
-                           [(ngModel)]="dates"
+                           [ngModel]="getDates()"
                            ngControl="orderDates" />
                   </div>
                   <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"

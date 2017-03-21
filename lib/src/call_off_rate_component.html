@@ -24,7 +24,7 @@
                  [class.form-control-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
                  [class.form-control-success]="rateNameControl.valid && rateNameControl.touched"
                  [(ngModel)]="model.name"
-                 ngControl="rateName" />
+                 ngControl="rateName{{model.id}}" />
         </div>
         <em *ngIf="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
             class="error form-control-feedback">Некорректное наименование</em>
@@ -36,18 +36,17 @@
       <div class="form-group"
            [class.has-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
            [class.has-success]="rateAmountControl.valid && rateAmountControl.touched">
-        <input type="text" class="form-control"
+        <input type="number" class="form-control"
                placeholder="Сумма"
                autocomplete="off"
 
                #rateAmountControl="ngForm"
                [ngClass]="controlStateClasses(rateAmountControl)"
                required
-               maxlength="255"
                [class.form-control-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
                [class.form-control-success]="rateAmountControl.valid && rateAmountControl.touched"
-               [(ngModel)]="model.name"
-               ngControl="rateName" />
+               [(ngModel)]="model.amount"
+               ngControl="rateAmount{{model.id}}" />
         <em *ngIf="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
             class="error form-control-feedback">Некорректное значение</em>
       </div>

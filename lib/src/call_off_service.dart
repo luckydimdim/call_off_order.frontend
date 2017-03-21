@@ -65,10 +65,18 @@ class CallOffService {
     _logger.trace('Call off orders requested: $response.');
 
     var result = new List<CallOffOrder>();
-    var json = (JSON.decode(response.body) as List<dynamic>);
+    var jsonList = (JSON.decode(response.body) as List<dynamic>);
 
-    json.forEach(
-        (callOffOrder) => result.add(new CallOffOrder.fromJson(callOffOrder)));
+
+    for (var json in jsonList )
+    {
+      CallOffOrderTemplateModelBase template = instantiateModel(json['templateSysName']);
+
+      var callOffOrder = new CallOffOrder.fromJson(json);
+      callOffOrder.template = template.fromJsonString(json);
+
+      result.add(callOffOrder);
+    }
 
     return result;
   }

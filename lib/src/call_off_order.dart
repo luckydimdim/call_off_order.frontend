@@ -10,6 +10,7 @@ import 'templates/call_off_order_template_model_base.dart';
  */
 class CallOffOrder {
   String id = '';
+  String contractId = '';
 
   /**
    * Шаблон с дополнительными полями ввода
@@ -27,10 +28,15 @@ class CallOffOrder {
     List<CallOffRate> rateList = new List<CallOffRate>();
 
     var ratesJson = (json['rates'] as List<dynamic>);
-    ratesJson.forEach(
-        (rateJson) => rateList.add(new CallOffRate.fromJson(rateJson)));
 
-    return new CallOffOrder()..rates = rateList;
+    for (var rateJson in ratesJson) {
+      rateList.add(new CallOffRate.fromJson(rateJson));
+    }
+
+    return new CallOffOrder()
+      ..rates = rateList
+      ..id = json['id']
+      ..contractId = json['contractId'];
   }
 
   String toJsonString() {
@@ -43,6 +49,8 @@ class CallOffOrder {
     var map = new Map();
 
     map['id'] = id;
+    map['contractId'] = contractId;
+
     map.addAll(template.toMap());
 
     var list = new List<Map>();
