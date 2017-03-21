@@ -127,7 +127,7 @@ class CallOffOrderComponent implements OnInit {
 
     model.rates.add(new CallOffRate()
       ..id = id
-      ..isChild = false
+      ..parentId = null
       ..isRate = false
       ..canToggle = true
       ..showMinus = true
@@ -150,7 +150,7 @@ class CallOffOrderComponent implements OnInit {
         sourceRateIndex + 1,
         new CallOffRate()
           ..id = id
-          ..isChild = true
+          ..parentId = sourceRate.id
           ..isRate = true
           ..canToggle = false
           ..showMinus = true
@@ -158,7 +158,7 @@ class CallOffOrderComponent implements OnInit {
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
-    if (!sourceRate.isChild) sourceRate.showMinus = false;
+    if (sourceRate.parntId == null) sourceRate.showMinus = false;
   }
 
   /**
@@ -177,13 +177,13 @@ class CallOffOrderComponent implements OnInit {
       CallOffRate previousRate = model.rates.elementAt(previousRateIndex);
 
       // Если это группа ставок, а не ставка
-      if (!previousRate.isChild) {
+      if (previousRate.parentId == null) {
         // Если следующая по очереди ставка существует
         if (model.rates.length >= nextRateIndex + 1) {
           CallOffRate nextRate = model.rates.elementAt(nextRateIndex);
 
           // ...и это ставка, а не группа ставок
-          if (!nextRate.isChild) {
+          if (nextRate.parentId != null) {
             // Отображается +/-
             previousRate.showMinus = true;
           }

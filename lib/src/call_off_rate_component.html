@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row">
 
-    <div class="col-md-6 offset-md-{{model.isChild ? 1 : 0}}">
+    <div class="col-md-6 offset-md-{{model.parentId != null ? 1 : 0}}">
       <div class="form-group"
            [class.has-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
            [class.has-success]="rateNameControl.valid && rateNameControl.touched">
