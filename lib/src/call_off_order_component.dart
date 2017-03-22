@@ -162,7 +162,7 @@ class CallOffOrderComponent implements OnInit {
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
-    if (sourceRate.parntId == null) sourceRate.showMinus = false;
+    if (sourceRate.parentId == null) sourceRate.showMinus = false;
   }
 
   /**
@@ -209,5 +209,6 @@ class CallOffOrderComponent implements OnInit {
   @override
   Future ngOnInit() async {
     model = await _service.getCallOffOrder(id);
+
   }
 }

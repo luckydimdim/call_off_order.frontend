@@ -43,7 +43,7 @@ class CallOffOrderTemplateSouthTambeyModel extends CallOffOrderTemplateModelBase
   String mobDate = '';
 
   @override
-  CallOffOrderTemplateDefaultModel fromJsonString(dynamic json) {
+  CallOffOrderTemplateSouthTambeyModel fromJsonString(dynamic json) {
     super.fromJsonString(json);
 
     employeeNumber = json['employeeNumber'];
@@ -76,6 +76,8 @@ class CallOffOrderTemplateSouthTambeyModel extends CallOffOrderTemplateModelBase
     map['mobPlanReference'] = mobPlanReference;
     map['mobDate'] = mobDate;
 
-    return baseMap.addAll(map);
+    baseMap.addAll(map);
+
+    return baseMap;
   }
 }

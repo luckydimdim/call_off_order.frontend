@@ -8,8 +8,17 @@
         </div>
         <form (change)="updateCallOffOrder()" #CallOffOrderForm="ngForm">
           <div class="card-block">
-
-            <call-off-order-template-default (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template"></call-off-order-template-default>
+  
+            <div [ngSwitch]="model.templateSysName">
+              <template [ngSwitchWhen]="'SouthTambey'">
+                not implemented!
+              </template>
+              <template ngSwitchDefault>
+                <call-off-order-template-default (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template"></call-off-order-template-default>
+              </template>
+            </div>
+            
+            
 
             <p class="text-muted">Укажите группы ставок и ставки</p>
 

@@ -10,7 +10,7 @@ import 'package:logger/logger_service.dart';
 import 'call_off_order.dart';
 import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_model.dart';
-import 'templates/call_off_order_template_souteh_tambey_model.dart';
+import 'templates/call_off_order_template_south_tambey_model.dart';
 
 /**
  * Работа с web-сервисом. Раздел "Наряд-заказы"

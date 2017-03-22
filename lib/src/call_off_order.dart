@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'call_off_rate.dart';
 import 'templates/call_off_order_template_default_model.dart';
 import 'templates/call_off_order_template_model_base.dart';
+import 'templates/call_off_order_template_south_tambey_model.dart';
 
 
 /**
@@ -11,18 +12,28 @@ import 'templates/call_off_order_template_model_base.dart';
 class CallOffOrder {
   String id = '';
   String contractId = '';
+  String templateSysName = 'default';
 
   /**
    * Шаблон с дополнительными полями ввода
    */
-  CallOffOrderTemplateModelBase template = new CallOffOrderTemplateModelBase();
+  CallOffOrderTemplateModelBase template;
 
   /**
    * Список ставок наряд-заказа
    */
   List<CallOffRate> rates = new List<CallOffRate>();
 
-  CallOffOrder();
+  CallOffOrder([this.templateSysName = 'default']) {
+    switch (templateSysName.toLowerCase()) {
+      case 'southtambey':
+        template = new CallOffOrderTemplateSouthTambeyModel();
+        break;
+      default:
+        template = new CallOffOrderTemplateDefaultModel();
+        break;
+    }
+  }
 
   factory CallOffOrder.fromJson(dynamic json) {
     List<CallOffRate> rateList = new List<CallOffRate>();
@@ -33,14 +44,16 @@ class CallOffOrder {
       rateList.add(new CallOffRate.fromJson(rateJson));
     }
 
-    List<CallOffRate> parentRates = rateList.where((item) => item.parentId == null).toList();
+    List<CallOffRate> parentRates = rateList.where((item) =>
+    item.parentId == null).toList();
 
     for (CallOffRate parentRate in parentRates) {
-      CallOffRate firstChildRate = rateList.firstWhere((item) => item.parentId == parentRate.id, orElse: () => null );
+      CallOffRate firstChildRate = rateList.firstWhere((item) =>
+      item.parentId == parentRate.id, orElse: () => null);
       parentRate.showMinus = firstChildRate == null;
     }
 
-    return new CallOffOrder()
+    return new CallOffOrder(json['templateSysName'] ?? 'default')
       ..rates = rateList
       ..id = json['id']
       ..contractId = json['contractId'];
@@ -57,6 +70,7 @@ class CallOffOrder {
 
     map['id'] = id;
     map['contractId'] = contractId;
+    map['templateSysName'] = templateSysName;
 
     map.addAll(template.toMap());
 
