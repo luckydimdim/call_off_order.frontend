@@ -17,10 +17,11 @@ import 'call_off_order_template_south_tambey_model.dart';
   templateUrl: 'call_off_order_template_south_tambey_component.html',
   providers: const [CallOffService],
   directives: const [DateRangePickerDirective])
-class CallOffOrderTemplateSouthTambeyComponent implements OnInit, AfterViewInit {
+class CallOffOrderTemplateSouthTambeyComponent {
   final LoggerService _logger;
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
+  DateRangePickerOptions mobDateRangePickerOptions = new DateRangePickerOptions();
 
   @Output()
   /**
@@ -30,7 +31,6 @@ class CallOffOrderTemplateSouthTambeyComponent implements OnInit, AfterViewInit 
 
   @Input()
   CallOffOrderTemplateSouthTambeyModel model = new CallOffOrderTemplateSouthTambeyModel();
-  //String dates = '';
 
   CallOffOrderTemplateSouthTambeyComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
@@ -59,7 +59,12 @@ class CallOffOrderTemplateSouthTambeyComponent implements OnInit, AfterViewInit 
         'Декабрь'
       ];
 
-    dateRangePickerOptions = new DateRangePickerOptions()..locale = locale;
+    dateRangePickerOptions = new DateRangePickerOptions()
+      ..locale = locale;
+
+    mobDateRangePickerOptions = new DateRangePickerOptions()
+      ..locale = locale
+      ..singleDatePicker = true;
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
@@ -87,20 +92,22 @@ class CallOffOrderTemplateSouthTambeyComponent implements OnInit, AfterViewInit 
     model.startDate = formatter.format(value['start']);
     model.finishDate = formatter.format(value['end']);
 
-    //dates = '${model.startDate} - ${model.finishDate}';
-
     updateCallOffOrderTemplate();
 
     return null;
   }
 
-  @override
-  Future ngOnInit() async {
-    //dates = '${model.startDate} - ${model.finishDate}';
-  }
+  /**
+   * Обновление сроков
+   */
+  Future mobDateSelected(Map<String, DateTime> value) async {
+    var formatter = new DateFormat('dd.MM.yyyy');
 
-  @override
-  Future ngAfterViewInit() async {
+    model.startDate = formatter.format(value['start']);
+
+    updateCallOffOrderTemplate();
+
+    return null;
   }
 
   String getDates() {

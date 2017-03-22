@@ -25,17 +25,6 @@ class CallOffOrder {
 
   CallOffOrder();
 
-  /*CallOffOrder([this.templateSysName = 'default']) {
-    switch (templateSysName.toLowerCase()) {
-      case 'southtambey':
-        template = new CallOffOrderTemplateSouthTambeyModel();
-        break;
-      default:
-        template = new CallOffOrderTemplateDefaultModel();
-        break;
-    }
-  }*/
-
   factory CallOffOrder.fromJson(dynamic json) {
     List<CallOffRate> rateList = new List<CallOffRate>();
 

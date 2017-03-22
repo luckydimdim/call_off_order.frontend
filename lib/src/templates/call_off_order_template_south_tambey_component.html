@@ -200,21 +200,25 @@
               <!-- /col -->
 
               <div class="col-md-2">
-                <div class="form-group"
-                     [class.has-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
-                     [class.has-success]="mobDateControl.valid && mobDateControl.touched">
-                  <input type="text" class="form-control"
-                         autocomplete="off"
-                         placeholder="Дата мобилизации"
+                <div class="form-group">
+                  <div class="input-group"
+                       [class.has-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
+                       [class.has-success]="mobDateControl.valid && mobDateControl.touched">
+                    <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
+                    <input daterangepicker type="text" class="form-control"
+                           placeholder="Дата мобилизации"
+                           [options]="mobDateRangePickerOptions"
+                           (selected)="mobDateSelected($event)"
 
-                         #mobDateControl="ngForm"
-                         [ngClass]="controlStateClasses(mobDateControl)"
-                         required
-                         maxlength="255"
-                         [class.form-control-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
-                         [class.form-control-success]="mobDateControl.valid && mobDateControl.touched"
-                         [(ngModel)]="model.mobDate"
-                         ngControl="orderMobDate" />
+                           #mobDateControl="ngForm"
+                           [ngClass]="controlStateClasses(mobDateControl)"
+                           required
+                           maxlength="255"
+                           [class.form-control-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
+                           [class.form-control-success]="mobDateControl.valid && mobDateControl.touched"
+                           [ngModel]="model.mobDate"
+                           ngControl="orderMobDateControl" />
+                  </div>
                   <em *ngIf="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
                       class="error form-control-feedback">Некорректная дата мобилизации</em>
                 </div>
