@@ -84,7 +84,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
   }
 
   /**
-   * Обновление сроков
+   * Обновление сроков наряд-аказа
    */
   Future datesSelected(Map<String, DateTime> value) async {
     var formatter = new DateFormat('dd.MM.yyyy');
@@ -98,12 +98,12 @@ class CallOffOrderTemplateSouthTambeyComponent {
   }
 
   /**
-   * Обновление сроков
+   * Обновление даты мобилизации
    */
   Future mobDateSelected(Map<String, DateTime> value) async {
     var formatter = new DateFormat('dd.MM.yyyy');
 
-    model.startDate = formatter.format(value['start']);
+    model.mobDate = formatter.format(value['start']);
 
     updateCallOffOrderTemplate();
 
