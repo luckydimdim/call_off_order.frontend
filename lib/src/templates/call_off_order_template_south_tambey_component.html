@@ -89,6 +89,141 @@
             <!-- /.row -->
 
             <div class="row">
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!employeeNumberControl.valid && (employeeNumberControl.dirty || employeeNumberControl.touched)"
+                     [class.has-success]="employeeNumberControl.valid && employeeNumberControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Табельный номер"
+
+                         #employeeNumberControl="ngForm"
+                         [ngClass]="controlStateClasses(employeeNumberControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!employeeNumberControl.valid && (employeeNumberControl.dirty || employeeNumberControl.touched)"
+                         [class.form-control-success]="employeeNumberControl.valid && employeeNumberControl.touched"
+                         [(ngModel)]="model.employeeNumber"
+                         ngControl="orderEmployeeNumber" />
+                  <em *ngIf="!employeeNumberControl.valid && (employeeNumberControl.dirty || employeeNumberControl.touched)"
+                      class="error form-control-feedback">Некорректный табельный номер</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!positionNumber.valid && (positionNumber.dirty || positionNumber.touched)"
+                     [class.has-success]="positionNumber.valid && positionNumber.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Номер позиции"
+
+                         #positionNumber="ngForm"
+                         [ngClass]="controlStateClasses(positionNumber)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!positionNumber.valid && (positionNumber.dirty || positionNumber.touched)"
+                         [class.form-control-success]="positionNumber.valid && positionNumber.touched"
+                         [(ngModel)]="model.positionNumber"
+                         ngControl="orderPositionNumber" />
+                  <em *ngIf="!positionNumber.valid && (positionNumber.dirty || positionNumber.touched)"
+                      class="error form-control-feedback">Некорректный номер позиции</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!personnelSource.valid && (personnelSource.dirty || personnelSource.touched)"
+                     [class.has-success]="personnelSource.valid && personnelSource.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Происхождение персонала"
+
+                         #personnelSource="ngForm"
+                         [ngClass]="controlStateClasses(personnelSource)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!personnelSource.valid && (personnelSource.dirty || personnelSource.touched)"
+                         [class.form-control-success]="personnelSource.valid && personnelSource.touched"
+                         [(ngModel)]="model.personnelSource"
+                         ngControl="orderPersonnelSource" />
+                  <em *ngIf="!personnelSource.valid && (personnelSource.dirty || personnelSource.touched)"
+                      class="error form-control-feedback">Некорректный номер</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!paafControl.valid && (paafControl.dirty || paafControl.touched)"
+                     [class.has-success]="paafControl.valid && paafControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Номер PAAF"
+
+                         #paafControl="ngForm"
+                         [ngClass]="controlStateClasses(paafControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!paafControl.valid && (paafControl.dirty || paafControl.touched)"
+                         [class.form-control-success]="paafControl.valid && paafControl.touched"
+                         [(ngModel)]="model.paaf"
+                         ngControl="orderPaaf" />
+                  <em *ngIf="!paafControl.valid && (paafControl.dirty || paafControl.touched)"
+                      class="error form-control-feedback">Некорректный номер PAAF</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!mobPlanReferenceControl.valid && (mobPlanReferenceControl.dirty || mobPlanReferenceControl.touched)"
+                     [class.has-success]="mobPlanReferenceControl.valid && mobPlanReferenceControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Ссылка плана мобилизации"
+
+                         #mobPlanReferenceControl="ngForm"
+                         [ngClass]="controlStateClasses(mobPlanReferenceControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!mobPlanReferenceControl.valid && (mobPlanReferenceControl.dirty || mobPlanReferenceControl.touched)"
+                         [class.form-control-success]="mobPlanReferenceControl.valid && mobPlanReferenceControl.touched"
+                         [(ngModel)]="model.mobPlanReference"
+                         ngControl="orderMobPlanReference" />
+                  <em *ngIf="!mobPlanReferenceControl.valid && (mobPlanReferenceControl.dirty || mobPlanReferenceControl.touched)"
+                      class="error form-control-feedback">Некорректная ссылка плана мобилизации</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
+                     [class.has-success]="mobDateControl.valid && mobDateControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Дата мобилизации"
+
+                         #mobDateControl="ngForm"
+                         [ngClass]="controlStateClasses(mobDateControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
+                         [class.form-control-success]="mobDateControl.valid && mobDateControl.touched"
+                         [(ngModel)]="model.mobDate"
+                         ngControl="orderMobDate" />
+                  <em *ngIf="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
+                      class="error form-control-feedback">Некорректная дата мобилизации</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+            </div>
+
+            <div class="row">
 
               <div class="col-md-9">
                 <div class="form-group"
