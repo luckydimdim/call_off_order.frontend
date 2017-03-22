@@ -10,7 +10,7 @@ import 'package:daterangepicker/daterangepicker.dart';
 import 'package:daterangepicker/daterangepicker_directive.dart';
 
 import 'package:call_off_order/call_off_service.dart';
-import 'call_off_order_template_default_model.dart';
+import 'call_off_order_template_south_tambey_model.dart';
 
 @Component(
   selector: 'call-off-order-template-south-tambey',
@@ -29,7 +29,7 @@ class CallOffOrderTemplateSouthTambeyComponent implements OnInit, AfterViewInit 
   dynamic templateChanged = new EventEmitter<dynamic>();
 
   @Input()
-  CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
+  CallOffOrderTemplateSouthTambeyModel model = new CallOffOrderTemplateSouthTambeyModel();
   //String dates = '';
 
   CallOffOrderTemplateSouthTambeyComponent(this._logger, this._service) {

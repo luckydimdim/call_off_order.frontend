@@ -10,7 +10,7 @@ class CallOffOrderTemplateSouthTambeyModel extends CallOffOrderTemplateModelBase
   /**
    * Системное имя шаблона
    */
-  String SysName = 'SouthTambey';
+  String sysName = 'SouthTambey';
 
   /**
    * Табельный номер

@@ -7,5 +7,5 @@ import 'call_off_order_template_model_base.dart';
  */
 class CallOffOrderTemplateDefaultModel extends CallOffOrderTemplateModelBase {
   @override
-  String SysName = 'default';
+  String sysName = 'default';
 }

@@ -138,8 +138,13 @@ class CallOffService {
   /**
    * Создание нового наряд-заказа
    */
-  Future<String> createCallOffOrder(CallOffOrder model) async {
+  Future<String> createCallOffOrder(String contractId, String templateSysName) async {
     if (!_initialized) await _init();
+
+    CallOffOrderTemplateModelBase template = instantiateModel(templateSysName);
+    var model = new CallOffOrder()
+      ..contractId = contractId
+      ..template = template;
 
     Response response = null;
 

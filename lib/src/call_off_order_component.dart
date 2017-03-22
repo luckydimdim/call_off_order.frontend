@@ -40,6 +40,12 @@ class CallOffOrderComponent implements OnInit {
   @Input()
   String id = '';
 
+  @Input()
+  String contractId = '';
+
+  @Input()
+  String templateSysName = '';
+
   @Output()
   /**
    * Событие обновления ставки во внешний компонент
@@ -209,6 +215,5 @@ class CallOffOrderComponent implements OnInit {
   @override
   Future ngOnInit() async {
     model = await _service.getCallOffOrder(id);
-
   }
 }

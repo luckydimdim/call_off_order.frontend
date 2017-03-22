@@ -8,7 +8,7 @@ abstract class CallOffOrderTemplateModelBase {
   /**
    * Системное имя шаблона
    */
-  String SysName = '';
+  String sysName = '';
 
   /**
    * ФИО работника

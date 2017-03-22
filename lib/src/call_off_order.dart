@@ -12,7 +12,6 @@ import 'templates/call_off_order_template_south_tambey_model.dart';
 class CallOffOrder {
   String id = '';
   String contractId = '';
-  String templateSysName = 'default';
 
   /**
    * Шаблон с дополнительными полями ввода
@@ -24,7 +23,9 @@ class CallOffOrder {
    */
   List<CallOffRate> rates = new List<CallOffRate>();
 
-  CallOffOrder([this.templateSysName = 'default']) {
+  CallOffOrder();
+
+  /*CallOffOrder([this.templateSysName = 'default']) {
     switch (templateSysName.toLowerCase()) {
       case 'southtambey':
         template = new CallOffOrderTemplateSouthTambeyModel();
@@ -33,7 +34,7 @@ class CallOffOrder {
         template = new CallOffOrderTemplateDefaultModel();
         break;
     }
-  }
+  }*/
 
   factory CallOffOrder.fromJson(dynamic json) {
     List<CallOffRate> rateList = new List<CallOffRate>();
@@ -53,7 +54,7 @@ class CallOffOrder {
       parentRate.showMinus = firstChildRate == null;
     }
 
-    return new CallOffOrder(json['templateSysName'] ?? 'default')
+    return new CallOffOrder()
       ..rates = rateList
       ..id = json['id']
       ..contractId = json['contractId'];
@@ -70,7 +71,6 @@ class CallOffOrder {
 
     map['id'] = id;
     map['contractId'] = contractId;
-    map['templateSysName'] = templateSysName;
 
     map.addAll(template.toMap());
 
