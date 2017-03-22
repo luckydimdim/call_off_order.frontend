@@ -66,21 +66,18 @@
         </div>
         <!-- /col -->
 
-        <div class="col-md-3">
-          <button type="button" class="btn btn-secondary text-muted cm-minus"
-            (click)="emitRemoveRate()"
-            *ngIf="model.showMinus"><span>—</span></button>
-          &nbsp;
-          <button type="button" class="btn btn-secondary text-muted cm-plus"
-            (click)="emitAddRate()"><span>—</span></button>
+        <div class="col-md-2"
+             *ngIf="model.showMinus"
+             (click)="emitRemoveRate()">
+          <button type="button" class="btn btn-secondary text-muted cm-minus"><span>—</span></button>
         </div>
         <!-- /col -->
 
-        <!--<div class="col-md-2"
+        <div class="col-md-2"
              (click)="emitAddRate()"
              [class.offset-md-1]="model.showMinus">
           <button type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
-        </div>-->
+        </div>
         <!-- /col -->
 
       </div>
