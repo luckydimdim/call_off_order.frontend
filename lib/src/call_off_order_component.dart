@@ -164,7 +164,7 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Удаление ставки или группы
    */
-  void removeRate(CallOffRateComponent sourceRateComponent) {
+  Future removeRate(CallOffRateComponent sourceRateComponent) async {
     // Получение индекса предыдущей по очереди ставки
     CallOffRate sourceRate = model.rates
         .singleWhere((item) => item.id == sourceRateComponent.model.id);
@@ -196,6 +196,10 @@ class CallOffOrderComponent implements OnInit {
     }
 
     model.rates.removeWhere((item) => item.id == sourceRateComponent.model.id);
+
+    await updateCallOffOrder();
+
+    return null;
   }
 
   @override

@@ -33,10 +33,10 @@ class CallOffOrder {
       rateList.add(new CallOffRate.fromJson(rateJson));
     }
 
-    List<CallOffRate> parentRates = rateList.where((item) => item.parentId == null);
+    List<CallOffRate> parentRates = rateList.where((item) => item.parentId == null).toList();
 
     for (CallOffRate parentRate in parentRates) {
-      CallOffRate firstChildRate = rateList.firstWhere((item) => item.parentId == parentRate.id);
+      CallOffRate firstChildRate = rateList.firstWhere((item) => item.parentId == parentRate.id, orElse: () => null );
       parentRate.showMinus = firstChildRate == null;
     }
 

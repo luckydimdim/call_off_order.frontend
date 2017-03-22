@@ -31,10 +31,10 @@ class CallOffService {
     String backendBaseUrl = await _config.Get<String>('backend_base_url');
     String backendPort = await _config.Get<String>('backend_port');
     String backendCallOffOrders =
-        await _config.Get<String>('backend_call_off_orders');
+    await _config.Get<String>('backend_call_off_orders');
 
     _backendUrl =
-        '$backendScheme://$backendBaseUrl:$backendPort/$backendCallOffOrders';
+    '$backendScheme://$backendBaseUrl:$backendPort/$backendCallOffOrders';
 
     _initialized = true;
   }
@@ -42,20 +42,22 @@ class CallOffService {
   /**
    * Получение списка наряд-заказов
    */
-  Future<List<CallOffOrder>> getCallOffOrders([String contractId = null]) async {
+  Future<List<CallOffOrder>> getCallOffOrders(
+      [String contractId = null]) async {
     if (!_initialized) await _init();
 
     _logger.trace('Requesting call off orders. Url: ${_backendUrl}');
 
     Response response = null;
 
+    var backendUrl = _backendUrl;
     if (contractId != null) {
-      _backendUrl += "?contractId=$contractId";
+      backendUrl += "?contractId=$contractId";
     }
 
     try {
       response = await _http
-          .get(_backendUrl, headers: {'Content-Type': 'application/json'});
+          .get(backendUrl, headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order list: $e');
 
@@ -68,9 +70,9 @@ class CallOffService {
     var jsonList = (JSON.decode(response.body) as List<dynamic>);
 
 
-    for (var json in jsonList )
-    {
-      CallOffOrderTemplateModelBase template = instantiateModel(json['templateSysName']);
+    for (var json in jsonList) {
+      CallOffOrderTemplateModelBase template = instantiateModel(
+          json['templateSysName']);
 
       var callOffOrder = new CallOffOrder.fromJson(json);
       callOffOrder.template = template.fromJsonString(json);
@@ -104,7 +106,8 @@ class CallOffService {
 
     dynamic json = JSON.decode(response.body);
 
-    CallOffOrderTemplateModelBase template = instantiateModel(json['templateSysName']);
+    CallOffOrderTemplateModelBase template = instantiateModel(
+        json['templateSysName']);
 
     var model = new CallOffOrder.fromJson(json);
     model.template = template.fromJsonString(json);
@@ -118,7 +121,7 @@ class CallOffService {
   CallOffOrderTemplateModelBase instantiateModel(String templateSysName) {
     CallOffOrderTemplateModelBase result;
 
-    switch(templateSysName) {
+    switch (templateSysName) {
       case 'Annotech':
         result = new CallOffOrderTemplateDefaultModel();
         break;
@@ -134,7 +137,7 @@ class CallOffService {
   /**
    * Создание нового наряд-заказа
    */
-  Future<String> createCallOffOrder() async {
+  Future<String> createCallOffOrder(CallOffOrder model) async {
     if (!_initialized) await _init();
 
     Response response = null;
@@ -143,7 +146,8 @@ class CallOffService {
 
     try {
       response = await _http
-          .post(_backendUrl, headers: {'Content-Type': 'application/json'});
+          .post(_backendUrl, headers: {'Content-Type': 'application/json'},
+          body: model.toJsonString());
 
       _logger.trace('Call off order created');
     } catch (e) {
@@ -176,7 +180,7 @@ class CallOffService {
   /**
    * Удаление наряд-заказа
    */
-  deleteContract(String id) async {
+  deleteCallOfOrder(String id) async {
     if (!_initialized) await _init();
 
     _logger.trace('Removing call off order. Url: $_backendUrl/$id');
