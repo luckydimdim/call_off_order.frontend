@@ -1,8 +1,9 @@
 <div class="animated fadeIn">
   <div class="row">
 
-    <div class="col-md-6 offset-md-{{model.parentId != null ? 1 : 0}}">
+    <div class="col-md-6">
       <div class="form-group"
+           [class.ml-3]="model.parentId != null"
            [class.has-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
            [class.has-success]="rateNameControl.valid && rateNameControl.touched">
         <div class="input-group">
@@ -16,7 +17,7 @@
           </div>
           <input type="text" class="form-control"
                  autocomplete="off"
-                 placeholder=""
+                 placeholder="{{model.isRate ? 'Введите наименование ставки' : 'Введите наименование группы ставок' }}"
 
                  #rateNameControl="ngForm"
                  [ngClass]="controlStateClasses(rateNameControl)"
@@ -32,11 +33,11 @@
     </div>
     <!-- /col -->
 
-    <div class="col-md-2" *ngIf="model.isRate">
+    <!--<div class="col-md-2" *ngIf="model.isRate">
       <div class="form-group"
            [class.has-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
            [class.has-success]="rateAmountControl.valid && rateAmountControl.touched">
-        <input type="number" class="form-control"
+        <input type="text" class="form-control"
                placeholder="Сумма"
                autocomplete="off"
 
@@ -50,36 +51,50 @@
         <em *ngIf="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
             class="error form-control-feedback">Некорректное значение</em>
       </div>
-    </div>
+    </div>-->
     <!-- /col -->
 
-    <div class="col-md-3">
+    <div class="col-md-6">
       <div class="row">
+        <div class="col-md-3"
+             *ngIf="model.isRate">
+          <div class="form-group"
+               [class.has-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
+               [class.has-success]="rateAmountControl.valid && rateAmountControl.touched">
+            <input type="text" class="form-control"
+                   placeholder="Сумма"
+                   autocomplete="off"
 
-        <div class="col-md-4" *ngIf="model.isRate">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-light dropdown-toggle"
-              (click)="model.unitName = model.unitName == 'день' ? 'час' : 'день'">
-              <span class="small-caps">{{model.unitName}}</span>
-            </button>
+                   #rateAmountControl="ngForm"
+                   [ngClass]="controlStateClasses(rateAmountControl)"
+                   required
+                   [class.form-control-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
+                   [class.form-control-success]="rateAmountControl.valid && rateAmountControl.touched"
+                   [(ngModel)]="model.amount"
+                   ngControl="rateAmount{{model.id}}" />
+            <em *ngIf="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
+                class="error form-control-feedback">Некорректное значение</em>
           </div>
         </div>
         <!-- /col -->
 
-        <div class="col-md-2"
-             *ngIf="model.showMinus"
-             (click)="emitRemoveRate()">
-          <button type="button" class="btn btn-secondary text-muted cm-minus"><span>—</span></button>
+        <div class="col-md-8">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-light dropdown-toggle"
+                    *ngIf="model.isRate"
+                    (click)="model.unitName = model.unitName == 'день' ? 'час' : 'день'">
+              <span class="small-caps">{{model.unitName}}</span>
+            </button>
+
+            <button type="button" class="btn btn-secondary text-muted cm-minus"
+                    [class.ml-2]="model.parentId != null"
+                    *ngIf="model.showMinus"
+                    (click)="emitRemoveRate()"><span>—</span></button>
+            <button type="button" class="btn btn-secondary text-muted cm-plus"
+                    (click)="emitAddRate()"><span>—</span></button>
+          </div>
         </div>
         <!-- /col -->
-
-        <div class="col-md-2"
-             (click)="emitAddRate()"
-             [class.offset-md-1]="model.showMinus">
-          <button type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
-        </div>
-        <!-- /col -->
-
       </div>
       <!-- /row -->
     </div>
