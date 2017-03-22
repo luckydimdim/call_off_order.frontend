@@ -15,7 +15,7 @@ class CallOffOrder {
   /**
    * Шаблон с дополнительными полями ввода
    */
-  CallOffOrderTemplateModelBase template = new CallOffOrderTemplateDefaultModel();
+  CallOffOrderTemplateModelBase template = new CallOffOrderTemplateModelBase();
 
   /**
    * Список ставок наряд-заказа

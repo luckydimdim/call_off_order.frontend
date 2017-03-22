@@ -12,14 +12,18 @@ import 'call_off_rate.dart';
 import 'call_off_order.dart';
 import 'call_off_rate_component.dart';
 import 'call_off_service.dart';
-import 'templates/call_off_order_template_default_component.dart';
 import 'templates/call_off_order_template_model_base.dart';
+import 'templates/call_off_order_template_default_component.dart';
+import 'templates/call_off_order_template_south_tambey_component.dart';
 
 @Component(
     selector: 'call-off-order',
     templateUrl: 'call_off_order_component.html',
     providers: const [CallOffService],
-    directives: const [CallOffRateComponent, CallOffOrderTemplateDefaultComponent])
+    directives: const [
+      CallOffRateComponent,
+      CallOffOrderTemplateDefaultComponent,
+      CallOffOrderTemplateSouthTambeyComponent])
 class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
   static const String route_path = 'call-off-order';

@@ -10,6 +10,7 @@ import 'package:logger/logger_service.dart';
 import 'call_off_order.dart';
 import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_model.dart';
+import 'templates/call_off_order_template_souteh_tambey_model.dart';
 
 /**
  * Работа с web-сервисом. Раздел "Наряд-заказы"
@@ -122,8 +123,8 @@ class CallOffService {
     CallOffOrderTemplateModelBase result;
 
     switch (templateSysName) {
-      case 'Annotech':
-        result = new CallOffOrderTemplateDefaultModel();
+      case 'SouthTambey':
+        result = new CallOffOrderTemplateSouthTambeyModel();
         break;
 
       default:

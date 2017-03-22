@@ -13,11 +13,11 @@ import 'package:call_off_order/call_off_service.dart';
 import 'call_off_order_template_default_model.dart';
 
 @Component(
-  selector: 'call-off-order-template-default',
-  templateUrl: 'call_off_order_template_default_component.html',
+  selector: 'call-off-order-template-south-tambey',
+  templateUrl: 'call_off_order_template_south_tambey_component.html',
   providers: const [CallOffService],
   directives: const [DateRangePickerDirective])
-class CallOffOrderTemplateDefaultComponent {
+class CallOffOrderTemplateSouthTambeyComponent implements OnInit, AfterViewInit {
   final LoggerService _logger;
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
@@ -32,7 +32,7 @@ class CallOffOrderTemplateDefaultComponent {
   CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
   //String dates = '';
 
-  CallOffOrderTemplateDefaultComponent(this._logger, this._service) {
+  CallOffOrderTemplateSouthTambeyComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
@@ -87,9 +87,20 @@ class CallOffOrderTemplateDefaultComponent {
     model.startDate = formatter.format(value['start']);
     model.finishDate = formatter.format(value['end']);
 
+    //dates = '${model.startDate} - ${model.finishDate}';
+
     updateCallOffOrderTemplate();
 
     return null;
+  }
+
+  @override
+  Future ngOnInit() async {
+    //dates = '${model.startDate} - ${model.finishDate}';
+  }
+
+  @override
+  Future ngAfterViewInit() async {
   }
 
   String getDates() {

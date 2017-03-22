@@ -1,0 +1,142 @@
+            <p class="text-muted">Заполните данные о заказе и работнике</p>
+
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group"
+                     [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                     [class.has-success]="orderNumberControl.valid && orderNumberControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Номер заказа"
+
+                         #orderNumberControl="ngForm"
+                         [ngClass]="controlStateClasses(orderNumberControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                         [class.form-control-success]="orderNumberControl.valid && orderNumberControl.touched"
+                         [(ngModel)]="model.number"
+                         ngControl="orderNumber" />
+                  <em *ngIf="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
+                      class="error form-control-feedback">Некорректный номер</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-4">
+                <div class="form-group"
+                     [class.has-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
+                     [class.has-success]="orderAssigneeControl.valid && orderAssigneeControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="ФИО работника"
+
+                         #orderAssigneeControl="ngForm"
+                         [ngClass]="controlStateClasses(orderAssigneeControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
+                         [class.form-control-success]="orderAssigneeControl.valid && orderAssigneeControl.touched"
+                         [(ngModel)]="model.assignee"
+                         ngControl="orderAssignee" />
+                  <em *ngIf="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
+                      class="error form-control-feedback">Некорректное ФИО</em>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group"
+                     [class.has-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
+                     [class.has-success]="orderPositionControl.valid && orderPositionControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Должность"
+
+                         #orderPositionControl="ngForm"
+                         [ngClass]="controlStateClasses(orderPositionControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
+                         [class.form-control-success]="orderPositionControl.valid && orderPositionControl.touched"
+                         [(ngModel)]="model.position"
+                         ngControl="orderPosition" />
+                  <em *ngIf="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
+                      class="error form-control-feedback">Некорректная должность</em>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group"
+                     [class.has-danger]="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
+                     [class.has-success]="orderLocationControl.valid && orderLocationControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Место работы"
+
+                         #orderLocationControl="ngForm"
+                         [ngClass]="controlStateClasses(orderLocationControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
+                         [class.form-control-success]="orderLocationControl.valid && orderLocationControl.touched"
+                         [(ngModel)]="model.location"
+                         ngControl="orderLocation" />
+                  <em *ngIf="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
+                      class="error form-control-feedback">Некорректное место работы</em>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+
+              <div class="col-md-9">
+                <div class="form-group"
+                     [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
+                     [class.has-success]="orderNameControl.valid && orderNameControl.touched">
+                  <input type="text" class="form-control"
+                         autocomplete="off"
+                         placeholder="Наименование услуги"
+
+                         #orderNameControl="ngForm"
+                         [ngClass]="controlStateClasses(orderNameControl)"
+                         required
+                         maxlength="255"
+                         [class.form-control-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
+                         [class.form-control-success]="orderNameControl.valid && orderNameControl.touched"
+                         [(ngModel)]="model.name"
+                         ngControl="orderName" />
+                  <em *ngIf="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
+                      class="error form-control-feedback">Некорректное наименование</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group"
+                       [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                       [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
+                    <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
+                    <input daterangepicker type="text" class="form-control"
+                           placeholder=""
+                           [options]="dateRangePickerOptions"
+                           (selected)="datesSelected($event)"
+
+                           #orderDatesControl="ngForm"
+                           [ngClass]="controlStateClasses(orderDatesControl)"
+                           required
+                           maxlength="255"
+                           [class.form-control-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                           [class.form-control-success]="orderDatesControl.valid && orderDatesControl.touched"
+                           [ngModel]="getDates()"
+                           ngControl="orderDates" />
+                  </div>
+                  <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                      class="error form-control-feedback">Некорректная дата</em>
+                </div>
+              </div>
+              <!-- /col -->
+
+            </div>
+            <!-- /row -->
