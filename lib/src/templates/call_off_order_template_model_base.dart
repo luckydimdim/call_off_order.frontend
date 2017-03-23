@@ -73,6 +73,7 @@ abstract class CallOffOrderTemplateModelBase {
     map['finishDate'] = finishDate;
     map['position'] = position;
     map['location'] = location;
+    map['templateSysName'] = sysName;
 
     return map;
   }
