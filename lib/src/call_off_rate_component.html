@@ -8,7 +8,7 @@
            [class.has-success]="rateNameControl.valid && rateNameControl.touched">
         <div class="input-group">
           <div class="input-group-btn">
-            <button type="button" class="btn btn-light"
+            <button type="button" class="btn btn-light btn-light-md"
                     [class.btn-light-disabled]="!model.canToggle"
                     [class.dropdown-toggle]="model.canToggle"
                     (click)="model.canToggle ? model.isRate = !model.isRate : null">
@@ -31,27 +31,6 @@
             class="error form-control-feedback">Некорректное наименование</em>
       </div>
     </div>
-    <!-- /col -->
-
-    <!--<div class="col-md-2" *ngIf="model.isRate">
-      <div class="form-group"
-           [class.has-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
-           [class.has-success]="rateAmountControl.valid && rateAmountControl.touched">
-        <input type="text" class="form-control"
-               placeholder="Сумма"
-               autocomplete="off"
-
-               #rateAmountControl="ngForm"
-               [ngClass]="controlStateClasses(rateAmountControl)"
-               required
-               [class.form-control-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
-               [class.form-control-success]="rateAmountControl.valid && rateAmountControl.touched"
-               [(ngModel)]="model.amount"
-               ngControl="rateAmount{{model.id}}" />
-        <em *ngIf="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
-            class="error form-control-feedback">Некорректное значение</em>
-      </div>
-    </div>-->
     <!-- /col -->
 
     <div class="col-md-6">
@@ -87,7 +66,7 @@
             </button>
 
             <button type="button" class="btn btn-secondary text-muted cm-minus"
-                    [class.ml-2]="model.parentId != null"
+                    [class.ml-2]="model.parentId != null || model.isRate"
                     *ngIf="model.showMinus"
                     (click)="emitRemoveRate()"><span>—</span></button>
             <button type="button" class="btn btn-secondary text-muted cm-plus"

@@ -34,14 +34,24 @@ class CallOffOrder {
       rateList.add(new CallOffRate.fromJson(rateJson));
     }
 
+    // Задание необходимых для правильного отображения свойств ставок:
+    // кнопки минуса, переключателя группа/ставка
     List<CallOffRate> parentRates = rateList.where((item) =>
-    item.parentId == null).toList();
+      item.parentId == null).toList();
 
     for (CallOffRate parentRate in parentRates) {
       CallOffRate firstChildRate = rateList.firstWhere((item) =>
       item.parentId == parentRate.id, orElse: () => null);
-      parentRate.showMinus = firstChildRate == null;
+
+      bool hasChildren = firstChildRate != null;
+
+      parentRate.showMinus = !hasChildren;
+      parentRate.canToggle = !hasChildren;
     }
+
+    List<CallOffRate> childrenRates = rateList.where((item) =>
+      item.parentId != null).toList();
+    childrenRates.forEach((item) => item.canToggle = false);
 
     return new CallOffOrder()
       ..rates = rateList

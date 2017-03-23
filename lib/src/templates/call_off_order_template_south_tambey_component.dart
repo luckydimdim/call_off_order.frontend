@@ -111,6 +111,16 @@ class CallOffOrderTemplateSouthTambeyComponent {
   }
 
   String getDates() {
-    return '${model.startDate} - ${model.finishDate}';
+    if (model.startDate != '' && model.finishDate != '')
+      return '${model.startDate} - ${model.finishDate}';
+
+    if (model.startDate == '' && model.finishDate == '')
+      return '';
+
+    if (model.startDate == '')
+      return model.finishDate;
+
+    if (model.finishDate == '')
+      return model.startDate;
   }
 }

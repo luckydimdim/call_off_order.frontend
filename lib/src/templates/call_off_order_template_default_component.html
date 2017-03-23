@@ -90,6 +90,32 @@
 
             <div class="row">
 
+              <div class="col-md-3">
+                <div class="form-group">
+                  <div class="input-group"
+                       [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                       [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
+                    <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
+                    <input daterangepicker type="text" class="form-control"
+                           placeholder="Укажите срок"
+                           [options]="dateRangePickerOptions"
+                           (selected)="datesSelected($event)"
+
+                           #orderDatesControl="ngForm"
+                           [ngClass]="controlStateClasses(orderDatesControl)"
+                           required
+                           maxlength="255"
+                           [class.form-control-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                           [class.form-control-success]="orderDatesControl.valid && orderDatesControl.touched"
+                           [ngModel]="getDates()"
+                           ngControl="orderDates" />
+                  </div>
+                  <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
+                      class="error form-control-feedback">Некорректная дата</em>
+                </div>
+              </div>
+              <!-- /col -->
+
               <div class="col-md-9">
                 <div class="form-group"
                      [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
@@ -108,32 +134,6 @@
                          ngControl="orderName" />
                   <em *ngIf="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                       class="error form-control-feedback">Некорректное наименование</em>
-                </div>
-              </div>
-              <!-- /col -->
-
-              <div class="col-md-3">
-                <div class="form-group">
-                  <div class="input-group"
-                       [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
-                       [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
-                    <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
-                    <input daterangepicker type="text" class="form-control"
-                           placeholder=""
-                           [options]="dateRangePickerOptions"
-                           (selected)="datesSelected($event)"
-
-                           #orderDatesControl="ngForm"
-                           [ngClass]="controlStateClasses(orderDatesControl)"
-                           required
-                           maxlength="255"
-                           [class.form-control-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
-                           [class.form-control-success]="orderDatesControl.valid && orderDatesControl.touched"
-                           [ngModel]="getDates()"
-                           ngControl="orderDates" />
-                  </div>
-                  <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
-                      class="error form-control-feedback">Некорректная дата</em>
                 </div>
               </div>
               <!-- /col -->
