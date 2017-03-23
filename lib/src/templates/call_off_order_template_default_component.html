@@ -95,12 +95,13 @@
                   <div class="input-group"
                        [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
                        [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
-                    <span class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
+                    <span (click)="orderDates.click()" class="input-group-addon input-group-addon-light small-caps cursor-pointer"><i class="fa fa-calendar"></i></span>
                     <input daterangepicker type="text" class="form-control"
                            placeholder="Укажите срок"
                            [options]="dateRangePickerOptions"
                            (selected)="datesSelected($event)"
 
+                           #orderDates
                            #orderDatesControl="ngForm"
                            [ngClass]="controlStateClasses(orderDatesControl)"
                            required
