@@ -65,11 +65,11 @@
               <span class="small-caps">{{model.unitName}}</span>
             </button>
 
-            <button type="button" class="btn btn-secondary text-muted cm-minus btn-sm"
+            <button type="button" class="btn btn-secondary text-muted cm-minus"
                     [class.ml-2]="model.parentId != null || model.isRate"
                     *ngIf="model.showMinus"
                     (click)="emitRemoveRate()"><span>—</span></button>
-            <button type="button" class="btn btn-secondary text-muted cm-plus btn-sm"
+            <button type="button" class="btn btn-secondary text-muted cm-plus"
                     (click)="emitAddRate()"><span>—</span></button>
           </div>
         </div>
