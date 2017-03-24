@@ -10,6 +10,6 @@ backend_base_url: localhost  # Base service url
 backend_port: '5000'         # Backend port
 
 # API urls
-backend_contracts: 'cmas-backend/contracts'
+backend_contracts: 'contracts'
 backend_logs: log
-backend_call_off_orders: 'cmas-backend/call-off-orders'
+backend_call_off_orders: 'call-off-orders'
