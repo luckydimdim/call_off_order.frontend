@@ -168,7 +168,10 @@ class CallOffOrderComponent implements OnInit {
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
-    if (sourceRate.parentId == null) sourceRate.showMinus = false;
+    if (sourceRate.parentId == null) {
+      sourceRate.showMinus = false;
+      sourceRate.canToggle = false;
+    }
   }
 
   /**
@@ -201,6 +204,7 @@ class CallOffOrderComponent implements OnInit {
         } else {
           // Отображается +/-
           previousRate.showMinus = true;
+          previousRate.canToggle = true;
         }
       }
     }
