@@ -92,10 +92,10 @@
 
               <div class="col-md-3">
                 <div class="form-group">
-                  <div class="input-group"
+                  <div class="input-group cursor-pointer"
                        [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
                        [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
-                    <span (click)="orderDates.click()" class="input-group-addon input-group-addon-light small-caps cursor-pointer"><i class="fa fa-calendar"></i></span>
+                    <span (click)="orderDates.click()" class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
                     <input daterangepicker type="text" class="form-control"
                            placeholder="Укажите период"
                            [options]="dateRangePickerOptions"
