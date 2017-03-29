@@ -1,9 +1,13 @@
 import 'dart:convert';
+import 'package:converters/json_converter.dart';
+import 'package:converters/map_converter.dart';
+import 'package:converters/reflector.dart';
 
 /**
  * Ставка наряд-заказа
  */
-class CallOffRate {
+@reflectable
+class CallOffRate extends Object with JsonConverter, MapConverter {
   /**
    * Уникальный id ставки, берется из базы
    */
@@ -44,43 +48,18 @@ class CallOffRate {
    * Доступна ли возможность переключения типа элемента:
    * ставка или группа ставок
    */
+  @Json(exclude: true)
   bool canToggle = true;
 
   /**
    * Отображать или нет контролы удаления и добавления ставки
    */
+  @Json(exclude: true)
   bool showMinus = true;
 
   CallOffRate();
 
   factory CallOffRate.fromJson(dynamic json) {
-    return new CallOffRate()
-      ..id = json['id']
-      ..name = json['name']
-      ..isRate = json['isRate']
-      ..amount = double.parse(json['amount'].toString())
-      ..currency = json['currency']
-      ..parentId = json['parentId']
-      ..unitName = json['unitName'];
-  }
-
-  String toJsonString() {
-    var map = toMap();
-
-    return JSON.encode(map);
-  }
-
-  Map toMap() {
-    var map = new Map();
-
-    map['id'] = id.toString();
-    map['name'] = name;
-    map['isRate'] = isRate;
-    map['amount'] = amount.toString();
-    map['currency'] = currency;
-    map['unitName'] = unitName;
-    map['parentId'] = parentId;
-
-    return map;
+    return new CallOffRate().fromJson(json);
   }
 }

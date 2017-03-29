@@ -1,31 +1,39 @@
 import 'dart:convert';
 
 import 'call_off_rate.dart';
-import 'templates/call_off_order_template_default_model.dart';
 import 'templates/call_off_order_template_model_base.dart';
-import 'templates/call_off_order_template_south_tambey_model.dart';
-
+import 'package:converters/json_converter.dart';
+import 'package:converters/map_converter.dart';
+import 'package:converters/reflector.dart';
 
 /**
  * Наряд-заказ
  */
-class CallOffOrder {
+@reflectable
+class CallOffOrder extends Object with JsonConverter, MapConverter {
   String id = '';
   String contractId = '';
 
   /**
    * Шаблон с дополнительными полями ввода
    */
+  @Json(exclude: true)
+  @MapSettings(exclude: true)
   CallOffOrderTemplateModelBase template;
 
   /**
    * Список ставок наряд-заказа
    */
+  @Json(exclude: true)
+  @MapSettings(exclude: true)
   List<CallOffRate> rates = new List<CallOffRate>();
 
   CallOffOrder();
 
   factory CallOffOrder.fromJson(dynamic json) {
+
+    var result = new CallOffOrder().fromJson(json);
+
     List<CallOffRate> rateList = new List<CallOffRate>();
 
     var ratesJson = (json['rates'] as List<dynamic>);
@@ -53,23 +61,31 @@ class CallOffOrder {
       item.parentId != null).toList();
     childrenRates.forEach((item) => item.canToggle = false);
 
-    return new CallOffOrder()
-      ..rates = rateList
-      ..id = json['id']
-      ..contractId = json['contractId'];
+    result.rates = rateList;
+
+    return result;
   }
 
-  String toJsonString() {
-    var map = toMap();
+  @override
+  Map toJson() {
+    Map result = super.toJson();
 
-    return JSON.encode(map);
+    result.addAll(template.toJson());
+
+    var list = new List<Map>();
+
+    for (CallOffRate rate in rates) {
+      list.add(rate.toJson());
+    }
+
+    result['rates'] = list;
+
+    return result;
   }
 
+  @override
   Map toMap() {
-    var map = new Map();
-
-    map['id'] = id;
-    map['contractId'] = contractId;
+    Map map = super.toMap();
 
     map.addAll(template.toMap());
 

@@ -1,13 +1,17 @@
-import 'dart:convert';
+import 'package:converters/json_converter.dart';
+import 'package:converters/map_converter.dart';
+import 'package:converters/reflector.dart';
 
 /**
  * Базовый шаблон наряд-закахов.
  * Нужен для обощения работы с web-сервисом.
  */
-abstract class CallOffOrderTemplateModelBase {
+@reflectable
+abstract class CallOffOrderTemplateModelBase extends Object with JsonConverter, MapConverter {
   /**
    * Системное имя шаблона
    */
+  @Json(name: 'templateSysName')
   String sysName = '';
 
   /**
@@ -44,37 +48,4 @@ abstract class CallOffOrderTemplateModelBase {
    * Место работы
    */
   String location = '';
-
-  CallOffOrderTemplateModelBase fromJsonString(dynamic json) {
-    assignee = json['assignee'];
-    name = json['name'];
-    number = json['number'];
-    startDate = json['startDate'];
-    finishDate = json['finishDate'];
-    position = json['position'];
-    location = json['location'];
-
-    return this;
-  }
-
-  String toJsonString() {
-    var map = toMap();
-
-    return JSON.encode(map);
-  }
-
-  Map toMap() {
-    var map = new Map();
-
-    map['assignee'] = assignee;
-    map['name'] = name;
-    map['number'] = number;
-    map['startDate'] = startDate;
-    map['finishDate'] = finishDate;
-    map['position'] = position;
-    map['location'] = location;
-    map['templateSysName'] = sysName;
-
-    return map;
-  }
 }

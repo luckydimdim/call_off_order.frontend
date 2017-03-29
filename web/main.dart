@@ -11,8 +11,7 @@ import 'package:http/http.dart';
 import 'package:http/browser_client.dart';
 
 import 'package:alert/alert_service.dart';
-import 'package:angular_utils/cm_router_link.dart';
-import 'package:resources_loader/resources_loader.dart';
+import 'package:aside/aside_service.dart';
 import 'package:master_layout/master_layout_component.dart';
 import 'package:logger/logger_service.dart';
 import 'package:config/config_service.dart';
@@ -28,7 +27,7 @@ bool get isDebug =>
 ])
 @View(
     template:
-        '<master-layout><call-off-order></call-off-order></master-layout>',
+        '<master-layout><call-off-order [id]="\'26270cfa2422b2c4ebf158285e06440e\'"></call-off-order></master-layout>',
     directives: const [MasterLayoutComponent, CallOffOrderComponent])
 class AppComponent {}
 
@@ -41,6 +40,7 @@ main() async {
     ROUTER_PROVIDERS,
     const Provider(LocationStrategy, useClass: HashLocationStrategy),
     const Provider(AlertService),
+    const Provider(AsideService),
     const Provider(LoggerService),
     const Provider(ConfigService),
     //provide(Client, useClass: InMemoryDataService)

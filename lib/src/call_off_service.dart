@@ -76,7 +76,7 @@ class CallOffService {
           json['templateSysName']);
 
       var callOffOrder = new CallOffOrder.fromJson(json);
-      callOffOrder.template = template.fromJsonString(json);
+      callOffOrder.template = template.fromJson(json);
 
       result.add(callOffOrder);
     }
@@ -111,7 +111,7 @@ class CallOffService {
         json['templateSysName']);
 
     var model = new CallOffOrder.fromJson(json);
-    model.template = template.fromJsonString(json);
+    model.template = template.fromJson(json);
 
     return model;
   }
@@ -148,12 +148,14 @@ class CallOffService {
 
     Response response = null;
 
+    String jsonString = JSON.encode(model.toJson());
+
     _logger.trace('Creating call off order');
 
     try {
       response = await _http
           .post(_backendUrl, headers: {'Content-Type': 'application/json'},
-          body: model.toJsonString());
+          body: jsonString);
 
       _logger.trace('Call off order created');
     } catch (e) {
@@ -169,12 +171,14 @@ class CallOffService {
   updateCallOffOrder(CallOffOrder model) async {
     if (!_initialized) await _init();
 
-    _logger.trace('Updating call off order ${model.toJsonString()}');
+    String jsonString = JSON.encode(model.toJson());
+
+    _logger.trace('Updating call off order $jsonString');
 
     try {
       await _http.put(_backendUrl,
           headers: {'Content-Type': 'application/json'},
-          body: model.toJsonString());
+          body: jsonString);
       _logger.trace('Call off successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
