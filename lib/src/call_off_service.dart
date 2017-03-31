@@ -20,41 +20,23 @@ class CallOffService {
   final Client _http;
   final ConfigService _config;
   LoggerService _logger;
-  String _backendUrl = null;
-  bool _initialized = false;
 
   CallOffService(this._http, this._config) {
     _logger = new LoggerService(_config);
   }
 
-  _init() async {
-    String backendScheme = await _config.Get<String>('backend_scheme');
-    String backendBaseUrl = await _config.Get<String>('backend_base_url');
-    String backendPort = await _config.Get<String>('backend_port');
-    String backendCallOffOrders =
-    await _config.Get<String>('backend_call_off_orders');
-
-    _backendUrl =
-    '$backendScheme://$backendBaseUrl:$backendPort/$backendCallOffOrders';
-
-    _initialized = true;
-  }
-
   /**
    * Получение списка наряд-заказов
    */
-  Future<List<CallOffOrder>> getCallOffOrders(
-      [String contractId = null]) async {
-    if (!_initialized) await _init();
-
-    _logger.trace('Requesting call off orders. Url: ${_backendUrl}');
-
-    Response response = null;
-
-    var backendUrl = _backendUrl;
+  Future<List<CallOffOrder>> getCallOffOrders([String contractId = null]) async {
+    String backendUrl = _config.helper.callOffOrdersUrl;
     if (contractId != null) {
       backendUrl += "?contractId=$contractId";
     }
+
+    _logger.trace('Requesting call off orders. Url: $backendUrl');
+
+    Response response = null;
 
     try {
       response = await _http
@@ -69,7 +51,6 @@ class CallOffService {
 
     var result = new List<CallOffOrder>();
     var jsonList = (JSON.decode(response.body) as List<dynamic>);
-
 
     for (var json in jsonList) {
       CallOffOrderTemplateModelBase template = instantiateModel(
@@ -88,14 +69,12 @@ class CallOffService {
    * Получение одного наряд-заказа по его id
    */
   Future<CallOffOrder> getCallOffOrder(String id) async {
-    if (!_initialized) await _init();
-
     Response response = null;
 
-    _logger.trace('Requesting call off order. Url: $_backendUrl/$id');
+    _logger.trace('Requesting call off order. Url: ${_config.helper.callOffOrdersUrl}/$id');
 
     try {
-      response = await _http.get('$_backendUrl/$id',
+      response = await _http.get('${_config.helper.callOffOrdersUrl}/$id',
           headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order: $e');
@@ -139,8 +118,6 @@ class CallOffService {
    * Создание нового наряд-заказа
    */
   Future<String> createCallOffOrder(String contractId, String templateSysName) async {
-    if (!_initialized) await _init();
-
     CallOffOrderTemplateModelBase template = instantiateModel(templateSysName);
     var model = new CallOffOrder()
       ..contractId = contractId
@@ -154,7 +131,7 @@ class CallOffService {
 
     try {
       response = await _http
-          .post(_backendUrl, headers: {'Content-Type': 'application/json'},
+          .post(_config.helper.callOffOrdersUrl, headers: {'Content-Type': 'application/json'},
           body: jsonString);
 
       _logger.trace('Call off order created');
@@ -169,14 +146,12 @@ class CallOffService {
    * Изменение данных наряд-заказа
    */
   updateCallOffOrder(CallOffOrder model) async {
-    if (!_initialized) await _init();
-
     String jsonString = JSON.encode(model.toJson());
 
     _logger.trace('Updating call off order $jsonString');
 
     try {
-      await _http.put(_backendUrl,
+      await _http.put(_config.helper.callOffOrdersUrl,
           headers: {'Content-Type': 'application/json'},
           body: jsonString);
       _logger.trace('Call off successfuly updated');
@@ -191,12 +166,10 @@ class CallOffService {
    * Удаление наряд-заказа
    */
   deleteCallOfOrder(String id) async {
-    if (!_initialized) await _init();
-
-    _logger.trace('Removing call off order. Url: $_backendUrl/$id');
+    _logger.trace('Removing call off order. Url: ${_config.helper.callOffOrdersUrl}/$id');
 
     try {
-      await _http.delete('$_backendUrl/$id',
+      await _http.delete('${_config.helper.callOffOrdersUrl}/$id',
           headers: {'Content-Type': 'application/json'});
       _logger.trace('Call off order $id removed');
     } catch (e) {

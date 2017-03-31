@@ -43,6 +43,7 @@ main() async {
     const Provider(AsideService),
     const Provider(LoggerService),
     const Provider(ConfigService),
+    const Provider(AsideService),
     //provide(Client, useClass: InMemoryDataService)
     // Using a real back end?
     // Import browser_client.dart and change the above to:
