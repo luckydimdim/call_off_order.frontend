@@ -21,8 +21,6 @@ dependencies:
       git: http://cm-ylng-msk-04/git/aside.frontend.git
     alert:
       git: http://cm-ylng-msk-04/git/alert.frontend.git
-    aside:
-      git: http://cm-ylng-msk-04/git/aside.frontend.git
     logger:
       git: http://cm-ylng-msk-04/git/logger.frontend.git
     config:
