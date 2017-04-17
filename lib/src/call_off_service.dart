@@ -12,10 +12,10 @@ import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_model.dart';
 import 'templates/call_off_order_template_south_tambey_model.dart';
 
+@Injectable()
 /**
  * Работа с web-сервисом. Раздел "Наряд-заказы"
  */
-@Injectable()
 class CallOffService {
   final Client _http;
   final ConfigService _config;

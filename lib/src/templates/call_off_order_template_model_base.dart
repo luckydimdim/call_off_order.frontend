@@ -3,15 +3,16 @@ import 'package:converters/map_converter.dart';
 import 'package:converters/reflector.dart';
 
 /**
- * Базовый шаблон наряд-закахов.
- * Нужен для обощения работы с web-сервисом.
+ * Базовый шаблон наряд-заказов.
+ * Нужен для обобщения работы с web-сервисом.
  */
 @reflectable
 abstract class CallOffOrderTemplateModelBase extends Object with JsonConverter, MapConverter {
+  @Json(name: 'templateSysName')
+  @Json(exclude: true)
   /**
    * Системное имя шаблона
    */
-  @Json(name: 'templateSysName')
   String sysName = '';
 
   /**
