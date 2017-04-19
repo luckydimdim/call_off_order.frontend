@@ -31,25 +31,25 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
   CallOffOrder();
 
   factory CallOffOrder.fromJson(dynamic json) {
-
     var result = new CallOffOrder().fromJson(json);
 
     List<CallOffRate> rateList = new List<CallOffRate>();
 
     var ratesJson = (json['rates'] as List<dynamic>);
 
-    for (var rateJson in ratesJson) {
-      rateList.add(new CallOffRate.fromJson(rateJson));
+    for (dynamic rateJson in ratesJson) {
+      rateList.add(new CallOffRate().fromJson(rateJson));
     }
 
     // Задание необходимых для правильного отображения свойств ставок:
     // кнопки минуса, переключателя группа/ставка
-    List<CallOffRate> parentRates = rateList.where((item) =>
-      item.parentId == null).toList();
+    List<CallOffRate> parentRates =
+      rateList.where((item) => item.parentId == null).toList();
 
     for (CallOffRate parentRate in parentRates) {
-      CallOffRate firstChildRate = rateList.firstWhere((item) =>
-      item.parentId == parentRate.id, orElse: () => null);
+      CallOffRate firstChildRate = rateList.firstWhere(
+          (item) => item.parentId == parentRate.id,
+          orElse: () => null);
 
       bool hasChildren = firstChildRate != null;
 
@@ -57,8 +57,8 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
       parentRate.canToggle = !hasChildren;
     }
 
-    List<CallOffRate> childrenRates = rateList.where((item) =>
-      item.parentId != null).toList();
+    List<CallOffRate> childrenRates =
+        rateList.where((item) => item.parentId != null).toList();
     childrenRates.forEach((item) => item.canToggle = false);
 
     result.rates = rateList;

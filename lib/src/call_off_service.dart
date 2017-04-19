@@ -28,7 +28,8 @@ class CallOffService {
   /**
    * Получение списка наряд-заказов
    */
-  Future<List<CallOffOrder>> getCallOffOrders([String contractId = null]) async {
+  Future<List<CallOffOrder>> getCallOffOrders(
+      [String contractId = null]) async {
     String backendUrl = _config.helper.callOffOrdersUrl;
     if (contractId != null) {
       backendUrl += "?contractId=$contractId";
@@ -53,8 +54,8 @@ class CallOffService {
     var jsonList = (JSON.decode(response.body) as List<dynamic>);
 
     for (var json in jsonList) {
-      CallOffOrderTemplateModelBase template = instantiateModel(
-          json['templateSysName']);
+      CallOffOrderTemplateModelBase template =
+          instantiateModel(json['templateSysName']);
 
       var callOffOrder = new CallOffOrder.fromJson(json);
       callOffOrder.template = template.fromJson(json);
@@ -71,7 +72,8 @@ class CallOffService {
   Future<CallOffOrder> getCallOffOrder(String id) async {
     Response response = null;
 
-    _logger.trace('Requesting call off order. Url: ${_config.helper.callOffOrdersUrl}/$id');
+    _logger.trace(
+        'Requesting call off order. Url: ${ _config.helper.callOffOrdersUrl }/$id');
 
     try {
       response = await _http.get('${_config.helper.callOffOrdersUrl}/$id',
@@ -86,8 +88,8 @@ class CallOffService {
 
     dynamic json = JSON.decode(response.body);
 
-    CallOffOrderTemplateModelBase template = instantiateModel(
-        json['templateSysName']);
+    CallOffOrderTemplateModelBase template =
+        instantiateModel(json['templateSysName']);
 
     var model = new CallOffOrder.fromJson(json);
     model.template = template.fromJson(json);
@@ -117,7 +119,8 @@ class CallOffService {
   /**
    * Создание нового наряд-заказа
    */
-  Future<String> createCallOffOrder(String contractId, String templateSysName) async {
+  Future<String> createCallOffOrder(
+      String contractId, String templateSysName) async {
     CallOffOrderTemplateModelBase template = instantiateModel(templateSysName);
     var model = new CallOffOrder()
       ..contractId = contractId
@@ -130,9 +133,8 @@ class CallOffService {
     _logger.trace('Creating call off order');
 
     try {
-      response = await _http
-          .post(_config.helper.callOffOrdersUrl, headers: {'Content-Type': 'application/json'},
-          body: jsonString);
+      response = await _http.post(_config.helper.callOffOrdersUrl,
+          headers: {'Content-Type': 'application/json'}, body: jsonString);
 
       _logger.trace('Call off order created');
     } catch (e) {
@@ -152,8 +154,7 @@ class CallOffService {
 
     try {
       await _http.put(_config.helper.callOffOrdersUrl,
-          headers: {'Content-Type': 'application/json'},
-          body: jsonString);
+          headers: {'Content-Type': 'application/json'}, body: jsonString);
       _logger.trace('Call off successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
@@ -166,7 +167,8 @@ class CallOffService {
    * Удаление наряд-заказа
    */
   deleteCallOfOrder(String id) async {
-    _logger.trace('Removing call off order. Url: ${_config.helper.callOffOrdersUrl}/$id');
+    _logger.trace(
+        'Removing call off order. Url: ${_config.helper.callOffOrdersUrl}/$id');
 
     try {
       await _http.delete('${_config.helper.callOffOrdersUrl}/$id',
