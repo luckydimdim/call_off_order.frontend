@@ -24,10 +24,10 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
    */
   bool isRate = true;
 
-  @Json(exclude: true)
   /**
    * Величина ставки
    */
+  @Json(exclude: true)
   String amount = '';
 
   /**
@@ -45,11 +45,12 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
    */
   int parentId = null;
 
-  @Json(exclude: true)
+  
   /**
    * Доступна ли возможность переключения типа элемента:
    * ставка или группа ставок
    */
+  @Json(exclude: true)
   bool canToggle = true;
 
   /**
