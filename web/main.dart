@@ -11,6 +11,7 @@ import 'package:http/http.dart';
 import 'package:http/browser_client.dart';
 
 import 'package:alert/alert_service.dart';
+import 'package:auth/auth_service.dart';
 import 'package:aside/aside_service.dart';
 import 'package:master_layout/master_layout_component.dart';
 import 'package:logger/logger_service.dart';
@@ -43,7 +44,7 @@ main() async {
     const Provider(AsideService),
     const Provider(LoggerService),
     const Provider(ConfigService),
-    const Provider(AsideService),
+    const Provider(AuthenticationService),
     //provide(Client, useClass: InMemoryDataService)
     // Using a real back end?
     // Import browser_client.dart and change the above to:

@@ -10,37 +10,29 @@ class CallOffRateComponent {
   CallOffRate model = new CallOffRate();
 
   @Output()
-  /**
-   * Событие добавления ставки во внешний компонент
-   */
+  // Событие добавления ставки во внешний компонент
   dynamic addRate = new EventEmitter<CallOffRateComponent>();
 
   @Output()
-  /**
-   * Событие удаления ставки во внешний компонент
-   */
+  // Событие удаления ставки во внешний компонент
   dynamic removeRate = new EventEmitter<CallOffRateComponent>();
 
-  /**
-   * Публикует событие добавления ставки во внешний компонент
-   */
+  // Публикует событие добавления ставки во внешний компонент
   void emitAddRate() {
     addRate.emit(this);
   }
 
-  /**
-   * Публикует событие удаления ставки во внешний компонент
-   */
+  // Публикует событие удаления ставки во внешний компонент
   void emitRemoveRate() {
     removeRate.emit(this);
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-    'ng-dirty': control.dirty ?? false,
-    'ng-pristine': control.pristine ?? false,
-    'ng-touched': control.touched ?? false,
-    'ng-untouched': control.untouched ?? false,
-    'ng-valid': control.valid ?? false,
-    'ng-invalid': control.valid == false
-  };
+        'ng-dirty': control.dirty ?? false,
+        'ng-pristine': control.pristine ?? false,
+        'ng-touched': control.touched ?? false,
+        'ng-untouched': control.untouched ?? false,
+        'ng-valid': control.valid ?? false,
+        'ng-invalid': control.valid == false
+      };
 }

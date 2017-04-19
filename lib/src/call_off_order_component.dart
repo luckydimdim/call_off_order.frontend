@@ -19,11 +19,14 @@ import 'templates/call_off_order_template_south_tambey_component.dart';
 @Component(
     selector: 'call-off-order',
     templateUrl: 'call_off_order_component.html',
-    providers: const [CallOffService],
+    providers: const [
+      CallOffService
+    ],
     directives: const [
       CallOffRateComponent,
       CallOffOrderTemplateDefaultComponent,
-      CallOffOrderTemplateSouthTambeyComponent])
+      CallOffOrderTemplateSouthTambeyComponent
+    ])
 class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
   static const String route_path = 'call-off-order';
@@ -86,18 +89,19 @@ class CallOffOrderComponent implements OnInit {
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-    'ng-dirty': control.dirty ?? false,
-    'ng-pristine': control.pristine ?? false,
-    'ng-touched': control.touched ?? false,
-    'ng-untouched': control.untouched ?? false,
-    'ng-valid': control.valid ?? false,
-    'ng-invalid': control.valid == false
-  };
+        'ng-dirty': control.dirty ?? false,
+        'ng-pristine': control.pristine ?? false,
+        'ng-touched': control.touched ?? false,
+        'ng-untouched': control.untouched ?? false,
+        'ng-valid': control.valid ?? false,
+        'ng-invalid': control.valid == false
+      };
 
   /**
    * Обновление наряд-заказа
    */
-  Future updateCallOffOrderTemplate(CallOffOrderTemplateModelBase template) async {
+  Future updateCallOffOrderTemplate(
+      CallOffOrderTemplateModelBase template) async {
     model.template = template;
     callOfChanged.emit(model.toMap());
 
