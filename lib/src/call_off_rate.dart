@@ -46,10 +46,12 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   bool canToggle = true;
 
   @Json(exclude: true)
-  // Отображать или нет контролы удаления и добавления ставки
+  // Отображать или нет контрол удаления
   bool showMinus = true;
 
-  CallOffRate();
+  @Json(exclude: true)
+  // Отображать или нет контрол добавления ставки
+  bool showPlus = true;
 
   @override
   dynamic fromJson(dynamic json) {

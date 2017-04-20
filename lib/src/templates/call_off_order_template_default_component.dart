@@ -93,16 +93,20 @@ class CallOffOrderTemplateDefaultComponent {
   }
 
   String getDates() {
+    String result = '';
+
     if (model.startDate != '' && model.finishDate != '')
-      return '${model.startDate} - ${model.finishDate}';
+      result = '${model.startDate} - ${model.finishDate}';
 
     if (model.startDate == '' && model.finishDate == '')
-      return '';
+      result = '';
 
     if (model.startDate == '')
-      return model.finishDate;
+      result = model.finishDate;
 
     if (model.finishDate == '')
-      return model.startDate;
+      result = model.startDate;
+
+    return result;
   }
 }

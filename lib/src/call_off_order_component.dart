@@ -174,6 +174,7 @@ class CallOffOrderComponent implements OnInit {
       ..isRate = true
       ..canToggle = false
       ..showMinus = true
+      ..showPlus = true
       ..unitName = 'день';
 
     model.rates.insert( sourceRateIndex + 1, rate);
@@ -182,6 +183,7 @@ class CallOffOrderComponent implements OnInit {
     // пока у нее есть дочерние ставки
     if (sourceRate.parentId == null) {
       sourceRate.showMinus = false;
+      sourceRate.showPlus = false;
       sourceRate.canToggle = false;
     }
 
@@ -213,11 +215,13 @@ class CallOffOrderComponent implements OnInit {
           if (nextRate.parentId != null) {
             // Отображается +/-
             previousRate.showMinus = true;
+            previousRate.showPlus = true;
           }
           // Если после этой родительской ставки вообще нет никаких ставок
         } else {
           // Отображается +/-
           previousRate.showMinus = true;
+          previousRate.showPlus = true;
           previousRate.canToggle = true;
         }
       }
@@ -232,6 +236,6 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
-    model = await _service.getCallOffOrder('26270cfa2422b2c4ebf158285e100a3b');
+    model = await _service.getCallOffOrder(id);
   }
 }

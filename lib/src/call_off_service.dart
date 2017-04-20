@@ -59,7 +59,7 @@ class CallOffService {
       CallOffOrderTemplateModelBase template =
           instantiateModel(json['templateSysName']);
 
-      var callOffOrder = new CallOffOrder.fromJson(json);
+      var callOffOrder = new CallOffOrder().fromJson(json);
       callOffOrder.template = template.fromJson(json);
 
       result.add(callOffOrder);
@@ -93,7 +93,7 @@ class CallOffService {
     CallOffOrderTemplateModelBase template =
         instantiateModel(json['templateSysName']);
 
-    var model = new CallOffOrder.fromJson(json);
+    var model = new CallOffOrder().fromJson(json);
     model.template = template.fromJson(json);
 
     return model;

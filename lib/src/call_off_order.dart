@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'call_off_rate.dart';
 import 'templates/call_off_order_template_model_base.dart';
 import 'package:converters/json_converter.dart';
@@ -24,10 +22,9 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
   // Список ставок наряд-заказа
   List<CallOffRate> rates = new List<CallOffRate>();
 
-  CallOffOrder();
-
-  factory CallOffOrder.fromJson(dynamic json) {
-    var result = new CallOffOrder().fromJson(json);
+  @override
+  dynamic fromJson(dynamic json) {
+    super.fromJson(json);
 
     List<CallOffRate> rateList = new List<CallOffRate>();
 
@@ -49,6 +46,7 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
 
       bool hasChildren = firstChildRate != null;
 
+      parentRate.showPlus  = !hasChildren;
       parentRate.showMinus = !hasChildren;
       parentRate.canToggle = !hasChildren;
     }
@@ -57,9 +55,9 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
         rateList.where((item) => item.parentId != null).toList();
     childrenRates.forEach((item) => item.canToggle = false);
 
-    result.rates = rateList;
+    rates = rateList;
 
-    return result;
+    return this;
   }
 
   @override
