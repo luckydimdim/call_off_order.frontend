@@ -104,7 +104,8 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Обновление наряд-заказа
    */
-  Future updateCallOffOrderTemplate(CallOffOrderTemplateModelBase template) async {
+  Future updateCallOffOrderTemplate(
+      CallOffOrderTemplateModelBase template) async {
     model.template = template;
     callOfChanged.emit(model.toMap());
 
@@ -161,7 +162,6 @@ class CallOffOrderComponent implements OnInit {
    * Добавление ставки
    */
   CallOffRate _addRateChild(CallOffRateComponent sourceRateComponent) {
-
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
     CallOffRate sourceRate = model.rates
@@ -177,7 +177,7 @@ class CallOffOrderComponent implements OnInit {
       ..showPlus = true
       ..unitName = 'день';
 
-    model.rates.insert( sourceRateIndex + 1, rate);
+    model.rates.insert(sourceRateIndex + 1, rate);
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки

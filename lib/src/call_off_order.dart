@@ -46,14 +46,22 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
 
       bool hasChildren = firstChildRate != null;
 
-      parentRate.showPlus  = !hasChildren;
+      parentRate.showPlus  = !hasChildren && !parentRate.isRate;
       parentRate.showMinus = !hasChildren;
       parentRate.canToggle = !hasChildren;
-    }
 
-    List<CallOffRate> childrenRates =
-        rateList.where((item) => item.parentId != null).toList();
-    childrenRates.forEach((item) => item.canToggle = false);
+      List<CallOffRate> childrenRates =
+        rateList.where((item) => item.parentId == parentRate.id && parentRate.id != null).toList();
+
+      // Убирание плюса
+      for (int i = 0; i < childrenRates.length; ++i) {
+        childrenRates[i].canToggle = false;
+        childrenRates[i].showPlus = false;
+      }
+
+      if (childrenRates.length > 0)
+        childrenRates.last.showPlus = true;
+    }
 
     rates = rateList;
 

@@ -28,7 +28,7 @@ bool get isDebug =>
 ])
 @View(
     template:
-        '<master-layout><call-off-order [id]="\'26270cfa2422b2c4ebf158285e06440e\'"></call-off-order></master-layout>',
+        '<master-layout><call-off-order [id]="\'26270cfa2422b2c4ebf158285e0ec757\'"></call-off-order></master-layout>',
     directives: const [MasterLayoutComponent, CallOffOrderComponent])
 class AppComponent {}
 
