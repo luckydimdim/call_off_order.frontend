@@ -202,7 +202,7 @@ class CallOffService {
     _logger.trace('Updating call off rate $jsonString');
 
     try {
-      await _http.put('${ _config.helper.callOffOrdersUrl }/$callOffOrderId/rates',
+      await _http.put('${ _config.helper.callOffOrdersUrl }/$callOffOrderId/rates/${model.id}',
         headers: {'Content-Type': 'application/json'},
         body: jsonString);
       _logger.trace('Call off rate successfuly updated');
