@@ -178,7 +178,7 @@ class CallOffService {
 
     try {
       response = await _http.post(
-          '${_config.helper.callOffOrdersUrl}/$callOffOrderId',
+          '${_config.helper.callOffOrdersUrl}/$callOffOrderId/rate',
           headers: {'Content-Type': 'application/json'},
           body: jsonString);
 
