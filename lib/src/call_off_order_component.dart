@@ -104,8 +104,7 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Обновление наряд-заказа
    */
-  Future updateCallOffOrderTemplate(
-      CallOffOrderTemplateModelBase template) async {
+  Future updateCallOffOrderTemplate(CallOffOrderTemplateModelBase template) async {
     model.template = template;
     callOfChanged.emit(model.toMap());
 
@@ -126,34 +125,42 @@ class CallOffOrderComponent implements OnInit {
    * Добавление ставки или группы ставок
    */
   void addRate(CallOffRateComponent rate) {
+    CallOffRate newRate = null;
+
     // Если исходная ставка не задана или если задана,
     // но она корневая и не является группой
     if (rate == null || (rate.model.parentId == null && rate.model.isRate)) {
       // Создание группы ставок
-      _addRateParent();
+      newRate = _addRateParent();
     } else {
       // Создание ставки
-      _addRateChild(rate);
+      newRate = _addRateChild(rate);
     }
+
+    _service.createCallOffRate(id, newRate);
   }
 
   /**
    * Добавление группы ставок
    */
-  void _addRateParent() {
-    model.rates.add(new CallOffRate()
+  CallOffRate _addRateParent() {
+    var rate = new CallOffRate()
       ..tempId = guid.v1()
       ..parentId = null
       ..isRate = false
       ..canToggle = true
       ..showMinus = true
-      ..unitName = 'день');
+      ..unitName = 'день';
+
+    model.rates.add(rate);
+
+    return rate;
   }
 
   /**
    * Добавление ставки
    */
-  void _addRateChild(CallOffRateComponent sourceRateComponent) {
+  CallOffRate _addRateChild(CallOffRateComponent sourceRateComponent) {
 
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
@@ -161,15 +168,15 @@ class CallOffOrderComponent implements OnInit {
         .singleWhere((item) => item.id == sourceRateComponent.model.id);
     int sourceRateIndex = model.rates.indexOf(sourceRate);
 
-    model.rates.insert(
-        sourceRateIndex + 1,
-        new CallOffRate()
-          ..tempId = guid.v1()
-          ..parentId = sourceRate.id
-          ..isRate = true
-          ..canToggle = false
-          ..showMinus = true
-          ..unitName = 'день');
+    var rate = new CallOffRate()
+      ..tempId = guid.v1()
+      ..parentId = sourceRate.id
+      ..isRate = true
+      ..canToggle = false
+      ..showMinus = true
+      ..unitName = 'день';
+
+    model.rates.insert( sourceRateIndex + 1, rate);
 
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
@@ -177,6 +184,8 @@ class CallOffOrderComponent implements OnInit {
       sourceRate.showMinus = false;
       sourceRate.canToggle = false;
     }
+
+    return rate;
   }
 
   /**
@@ -223,6 +232,6 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
-    model = await _service.getCallOffOrder(id);
+    model = await _service.getCallOffOrder('26270cfa2422b2c4ebf158285e100a3b');
   }
 }

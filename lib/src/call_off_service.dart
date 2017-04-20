@@ -8,6 +8,8 @@ import 'package:config/config_service.dart';
 import 'package:logger/logger_service.dart';
 
 import 'call_off_order.dart';
+import 'call_off_rate.dart';
+
 import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_model.dart';
 import 'templates/call_off_order_template_south_tambey_model.dart';
@@ -152,10 +154,8 @@ class CallOffService {
 
     _logger.trace('Updating call off order $jsonString');
 
-    Response response = null;
-
     try {
-      response = await _http.put(_config.helper.callOffOrdersUrl,
+      await _http.put(_config.helper.callOffOrdersUrl,
           headers: {'Content-Type': 'application/json'}, body: jsonString);
       _logger.trace('Call off successfuly updated');
     } catch (e) {
@@ -163,14 +163,33 @@ class CallOffService {
 
       throw new Exception('Failed to update call off order. Cause: $e');
     }
+  }
+
+  /**
+   * Создание новой ставки
+   */
+  Future<CallOffRate> createCallOffRate(
+      String callOffOrderId, CallOffRate model) async {
+    Response response = null;
+
+    String jsonString = JSON.encode(model.toJson());
+
+    _logger.trace('Creating rate for call off order $callOffOrderId');
+
+    try {
+      response = await _http.post(
+          '${_config.helper.callOffOrdersUrl}/$callOffOrderId',
+          headers: {'Content-Type': 'application/json'},
+          body: jsonString);
+
+      _logger.trace('Call off rate created');
+    } catch (e) {
+      throw new Exception('Failed to create call off rate. Cause: $e');
+    }
 
     dynamic json = JSON.decode(response.body);
 
-    CallOffOrderTemplateModelBase template =
-      instantiateModel(json['templateSysName']);
-
-    model = new CallOffOrder.fromJson(json);
-    model.template = template.fromJson(json);
+    model.id = json['id'];
 
     return model;
   }

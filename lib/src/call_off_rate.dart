@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'package:converters/json_converter.dart';
 import 'package:converters/map_converter.dart';
 import 'package:converters/reflector.dart';
+import 'package:uuid/uuid.dart';
 
 /**
  * Ставка наряд-заказа
@@ -15,6 +15,10 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   // Id ставки, использующийся для построения UI
   String tempId = null;
 
+  @Json(exclude: true)
+  // GUID generator
+  Uuid guid = new Uuid();
+
   // Название ставки
   String name = '';
 
@@ -24,7 +28,7 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
 
   // Величина ставки
   @Json(exclude: true)
-  String amount = '';
+  String amount = '0';
 
   // Валюта ставки
   String currency = 'USD';
@@ -51,6 +55,7 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   dynamic fromJson(dynamic json) {
     super.fromJson(json);
     amount = json['amount'].toString();
+    tempId = guid.v1();
 
     return this;
   }
