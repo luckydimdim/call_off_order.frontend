@@ -27,7 +27,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
   /**
    * Событие обновления ставки во внешний компонент
    */
-  dynamic templateChanged = new EventEmitter<dynamic>();
+  dynamic updateTemplate = new EventEmitter<dynamic>();
 
   @Input()
   CallOffOrderTemplateSouthTambeyModel model = new CallOffOrderTemplateSouthTambeyModel();
@@ -79,8 +79,8 @@ class CallOffOrderTemplateSouthTambeyComponent {
   /**
    * Обновление наряд-заказа
    */
-  updateCallOffOrderTemplate() {
-    templateChanged.emit(model);
+  emitUpdateTemplate() {
+    updateTemplate.emit(model);
   }
 
   /**
@@ -92,7 +92,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
     model.startDate = formatter.format(value['start']);
     model.finishDate = formatter.format(value['end']);
 
-    updateCallOffOrderTemplate();
+    emitUpdateTemplate();
 
     return null;
   }
@@ -105,7 +105,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
 
     model.mobDate = formatter.format(value['start']);
 
-    updateCallOffOrderTemplate();
+    emitUpdateTemplate();
 
     return null;
   }

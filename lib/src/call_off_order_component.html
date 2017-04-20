@@ -4,15 +4,15 @@
     <div class="col-md-12">
 
       <div class="card mt-1">
-        <form (change)="updateCallOffOrder()" #CallOffOrderForm="ngForm">
+        <form #CallOffOrderForm="ngForm">
           <div class="card-block">
 
             <div [ngSwitch]="model.template?.sysName">
               <template [ngSwitchWhen]="'SouthTambey'">
-                <call-off-order-template-south-tambey (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template"></call-off-order-template-south-tambey>
+                <call-off-order-template-south-tambey (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template" (updateTemplate)="updateTemplate($event)"></call-off-order-template-south-tambey>
               </template>
               <template [ngSwitchWhen]="'default'">
-                <call-off-order-template-default (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template"></call-off-order-template-default>
+                <call-off-order-template-default (templateChanged)="updateCallOffOrderTemplate($event)" [model]="model.template" (updateTemplate)="updateTemplate($event)"></call-off-order-template-default>
               </template>
             </div>
 

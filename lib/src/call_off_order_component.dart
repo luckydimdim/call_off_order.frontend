@@ -104,8 +104,7 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Обновление наряд-заказа
    */
-  Future updateCallOffOrderTemplate(
-      CallOffOrderTemplateModelBase template) async {
+  Future updateTemplate(CallOffOrderTemplateModelBase template) async {
     model.template = template;
     callOfChanged.emit(model.toMap());
 
@@ -117,13 +116,13 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Обновление данных заказа
    */
-  Future updateCallOffOrder() async {
+  /*Future updateCallOffOrder() async {
     callOfChanged.emit(model.toMap());
 
     await _service.updateCallOffOrder(model);
 
     return null;
-  }
+  }*/
 
   /**
    * Добавление ставки или группы ставок

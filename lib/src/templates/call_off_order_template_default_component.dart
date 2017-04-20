@@ -26,7 +26,7 @@ class CallOffOrderTemplateDefaultComponent {
   /**
    * Событие обновления ставки во внешний компонент
    */
-  dynamic templateChanged = new EventEmitter<dynamic>();
+  dynamic updateTemplate = new EventEmitter<dynamic>();
 
   @Input()
   CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
@@ -74,8 +74,8 @@ class CallOffOrderTemplateDefaultComponent {
   /**
    * Обновление наряд-заказа
    */
-  updateCallOffOrderTemplate() {
-    templateChanged.emit(model);
+  emitUpdateTemplate() {
+    updateTemplate.emit(model);
   }
 
   /**
@@ -87,7 +87,7 @@ class CallOffOrderTemplateDefaultComponent {
     model.startDate = formatter.format(value['start']);
     model.finishDate = formatter.format(value['end']);
 
-    updateCallOffOrderTemplate();
+    emitUpdateTemplate();
 
     return null;
   }

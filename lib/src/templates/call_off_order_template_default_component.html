@@ -16,7 +16,8 @@
                          [class.form-control-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
                          [class.form-control-success]="orderNumberControl.valid && orderNumberControl.touched"
                          [(ngModel)]="model.number"
-                         ngControl="orderNumber" />
+                         ngControl="orderNumber"
+                         (change)="emitUpdateTemplate()" />
                   <em *ngIf="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
                       class="error form-control-feedback">Некорректный номер</em>
                 </div>
@@ -38,7 +39,8 @@
                          [class.form-control-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
                          [class.form-control-success]="orderAssigneeControl.valid && orderAssigneeControl.touched"
                          [(ngModel)]="model.assignee"
-                         ngControl="orderAssignee" />
+                         ngControl="orderAssignee"
+                         (change)="emitUpdateTemplate()" />
                   <em *ngIf="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
                       class="error form-control-feedback">Некорректное ФИО</em>
                 </div>
@@ -59,7 +61,8 @@
                          [class.form-control-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
                          [class.form-control-success]="orderPositionControl.valid && orderPositionControl.touched"
                          [(ngModel)]="model.position"
-                         ngControl="orderPosition" />
+                         ngControl="orderPosition"
+                         (change)="emitUpdateTemplate()" />
                   <em *ngIf="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
                       class="error form-control-feedback">Некорректная должность</em>
                 </div>
@@ -80,7 +83,8 @@
                          [class.form-control-danger]="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
                          [class.form-control-success]="orderLocationControl.valid && orderLocationControl.touched"
                          [(ngModel)]="model.location"
-                         ngControl="orderLocation" />
+                         ngControl="orderLocation"
+                         (change)="emitUpdateTemplate()" />
                   <em *ngIf="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
                       class="error form-control-feedback">Некорректное место работы</em>
                 </div>
@@ -132,7 +136,8 @@
                          [class.form-control-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                          [class.form-control-success]="orderNameControl.valid && orderNameControl.touched"
                          [(ngModel)]="model.name"
-                         ngControl="orderName" />
+                         ngControl="orderName"
+                         (change)="emitUpdateTemplate()" />
                   <em *ngIf="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                       class="error form-control-feedback">Некорректное наименование</em>
                 </div>
