@@ -170,7 +170,7 @@ class CallOffOrderComponent implements OnInit {
 
     var rate = new CallOffRate()
       ..tempId = guid.v1()
-      ..parentId = sourceRate.id
+      ..parentId = sourceRate.isRate ? sourceRate.parentId : sourceRate.id
       ..isRate = true
       ..canToggle = false
       ..showMinus = true
@@ -179,11 +179,12 @@ class CallOffOrderComponent implements OnInit {
 
     model.rates.insert(sourceRateIndex + 1, rate);
 
+    sourceRate.showPlus = false;
+
     // Скрывание +/- у родительской ставки чтобы ее нельзя было удалить
     // пока у нее есть дочерние ставки
     if (sourceRate.parentId == null) {
       sourceRate.showMinus = false;
-      sourceRate.showPlus = false;
       sourceRate.canToggle = false;
     }
 
@@ -224,6 +225,8 @@ class CallOffOrderComponent implements OnInit {
           previousRate.showPlus = true;
           previousRate.canToggle = true;
         }
+      } else {
+        previousRate.showPlus = true;
       }
     }
 
