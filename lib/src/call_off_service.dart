@@ -168,8 +168,7 @@ class CallOffService {
   /**
    * Создание новой ставки
    */
-  Future<CallOffRate> createCallOffRate(
-      String callOffOrderId, CallOffRate model) async {
+  Future<CallOffRate> createRate(String callOffOrderId, CallOffRate model) async {
     Response response = null;
 
     String jsonString = JSON.encode(model.toJson());
@@ -178,7 +177,7 @@ class CallOffService {
 
     try {
       response = await _http.post(
-          '${_config.helper.callOffOrdersUrl}/$callOffOrderId/rate',
+          '${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates',
           headers: {'Content-Type': 'application/json'},
           body: jsonString);
 
@@ -192,6 +191,26 @@ class CallOffService {
     model.id = json['id'];
 
     return model;
+  }
+
+  /**
+   * Изменение данных ставки
+   */
+  updateRate(String callOffOrderId, CallOffRate model) async {
+    String jsonString = JSON.encode(model.toJson());
+
+    _logger.trace('Updating call off rate $jsonString');
+
+    try {
+      await _http.put('${ _config.helper.callOffOrdersUrl }/$callOffOrderId/rates',
+        headers: {'Content-Type': 'application/json'},
+        body: jsonString);
+      _logger.trace('Call off rate successfuly updated');
+    } catch (e) {
+      _logger.error('Failed to update call off rate: $e');
+
+      throw new Exception('Failed to update call off rate. Cause: $e');
+    }
   }
 
   /**
@@ -209,6 +228,24 @@ class CallOffService {
       _logger.error('Failed to remove call off order: $e');
 
       throw new Exception('Failed to remove call off order. Cause: $e');
+    }
+  }
+
+  /**
+   * Удаление ставки
+   */
+  deleteRate(String callOffOrderId, String id) async {
+    _logger.trace(
+      'Removing call off rate. Url: ${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id');
+
+    try {
+      await _http.delete('${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id',
+        headers: {'Content-Type': 'application/json'});
+      _logger.trace('Call off rate $id removed');
+    } catch (e) {
+      _logger.error('Failed to remove call off rate: $e');
+
+      throw new Exception('Failed to remove call off rate. Cause: $e');
     }
   }
 }

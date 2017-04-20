@@ -79,13 +79,13 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
 
     result.addAll(template.toJson());
 
-    var list = new List<Map>();
+    /*var list = new List<Map>();
 
     for (CallOffRate rate in rates) {
       list.add(rate.toJson());
     }
 
-    result['rates'] = list;
+    result['rates'] = list;*/
 
     return result;
   }

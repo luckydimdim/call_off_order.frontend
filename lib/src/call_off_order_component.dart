@@ -114,6 +114,9 @@ class CallOffOrderComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Обновление данных заказа
+   */
   Future updateCallOffOrder() async {
     callOfChanged.emit(model.toMap());
 
@@ -138,7 +141,7 @@ class CallOffOrderComponent implements OnInit {
       newRate = _addRateChild(rate);
     }
 
-    _service.createCallOffRate(id, newRate);
+    _service.createRate(id, newRate);
   }
 
   /**
@@ -232,9 +235,16 @@ class CallOffOrderComponent implements OnInit {
 
     model.rates.removeWhere((item) => item.id == sourceRateComponent.model.id);
 
-    await updateCallOffOrder();
+    await _service.deleteRate(id, sourceRateComponent.model.id);
 
     return null;
+  }
+
+  /**
+   * Обновление ставки или группы ставок
+   */
+  void updateRate(CallOffRateComponent rate) {
+    _service.updateRate(id, rate.model);
   }
 
   @override
