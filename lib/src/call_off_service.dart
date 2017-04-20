@@ -152,8 +152,10 @@ class CallOffService {
 
     _logger.trace('Updating call off order $jsonString');
 
+    Response response = null;
+
     try {
-      await _http.put(_config.helper.callOffOrdersUrl,
+      response = await _http.put(_config.helper.callOffOrdersUrl,
           headers: {'Content-Type': 'application/json'}, body: jsonString);
       _logger.trace('Call off successfuly updated');
     } catch (e) {
@@ -161,6 +163,16 @@ class CallOffService {
 
       throw new Exception('Failed to update call off order. Cause: $e');
     }
+
+    dynamic json = JSON.decode(response.body);
+
+    CallOffOrderTemplateModelBase template =
+      instantiateModel(json['templateSysName']);
+
+    model = new CallOffOrder.fromJson(json);
+    model.template = template.fromJson(json);
+
+    return model;
   }
 
   /**

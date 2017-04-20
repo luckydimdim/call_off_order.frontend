@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:logger/logger_service.dart';
 
@@ -57,6 +58,9 @@ class CallOffOrderComponent implements OnInit {
 
   CallOffOrder model = new CallOffOrder();
   String dates = '';
+
+  // GUID generator
+  Uuid guid = new Uuid();
 
   CallOffOrderComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
@@ -137,10 +141,8 @@ class CallOffOrderComponent implements OnInit {
    * Добавление группы ставок
    */
   void _addRateParent() {
-    var id = model.rates.length + 1;
-
     model.rates.add(new CallOffRate()
-      ..id = id
+      ..tempId = guid.v1()
       ..parentId = null
       ..isRate = false
       ..canToggle = true
@@ -152,7 +154,6 @@ class CallOffOrderComponent implements OnInit {
    * Добавление ставки
    */
   void _addRateChild(CallOffRateComponent sourceRateComponent) {
-    var id = model.rates.length + 1;
 
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
@@ -163,7 +164,7 @@ class CallOffOrderComponent implements OnInit {
     model.rates.insert(
         sourceRateIndex + 1,
         new CallOffRate()
-          ..id = id
+          ..tempId = guid.v1()
           ..parentId = sourceRate.id
           ..isRate = true
           ..canToggle = false

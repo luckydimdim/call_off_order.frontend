@@ -25,7 +25,7 @@
                  [class.form-control-danger]="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
                  [class.form-control-success]="rateNameControl.valid && rateNameControl.touched"
                  [(ngModel)]="model.name"
-                 ngControl="rateName{{model.id}}" />
+                 ngControl="rateName{{model.tempId}}" />
         </div>
         <em *ngIf="!rateNameControl.valid && (rateNameControl.dirty || rateNameControl.touched)"
             class="error form-control-feedback">Некорректное наименование</em>
@@ -50,7 +50,7 @@
                    [class.form-control-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
                    [class.form-control-success]="rateAmountControl.valid && rateAmountControl.touched"
                    [(ngModel)]="model.amount"
-                   ngControl="rateAmount{{model.id}}" />
+                   ngControl="rateAmount{{model.tempId}}" />
             <em *ngIf="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
                 class="error form-control-feedback">Некорректное значение</em>
           </div>

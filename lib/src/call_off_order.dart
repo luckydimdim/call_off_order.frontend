@@ -14,18 +14,14 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
   String id = '';
   String contractId = '';
 
-  /**
-   * Шаблон с дополнительными полями ввода
-   */
   @Json(exclude: true)
   @MapSettings(exclude: true)
+  // Шаблон с дополнительными полями ввода
   CallOffOrderTemplateModelBase template;
 
-  /**
-   * Список ставок наряд-заказа
-   */
   @Json(exclude: true)
   @MapSettings(exclude: true)
+  // Список ставок наряд-заказа
   List<CallOffRate> rates = new List<CallOffRate>();
 
   CallOffOrder();
