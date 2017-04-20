@@ -114,17 +114,6 @@ class CallOffOrderComponent implements OnInit {
   }
 
   /**
-   * Обновление данных заказа
-   */
-  /*Future updateCallOffOrder() async {
-    callOfChanged.emit(model.toMap());
-
-    await _service.updateCallOffOrder(model);
-
-    return null;
-  }*/
-
-  /**
    * Добавление ставки или группы ставок
    */
   void addRate(CallOffRateComponent rate) {

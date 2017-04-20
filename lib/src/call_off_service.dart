@@ -155,8 +155,9 @@ class CallOffService {
     _logger.trace('Updating call off order $jsonString');
 
     try {
-      await _http.put(_config.helper.callOffOrdersUrl,
-          headers: {'Content-Type': 'application/json'}, body: jsonString);
+      await _http.put(
+        '${_config.helper.callOffOrdersUrl}/${model.id}',
+        headers: {'Content-Type': 'application/json'}, body: jsonString);
       _logger.trace('Call off successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
