@@ -9,6 +9,7 @@ import 'package:angular2/platform/common.dart';
 
 import 'package:http/http.dart';
 import 'package:http/browser_client.dart';
+import 'package:http_wrapper/http_wrapper.dart';
 
 import 'package:alert/alert_service.dart';
 import 'package:auth/auth_service.dart';
@@ -48,7 +49,8 @@ main() async {
     //provide(Client, useClass: InMemoryDataService)
     // Using a real back end?
     // Import browser_client.dart and change the above to:
-    provide(Client, useFactory: () => new BrowserClient(), deps: [])
+    provide(Client, useFactory: () => new BrowserClient(), deps: []),
+    provide(HttpWrapper, useFactory: (_http, _authenticationService) => new HttpWrapper(_http, _authenticationService), deps: [Client, AuthenticationService])
   ]);
 
   if (isDebug) {

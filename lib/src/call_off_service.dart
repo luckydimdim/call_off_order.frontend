@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:angular2/core.dart';
 
 import 'package:config/config_service.dart';
+import 'package:http_wrapper/http_wrapper.dart';
 import 'package:logger/logger_service.dart';
 
 import 'call_off_order.dart';
@@ -19,7 +20,7 @@ import 'templates/call_off_order_template_south_tambey_model.dart';
  * Работа с web-сервисом. Раздел "Наряд-заказы"
  */
 class CallOffService {
-  final Client _http;
+  final HttpWrapper _http;
   final ConfigService _config;
   LoggerService _logger;
 
@@ -47,7 +48,7 @@ class CallOffService {
     } catch (e) {
       _logger.error('Failed to get call off order list: $e');
 
-      throw new Exception('Failed to get call off order list. Cause: $e');
+      rethrow;
     }
 
     _logger.trace('Call off orders requested: $response.');
@@ -83,7 +84,7 @@ class CallOffService {
     } catch (e) {
       _logger.error('Failed to get call off order: $e');
 
-      throw new Exception('Failed to get contract general. Cause: $e');
+      rethrow;
     }
 
     _logger.trace('Call off order requested: $response.');
@@ -140,7 +141,7 @@ class CallOffService {
 
       _logger.trace('Call off order created');
     } catch (e) {
-      throw new Exception('Failed to create call off order. Cause: $e');
+      rethrow;
     }
 
     return response.body;
@@ -162,7 +163,7 @@ class CallOffService {
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
 
-      throw new Exception('Failed to update call off order. Cause: $e');
+      rethrow;
     }
   }
 
@@ -184,7 +185,7 @@ class CallOffService {
 
       _logger.trace('Call off rate created');
     } catch (e) {
-      throw new Exception('Failed to create call off rate. Cause: $e');
+      rethrow;
     }
 
     dynamic json = JSON.decode(response.body);
@@ -210,7 +211,7 @@ class CallOffService {
     } catch (e) {
       _logger.error('Failed to update call off rate: $e');
 
-      throw new Exception('Failed to update call off rate. Cause: $e');
+      rethrow;
     }
   }
 
@@ -228,7 +229,7 @@ class CallOffService {
     } catch (e) {
       _logger.error('Failed to remove call off order: $e');
 
-      throw new Exception('Failed to remove call off order. Cause: $e');
+      rethrow;
     }
   }
 
@@ -246,7 +247,7 @@ class CallOffService {
     } catch (e) {
       _logger.error('Failed to remove call off rate: $e');
 
-      throw new Exception('Failed to remove call off rate. Cause: $e');
+      rethrow;
     }
   }
 }
