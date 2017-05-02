@@ -16,7 +16,7 @@
               </template>
             </div>
 
-            <p class="text-muted">Укажите группы ставок и ставки</p>
+            <p>Укажите группы ставок и ставки</p>
 
             <div *ngFor="let rate of model.rates">
               <call-off-rate [model]="rate" (addRate)="addRate($event)" (removeRate)="removeRate($event)" (updateRate)="updateRate($event)"></call-off-rate>

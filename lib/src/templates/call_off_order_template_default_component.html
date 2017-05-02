@@ -1,13 +1,15 @@
-            <p class="text-muted">Заполните данные о заказе и работнике</p>
+            <p>Заполните данные о заказе и работнике</p>
 
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group"
                      [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
                      [class.has-success]="orderNumberControl.valid && orderNumberControl.touched">
+                  <label for="order-number" class="text-muted">Номер заказа</label>
                   <input type="text" class="form-control"
+                         id="order-number"
                          autocomplete="off"
-                         placeholder="Номер заказа"
+                         placeholder=""
 
                          #orderNumberControl="ngForm"
                          [ngClass]="controlStateClasses(orderNumberControl)"
@@ -28,9 +30,11 @@
                 <div class="form-group"
                      [class.has-danger]="!orderAssigneeControl.valid && (orderAssigneeControl.dirty || orderAssigneeControl.touched)"
                      [class.has-success]="orderAssigneeControl.valid && orderAssigneeControl.touched">
+                  <label for="order-assignee" class="text-muted">ФИО работника</label>
                   <input type="text" class="form-control"
+                         id="order-assignee"
                          autocomplete="off"
-                         placeholder="ФИО работника"
+                         placeholder=""
 
                          #orderAssigneeControl="ngForm"
                          [ngClass]="controlStateClasses(orderAssigneeControl)"
@@ -50,9 +54,11 @@
                 <div class="form-group"
                      [class.has-danger]="!orderPositionControl.valid && (orderPositionControl.dirty || orderPositionControl.touched)"
                      [class.has-success]="orderPositionControl.valid && orderPositionControl.touched">
+                  <label for="order-position" class="text-muted">Должность</label>
                   <input type="text" class="form-control"
+                         id="order-position"
                          autocomplete="off"
-                         placeholder="Должность"
+                         placeholder=""
 
                          #orderPositionControl="ngForm"
                          [ngClass]="controlStateClasses(orderPositionControl)"
@@ -72,9 +78,11 @@
                 <div class="form-group"
                      [class.has-danger]="!orderLocationControl.valid && (orderLocationControl.dirty || orderLocationControl.touched)"
                      [class.has-success]="orderLocationControl.valid && orderLocationControl.touched">
+                  <label for="order-location" class="text-muted">Место работы</label>
                   <input type="text" class="form-control"
+                         id="order-location"
                          autocomplete="off"
-                         placeholder="Место работы"
+                         placeholder=""
 
                          #orderLocationControl="ngForm"
                          [ngClass]="controlStateClasses(orderLocationControl)"
@@ -96,12 +104,14 @@
 
               <div class="col-md-3">
                 <div class="form-group">
+                  <label for="order-dates" class="text-muted">Период оказания услуи</label>
                   <div class="input-group cursor-pointer"
                        [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
                        [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
                     <span (click)="orderDates.click()" class="input-group-addon input-group-addon-light small-caps"><i class="fa fa-calendar"></i></span>
                     <input daterangepicker type="text" class="form-control"
-                           placeholder="Укажите период"
+                           id="order-dates"
+                           placeholder=""
                            [options]="dateRangePickerOptions"
                            (selected)="datesSelected($event)"
 
@@ -116,7 +126,7 @@
                            ngControl="orderDates" />
                   </div>
                   <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
-                      class="error form-control-feedback">Некорректная дата</em>
+                      class="error form-control-feedback">Некорректный период</em>
                 </div>
               </div>
               <!-- /col -->
@@ -125,9 +135,11 @@
                 <div class="form-group"
                      [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                      [class.has-success]="orderNameControl.valid && orderNameControl.touched">
+                  <label for="order-name" class="text-muted">Наименование услуги</label>
                   <input type="text" class="form-control"
+                         id="order-name"
                          autocomplete="off"
-                         placeholder="Наименование услуги"
+                         placeholder=""
 
                          #orderNameControl="ngForm"
                          [ngClass]="controlStateClasses(orderNameControl)"
