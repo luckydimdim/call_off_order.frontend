@@ -6,6 +6,10 @@ import 'package:call_off_order/src/call_off_rate.dart';
 @Component(
     selector: 'call-off-rate', templateUrl: 'call_off_rate_component.html')
 class CallOffRateComponent {
+
+  @Input()
+  bool readOnly = true;
+
   @Input()
   CallOffRate model = new CallOffRate();
 

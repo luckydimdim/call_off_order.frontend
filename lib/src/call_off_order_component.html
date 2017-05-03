@@ -9,21 +9,21 @@
 
             <div [ngSwitch]="model.template?.sysName">
               <template [ngSwitchWhen]="'SouthTambey'">
-                <call-off-order-template-south-tambey [model]="model.template" (updateTemplate)="updateTemplate($event)"></call-off-order-template-south-tambey>
+                <call-off-order-template-south-tambey [model]="model.template" [readOnly]="readOnly" (updateTemplate)="updateTemplate($event)"></call-off-order-template-south-tambey>
               </template>
               <template [ngSwitchWhen]="'default'">
-                <call-off-order-template-default [model]="model.template" (updateTemplate)="updateTemplate($event)"></call-off-order-template-default>
+                <call-off-order-template-default [model]="model.template" [readOnly]="readOnly" (updateTemplate)="updateTemplate($event)"></call-off-order-template-default>
               </template>
             </div>
 
             <p>Укажите группы ставок и ставки</p>
 
             <div *ngFor="let rate of model.rates">
-              <call-off-rate [model]="rate" (addRate)="addRate($event)" (removeRate)="removeRate($event)" (updateRate)="updateRate($event)"></call-off-rate>
+              <call-off-rate [model]="rate" [readOnly]="readOnly" (addRate)="addRate($event)" (removeRate)="removeRate($event)" (updateRate)="updateRate($event)"></call-off-rate>
             </div>
 
             <div>
-              <button (click)="addRate(null)" type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
+              <button *ngIf="!readOnly" (click)="addRate(null)" type="button" class="btn btn-secondary text-muted cm-plus"><span>—</span></button>
             </div>
 
           </div>

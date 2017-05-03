@@ -23,6 +23,9 @@ class CallOffOrderTemplateSouthTambeyComponent {
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
   DateRangePickerOptions mobDateRangePickerOptions = new DateRangePickerOptions();
 
+  @Input()
+  bool readOnly = true;
+
   @Output()
   /**
    * Событие обновления ставки во внешний компонент

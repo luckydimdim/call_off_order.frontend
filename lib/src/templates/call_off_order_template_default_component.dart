@@ -22,6 +22,9 @@ class CallOffOrderTemplateDefaultComponent {
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
+  @Input()
+  bool readOnly = true;
+
   @Output()
   /**
    * Событие обновления ставки во внешний компонент

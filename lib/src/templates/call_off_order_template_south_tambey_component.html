@@ -1,6 +1,6 @@
             <p class="float-lg-left">Заполните данные о заказе и работнике</p>
             <span class="btn-group float-lg-right">
-              <button type="button" class="btn btn-sm btn-success">
+              <button *ngIf="!readOnly" type="button" class="btn btn-sm btn-success">
                 <i class="fa fa-save"></i> &nbsp; Завершить
               </button>
             </span>
@@ -15,7 +15,7 @@
                          id="order-number"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderNumberControl="ngForm"
                          [ngClass]="controlStateClasses(orderNumberControl)"
                          required
@@ -40,7 +40,7 @@
                          id="order-assignee"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderAssigneeControl="ngForm"
                          [ngClass]="controlStateClasses(orderAssigneeControl)"
                          required
@@ -64,7 +64,7 @@
                          id="order-position"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderPositionControl="ngForm"
                          [ngClass]="controlStateClasses(orderPositionControl)"
                          required
@@ -88,7 +88,7 @@
                          id="order-location"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderLocationControl="ngForm"
                          [ngClass]="controlStateClasses(orderLocationControl)"
                          required
@@ -115,7 +115,7 @@
                          id="order-employee-number"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #employeeNumberControl="ngForm"
                          [ngClass]="controlStateClasses(employeeNumberControl)"
                          required
@@ -140,7 +140,7 @@
                          id="order-position-number"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #positionNumber="ngForm"
                          [ngClass]="controlStateClasses(positionNumber)"
                          required
@@ -165,7 +165,7 @@
                          id="order-personnel-source"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #personnelSource="ngForm"
                          [ngClass]="controlStateClasses(personnelSource)"
                          required
@@ -190,7 +190,7 @@
                          id="order-paaf"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #paafControl="ngForm"
                          [ngClass]="controlStateClasses(paafControl)"
                          required
@@ -215,7 +215,7 @@
                          id="order-mob-plan-reference"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #mobPlanReferenceControl="ngForm"
                          [ngClass]="controlStateClasses(mobPlanReferenceControl)"
                          required
@@ -243,7 +243,7 @@
                            placeholder=""
                            [options]="mobDateRangePickerOptions"
                            (selected)="mobDateSelected($event)"
-
+                           [disabled]="readOnly"
                            #mobDate
                            #mobDateControl="ngForm"
                            [ngClass]="controlStateClasses(mobDateControl)"
@@ -276,7 +276,7 @@
                            placeholder=""
                            [options]="dateRangePickerOptions"
                            (selected)="datesSelected($event)"
-
+                           [disabled]="readOnly"
                            #orderDates
                            #orderDatesControl="ngForm"
                            [ngClass]="controlStateClasses(orderDatesControl)"
@@ -302,7 +302,7 @@
                          id="order-name"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderNameControl="ngForm"
                          [ngClass]="controlStateClasses(orderNameControl)"
                          required

@@ -6,7 +6,7 @@ import 'package:angular2/router.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:logger/logger_service.dart';
-
+import 'package:auth/auth_service.dart';
 import 'package:daterangepicker/daterangepicker.dart';
 
 import 'call_off_rate.dart';
@@ -39,7 +39,10 @@ class CallOffOrderComponent implements OnInit {
 
   final LoggerService _logger;
   final CallOffService _service;
+  final AuthorizationService _authorizationService;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
+
+  bool readOnly = true;
 
   @Input()
   String id = '';
@@ -62,7 +65,7 @@ class CallOffOrderComponent implements OnInit {
   // GUID generator
   Uuid guid = new Uuid();
 
-  CallOffOrderComponent(this._logger, this._service) {
+  CallOffOrderComponent(this._logger, this._service, this._authorizationService) {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
@@ -237,6 +240,10 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
+
+    if (_authorizationService.isInRole(Role.Customer))
+      readOnly = false;
+
     model = await _service.getCallOffOrder(id);
   }
 }

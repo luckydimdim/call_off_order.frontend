@@ -1,6 +1,6 @@
             <p class="float-lg-left">Заполните данные о заказе и работнике</p>
             <p class="btn-group float-lg-right">
-              <button type="button" class="btn btn-sm btn-success">
+              <button *ngIf="!readOnly" type="button" class="btn btn-sm btn-success">
                 <i class="fa fa-save"></i> &nbsp; Завершить
               </button>
             </p>
@@ -15,7 +15,7 @@
                          id="order-number"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderNumberControl="ngForm"
                          [ngClass]="controlStateClasses(orderNumberControl)"
                          required
@@ -40,7 +40,7 @@
                          id="order-assignee"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderAssigneeControl="ngForm"
                          [ngClass]="controlStateClasses(orderAssigneeControl)"
                          required
@@ -64,7 +64,7 @@
                          id="order-position"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderPositionControl="ngForm"
                          [ngClass]="controlStateClasses(orderPositionControl)"
                          required
@@ -88,7 +88,7 @@
                          id="order-location"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderLocationControl="ngForm"
                          [ngClass]="controlStateClasses(orderLocationControl)"
                          required
@@ -119,7 +119,7 @@
                            placeholder=""
                            [options]="dateRangePickerOptions"
                            (selected)="datesSelected($event)"
-
+                           [disabled]="readOnly"
                            #orderDates
                            #orderDatesControl="ngForm"
                            [ngClass]="controlStateClasses(orderDatesControl)"
@@ -145,7 +145,7 @@
                          id="order-name"
                          autocomplete="off"
                          placeholder=""
-
+                         [disabled]="readOnly"
                          #orderNameControl="ngForm"
                          [ngClass]="controlStateClasses(orderNameControl)"
                          required
