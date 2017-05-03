@@ -1,6 +1,11 @@
-            <p>Заполните данные о заказе и работнике</p>
+            <p class="float-lg-left">Заполните данные о заказе и работнике</p>
+            <p class="btn-group float-lg-right">
+              <button type="button" class="btn btn-sm btn-success">
+                <i class="fa fa-save"></i> &nbsp; Завершить
+              </button>
+            </p>
 
-            <div class="row">
+            <div class="row" style="clear: both">
               <div class="col-md-2">
                 <div class="form-group"
                      [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
