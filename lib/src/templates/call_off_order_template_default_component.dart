@@ -35,11 +35,10 @@ class CallOffOrderTemplateDefaultComponent {
   /**
    * Событие жмакания на кнопку "Завершить"
    */
-  dynamic onFinish = new EventEmitter();
+  dynamic onFinish = new EventEmitter<dynamic>();
 
   @Input()
   CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
-  //String dates = '';
 
   CallOffOrderTemplateDefaultComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
@@ -123,6 +122,6 @@ class CallOffOrderTemplateDefaultComponent {
    * Нажатие на кнопку "Завершить"
    */
   void finish() {
-    onFinish.emit();
+    onFinish.emit(null);
   }
 }

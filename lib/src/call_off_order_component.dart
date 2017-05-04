@@ -63,7 +63,7 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Событие жмакания на кнопку "Завершить"
    */
-  dynamic onFinish = new EventEmitter();
+  dynamic onFinish = new EventEmitter<dynamic>();
 
   CallOffOrder model = new CallOffOrder();
   String dates = '';
@@ -257,6 +257,6 @@ class CallOffOrderComponent implements OnInit {
    * Нажатие на кнопку "Завершить"
    */
   void finish() {
-    onFinish.emit();
+    onFinish.emit(null);
   }
 }
