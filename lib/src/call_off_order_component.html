@@ -9,10 +9,10 @@
 
             <div [ngSwitch]="model.template?.sysName">
               <template [ngSwitchWhen]="'SouthTambey'">
-                <call-off-order-template-south-tambey [model]="model.template" [readOnly]="readOnly" (updateTemplate)="updateTemplate($event)"></call-off-order-template-south-tambey>
+                <call-off-order-template-south-tambey [model]="model.template" (updateTemplate)="updateTemplate($event)" (onFinish)="finish()" [readOnly]="readOnly"></call-off-order-template-south-tambey>
               </template>
               <template [ngSwitchWhen]="'default'">
-                <call-off-order-template-default [model]="model.template" [readOnly]="readOnly" (updateTemplate)="updateTemplate($event)"></call-off-order-template-default>
+                <call-off-order-template-default [model]="model.template" (updateTemplate)="updateTemplate($event)" (onFinish)="finish()" [readOnly]="readOnly"></call-off-order-template-default>
               </template>
             </div>
 

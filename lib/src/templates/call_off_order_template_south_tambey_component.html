@@ -1,6 +1,6 @@
             <p class="float-lg-left">Заполните данные о заказе и работнике</p>
             <span class="btn-group float-lg-right">
-              <button *ngIf="!readOnly" type="button" class="btn btn-sm btn-success">
+              <button type="button" class="btn btn-sm btn-success" (click)="finish()" *ngIf="!readOnly">
                 <i class="fa fa-save"></i> &nbsp; Завершить
               </button>
             </span>

@@ -31,6 +31,12 @@ class CallOffOrderTemplateDefaultComponent {
    */
   dynamic updateTemplate = new EventEmitter<dynamic>();
 
+  @Output()
+  /**
+   * Событие жмакания на кнопку "Завершить"
+   */
+  dynamic onFinish = new EventEmitter();
+
   @Input()
   CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
   //String dates = '';
@@ -111,5 +117,12 @@ class CallOffOrderTemplateDefaultComponent {
       result = model.startDate;
 
     return result;
+  }
+
+  /**
+   * Нажатие на кнопку "Завершить"
+   */
+  void finish() {
+    onFinish.emit();
   }
 }

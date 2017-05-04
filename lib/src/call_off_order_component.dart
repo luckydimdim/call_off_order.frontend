@@ -59,6 +59,12 @@ class CallOffOrderComponent implements OnInit {
    */
   dynamic callOfChanged = new EventEmitter<Map>();
 
+  @Output()
+  /**
+   * Событие жмакания на кнопку "Завершить"
+   */
+  dynamic onFinish = new EventEmitter();
+
   CallOffOrder model = new CallOffOrder();
   String dates = '';
 
@@ -245,5 +251,12 @@ class CallOffOrderComponent implements OnInit {
       readOnly = false;
 
     model = await _service.getCallOffOrder(id);
+  }
+
+  /**
+   * Нажатие на кнопку "Завершить"
+   */
+  void finish() {
+    onFinish.emit();
   }
 }

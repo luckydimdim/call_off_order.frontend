@@ -32,6 +32,12 @@ class CallOffOrderTemplateSouthTambeyComponent {
    */
   dynamic updateTemplate = new EventEmitter<dynamic>();
 
+  @Output()
+  /**
+   * Событие жмакания на кнопку "Завершить"
+   */
+  dynamic onFinish = new EventEmitter();
+
   @Input()
   CallOffOrderTemplateSouthTambeyModel model = new CallOffOrderTemplateSouthTambeyModel();
 
@@ -129,5 +135,12 @@ class CallOffOrderTemplateSouthTambeyComponent {
       result = model.startDate;
 
     return result;
+  }
+
+  /**
+   * Нажатие на кнопку "Завершить"
+   */
+  void finish() {
+    onFinish.emit();
   }
 }
