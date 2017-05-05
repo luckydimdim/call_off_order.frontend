@@ -39,7 +39,6 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   // Id группы
   String parentId = null;
 
-  
   // Доступна ли возможность переключения типа элемента:
   // ставка или группа ставок
   @Json(exclude: true)

@@ -1,13 +1,15 @@
 import 'package:converters/json_converter.dart';
 import 'package:converters/map_converter.dart';
 import 'package:converters/reflector.dart';
+import 'package:intl/intl.dart';
 
 /**
  * Базовый шаблон наряд-заказов.
  * Нужен для обобщения работы с web-сервисом.
  */
 @reflectable
-abstract class CallOffOrderTemplateModelBase extends Object with JsonConverter, MapConverter {
+abstract class CallOffOrderTemplateModelBase extends Object
+    with JsonConverter, MapConverter {
   @Json(name: 'templateSysName')
   @Json(exclude: true)
   /**
@@ -33,12 +35,16 @@ abstract class CallOffOrderTemplateModelBase extends Object with JsonConverter, 
   /**
    * Дата начала действия наряд-заказа
    */
-  String startDate = '';
+  DateTime startDate;
+  String get startDateStr =>
+      startDate == null ? '' : formatter.format(startDate);
 
   /**
    * Дата окончания действия наряд-заказа
    */
-  String finishDate = '';
+  DateTime finishDate;
+  String get finishDateStr =>
+      finishDate == null ? '' : formatter.format(finishDate);
 
   /**
    * Должность
@@ -49,4 +55,7 @@ abstract class CallOffOrderTemplateModelBase extends Object with JsonConverter, 
    * Место работы
    */
   String location = '';
+
+  @Json(exclude: true)
+  DateFormat formatter = new DateFormat('dd.MM.yyyy');
 }

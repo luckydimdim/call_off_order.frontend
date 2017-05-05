@@ -251,7 +251,8 @@
                            maxlength="255"
                            [class.form-control-danger]="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
                            [class.form-control-success]="mobDateControl.valid && mobDateControl.touched"
-                           [ngModel]="model.mobDate"
+                           [ngModel]="model.mobDateStr"
+                           [value]="model.mobDateStr"
                            ngControl="orderMobDateControl" />
                   </div>
                   <em *ngIf="!mobDateControl.valid && (mobDateControl.dirty || mobDateControl.touched)"
@@ -266,7 +267,7 @@
 
               <div class="col-md-3">
                 <div class="form-group">
-                  <label for="order-dates" class="text-muted">Период оказания услуи</label>
+                  <label for="order-dates" class="text-muted">Период оказания услуги</label>
                   <div class="input-group cursor-pointer"
                        [class.has-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
                        [class.has-success]="orderDatesControl.valid && orderDatesControl.touched">
@@ -285,6 +286,7 @@
                            [class.form-control-danger]="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"
                            [class.form-control-success]="orderDatesControl.valid && orderDatesControl.touched"
                            [ngModel]="getDates()"
+                           [value]="getDates()"
                            ngControl="orderDates" />
                   </div>
                   <em *ngIf="!orderDatesControl.valid && (orderDatesControl.dirty || orderDatesControl.touched)"

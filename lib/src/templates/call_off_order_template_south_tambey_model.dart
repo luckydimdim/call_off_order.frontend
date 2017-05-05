@@ -6,7 +6,8 @@ import 'call_off_order_template_model_base.dart';
  * Шаблон верхней части наряд заказа
  */
 @reflectable
-class CallOffOrderTemplateSouthTambeyModel extends CallOffOrderTemplateModelBase {
+class CallOffOrderTemplateSouthTambeyModel
+    extends CallOffOrderTemplateModelBase {
   @override
   @Json(exclude: true)
   /**
@@ -42,5 +43,6 @@ class CallOffOrderTemplateSouthTambeyModel extends CallOffOrderTemplateModelBase
   /**
    * Дата мобилизации
    */
-  String mobDate = '';
+  DateTime mobDate;
+  String get mobDateStr => mobDate == null ? '' : formatter.format(mobDate);
 }

@@ -13,10 +13,10 @@ import 'package:call_off_order/call_off_service.dart';
 import 'call_off_order_template_default_model.dart';
 
 @Component(
-  selector: 'call-off-order-template-default',
-  templateUrl: 'call_off_order_template_default_component.html',
-  providers: const [CallOffService],
-  directives: const [DateRangePickerDirective])
+    selector: 'call-off-order-template-default',
+    templateUrl: 'call_off_order_template_default_component.html',
+    providers: const [CallOffService],
+    directives: const [DateRangePickerDirective])
 class CallOffOrderTemplateDefaultComponent {
   final LoggerService _logger;
   final CallOffService _service;
@@ -38,7 +38,8 @@ class CallOffOrderTemplateDefaultComponent {
   dynamic onFinish = new EventEmitter<dynamic>();
 
   @Input()
-  CallOffOrderTemplateDefaultModel model = new CallOffOrderTemplateDefaultModel();
+  CallOffOrderTemplateDefaultModel model =
+      new CallOffOrderTemplateDefaultModel();
 
   CallOffOrderTemplateDefaultComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
@@ -71,13 +72,13 @@ class CallOffOrderTemplateDefaultComponent {
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-    'ng-dirty': control.dirty ?? false,
-    'ng-pristine': control.pristine ?? false,
-    'ng-touched': control.touched ?? false,
-    'ng-untouched': control.untouched ?? false,
-    'ng-valid': control.valid ?? false,
-    'ng-invalid': control.valid == false
-  };
+        'ng-dirty': control.dirty ?? false,
+        'ng-pristine': control.pristine ?? false,
+        'ng-touched': control.touched ?? false,
+        'ng-untouched': control.untouched ?? false,
+        'ng-valid': control.valid ?? false,
+        'ng-invalid': control.valid == false
+      };
 
   /**
    * Обновление наряд-заказа
@@ -90,10 +91,8 @@ class CallOffOrderTemplateDefaultComponent {
    * Обновление сроков
    */
   Future datesSelected(Map<String, DateTime> value) async {
-    var formatter = new DateFormat('dd.MM.yyyy');
-
-    model.startDate = formatter.format(value['start']);
-    model.finishDate = formatter.format(value['end']);
+    model.startDate = value['start'];
+    model.finishDate = value['end'];
 
     emitUpdateTemplate();
 
@@ -103,17 +102,14 @@ class CallOffOrderTemplateDefaultComponent {
   String getDates() {
     String result = '';
 
-    if (model.startDate != '' && model.finishDate != '')
-      result = '${model.startDate} - ${model.finishDate}';
+    if (model.startDate != null && model.finishDate != null)
+      result = '${model.startDateStr} - ${model.finishDateStr}';
 
-    if (model.startDate == '' && model.finishDate == '')
-      result = '';
+    if (model.startDate == null && model.finishDate == null) result = '';
 
-    if (model.startDate == '')
-      result = model.finishDate;
+    if (model.startDate == null) result = model.finishDateStr;
 
-    if (model.finishDate == '')
-      result = model.startDate;
+    if (model.finishDate == null) result = model.startDateStr;
 
     return result;
   }

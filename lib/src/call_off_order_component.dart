@@ -71,7 +71,8 @@ class CallOffOrderComponent implements OnInit {
   // GUID generator
   Uuid guid = new Uuid();
 
-  CallOffOrderComponent(this._logger, this._service, this._authorizationService) {
+  CallOffOrderComponent(
+      this._logger, this._service, this._authorizationService) {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
@@ -246,9 +247,7 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
-
-    if (_authorizationService.isInRole(Role.Customer))
-      readOnly = false;
+    if (_authorizationService.isInRole(Role.Customer)) readOnly = false;
 
     model = await _service.getCallOffOrder(id);
   }

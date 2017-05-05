@@ -131,7 +131,7 @@ class CallOffService {
 
     Response response = null;
 
-    String jsonString = JSON.encode(model.toJson());
+    String jsonString = model.toJsonString();
 
     _logger.trace('Creating call off order');
 
@@ -151,14 +151,13 @@ class CallOffService {
    * Изменение данных наряд-заказа
    */
   updateCallOffOrder(CallOffOrder model) async {
-    String jsonString = JSON.encode(model.toJson());
+    String jsonString = model.toJsonString();
 
     _logger.trace('Updating call off order $jsonString');
 
     try {
-      await _http.put(
-        '${_config.helper.callOffOrdersUrl}/${model.id}',
-        headers: {'Content-Type': 'application/json'}, body: jsonString);
+      await _http.put('${_config.helper.callOffOrdersUrl}/${model.id}',
+          headers: {'Content-Type': 'application/json'}, body: jsonString);
       _logger.trace('Call off successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off order: $e');
@@ -170,10 +169,11 @@ class CallOffService {
   /**
    * Создание новой ставки
    */
-  Future<CallOffRate> createRate(String callOffOrderId, CallOffRate model) async {
+  Future<CallOffRate> createRate(
+      String callOffOrderId, CallOffRate model) async {
     Response response = null;
 
-    String jsonString = JSON.encode(model.toJson());
+    String jsonString = model.toJsonString();
 
     _logger.trace('Creating rate for call off order $callOffOrderId');
 
@@ -199,14 +199,15 @@ class CallOffService {
    * Изменение данных ставки
    */
   updateRate(String callOffOrderId, CallOffRate model) async {
-    String jsonString = JSON.encode(model.toJson());
+    String jsonString = model.toJsonString();
 
     _logger.trace('Updating call off rate $jsonString');
 
     try {
-      await _http.put('${ _config.helper.callOffOrdersUrl }/$callOffOrderId/rates/${model.id}',
-        headers: {'Content-Type': 'application/json'},
-        body: jsonString);
+      await _http.put(
+          '${ _config.helper.callOffOrdersUrl }/$callOffOrderId/rates/${model.id}',
+          headers: {'Content-Type': 'application/json'},
+          body: jsonString);
       _logger.trace('Call off rate successfuly updated');
     } catch (e) {
       _logger.error('Failed to update call off rate: $e');
@@ -238,11 +239,12 @@ class CallOffService {
    */
   deleteRate(String callOffOrderId, String id) async {
     _logger.trace(
-      'Removing call off rate. Url: ${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id');
+        'Removing call off rate. Url: ${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id');
 
     try {
-      await _http.delete('${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id',
-        headers: {'Content-Type': 'application/json'});
+      await _http.delete(
+          '${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id',
+          headers: {'Content-Type': 'application/json'});
       _logger.trace('Call off rate $id removed');
     } catch (e) {
       _logger.error('Failed to remove call off rate: $e');

@@ -36,8 +36,9 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
 
     // Задание необходимых для правильного отображения свойств ставок:
     // кнопки минуса, переключателя группа/ставка, кнопка плюса
-    List<CallOffRate> parentRates =
-      rateList.where((item) => item.parentId == null && !item.isRate).toList();
+    List<CallOffRate> parentRates = rateList
+        .where((item) => item.parentId == null && !item.isRate)
+        .toList();
 
     for (CallOffRate parentRate in parentRates) {
       CallOffRate firstChildRate = rateList.firstWhere(
@@ -46,12 +47,12 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
 
       bool hasChildren = firstChildRate != null;
 
-      parentRate.showPlus  = !hasChildren;
+      parentRate.showPlus = !hasChildren;
       parentRate.showMinus = !hasChildren;
       parentRate.canToggle = !hasChildren;
 
       List<CallOffRate> childrenRates =
-        rateList.where((item) => item.parentId == parentRate.id).toList();
+          rateList.where((item) => item.parentId == parentRate.id).toList();
 
       // Убирание плюса и переключателя ставка/группа
       for (int i = 0; i < childrenRates.length; ++i) {
@@ -59,13 +60,12 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
         childrenRates[i].showPlus = false;
       }
 
-      if (childrenRates.length > 0)
-        childrenRates.last.showPlus = true;
+      if (childrenRates.length > 0) childrenRates.last.showPlus = true;
     }
 
     // Убирание плюса у верхнеуровневых ставок
     List<CallOffRate> topLevelRates =
-      rateList.where((item) => item.parentId == null && item.isRate).toList();
+        rateList.where((item) => item.parentId == null && item.isRate).toList();
     topLevelRates.forEach((item) => item.showPlus = false);
 
     rates = rateList;

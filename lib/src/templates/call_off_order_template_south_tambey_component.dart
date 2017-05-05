@@ -13,15 +13,16 @@ import 'package:call_off_order/call_off_service.dart';
 import 'call_off_order_template_south_tambey_model.dart';
 
 @Component(
-  selector: 'call-off-order-template-south-tambey',
-  templateUrl: 'call_off_order_template_south_tambey_component.html',
-  providers: const [CallOffService],
-  directives: const [DateRangePickerDirective])
+    selector: 'call-off-order-template-south-tambey',
+    templateUrl: 'call_off_order_template_south_tambey_component.html',
+    providers: const [CallOffService],
+    directives: const [DateRangePickerDirective])
 class CallOffOrderTemplateSouthTambeyComponent {
   final LoggerService _logger;
   final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
-  DateRangePickerOptions mobDateRangePickerOptions = new DateRangePickerOptions();
+  DateRangePickerOptions mobDateRangePickerOptions =
+      new DateRangePickerOptions();
 
   @Input()
   bool readOnly = true;
@@ -39,7 +40,8 @@ class CallOffOrderTemplateSouthTambeyComponent {
   dynamic onFinish = new EventEmitter<dynamic>();
 
   @Input()
-  CallOffOrderTemplateSouthTambeyModel model = new CallOffOrderTemplateSouthTambeyModel();
+  CallOffOrderTemplateSouthTambeyModel model =
+      new CallOffOrderTemplateSouthTambeyModel();
 
   CallOffOrderTemplateSouthTambeyComponent(this._logger, this._service) {
     var locale = new DateRangePickerLocale()
@@ -68,8 +70,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
         'Декабрь'
       ];
 
-    dateRangePickerOptions = new DateRangePickerOptions()
-      ..locale = locale;
+    dateRangePickerOptions = new DateRangePickerOptions()..locale = locale;
 
     mobDateRangePickerOptions = new DateRangePickerOptions()
       ..locale = locale
@@ -77,13 +78,13 @@ class CallOffOrderTemplateSouthTambeyComponent {
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {
-    'ng-dirty': control.dirty ?? false,
-    'ng-pristine': control.pristine ?? false,
-    'ng-touched': control.touched ?? false,
-    'ng-untouched': control.untouched ?? false,
-    'ng-valid': control.valid ?? false,
-    'ng-invalid': control.valid == false
-  };
+        'ng-dirty': control.dirty ?? false,
+        'ng-pristine': control.pristine ?? false,
+        'ng-touched': control.touched ?? false,
+        'ng-untouched': control.untouched ?? false,
+        'ng-valid': control.valid ?? false,
+        'ng-invalid': control.valid == false
+      };
 
   /**
    * Обновление наряд-заказа
@@ -96,10 +97,8 @@ class CallOffOrderTemplateSouthTambeyComponent {
    * Обновление сроков наряд-аказа
    */
   Future datesSelected(Map<String, DateTime> value) async {
-    var formatter = new DateFormat('dd.MM.yyyy');
-
-    model.startDate = formatter.format(value['start']);
-    model.finishDate = formatter.format(value['end']);
+    model.startDate = value['start'];
+    model.finishDate = value['end'];
 
     emitUpdateTemplate();
 
@@ -110,9 +109,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
    * Обновление даты мобилизации
    */
   Future mobDateSelected(Map<String, DateTime> value) async {
-    var formatter = new DateFormat('dd.MM.yyyy');
-
-    model.mobDate = formatter.format(value['start']);
+    model.mobDate = value['start'];
 
     emitUpdateTemplate();
 
@@ -122,17 +119,14 @@ class CallOffOrderTemplateSouthTambeyComponent {
   String getDates() {
     String result = '';
 
-    if (model.startDate != '' && model.finishDate != '')
-      result = '${model.startDate} - ${model.finishDate}';
+    if (model.startDate != null && model.finishDate != null)
+      result = '${model.startDateStr} - ${model.finishDateStr}';
 
-    if (model.startDate == '' && model.finishDate == '')
-      result = '';
+    if (model.startDate == null && model.finishDate == null) result = '';
 
-    if (model.startDate == '')
-      result = model.finishDate;
+    if (model.startDate == null) result = model.finishDateStr;
 
-    if (model.finishDate == '')
-      result = model.startDate;
+    if (model.finishDate == null) result = model.startDateStr;
 
     return result;
   }
