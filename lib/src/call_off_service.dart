@@ -122,22 +122,15 @@ class CallOffService {
   /**
    * Создание нового наряд-заказа
    */
-  Future<String> createCallOffOrder(
-      String contractId, String templateSysName) async {
-    CallOffOrderTemplateModelBase template = instantiateModel(templateSysName);
-    var model = new CallOffOrder()
-      ..contractId = contractId
-      ..template = template;
+  Future<String> createCallOffOrder(String contractId) async {
 
     Response response = null;
-
-    String jsonString = model.toJsonString();
 
     _logger.trace('Creating call off order');
 
     try {
       response = await _http.post(_config.helper.callOffOrdersUrl,
-          headers: {'Content-Type': 'application/json'}, body: jsonString);
+          headers: {'Content-Type': 'application/json'}, body: '{"contractId": "$contractId"}');
 
       _logger.trace('Call off order created');
     } catch (e) {

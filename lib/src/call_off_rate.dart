@@ -27,11 +27,7 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   bool isRate = true;
 
   // Величина ставки
-  @Json(exclude: true)
-  String amount = '0';
-
-  // Валюта ставки
-  String currency = 'USD';
+  double amount = 0.0;
 
   // Начальное значение единицы измерения ставки
   String unitName = 'день';
@@ -55,17 +51,8 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   @override
   dynamic fromJson(dynamic json) {
     super.fromJson(json);
-    amount = json['amount'].toString();
     tempId = guid.v1();
 
     return this;
-  }
-
-  @override
-  Map toJson() {
-    Map map = super.toJson();
-    map['amount'] = double.parse(amount);
-
-    return map;
   }
 }

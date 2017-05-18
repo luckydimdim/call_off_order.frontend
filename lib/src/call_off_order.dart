@@ -30,8 +30,10 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
 
     var ratesJson = (json['rates'] as List<dynamic>);
 
-    for (dynamic rateJson in ratesJson) {
-      rateList.add(new CallOffRate().fromJson(rateJson));
+    if (ratesJson != null) {
+      for (dynamic rateJson in ratesJson) {
+        rateList.add(new CallOffRate().fromJson(rateJson));
+      }
     }
 
     // Задание необходимых для правильного отображения свойств ставок:

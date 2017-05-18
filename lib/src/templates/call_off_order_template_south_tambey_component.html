@@ -295,7 +295,7 @@
               </div>
               <!-- /col -->
 
-              <div class="col-md-9">
+              <div class="col-md-7">
                 <div class="form-group"
                      [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                      [class.has-success]="orderNameControl.valid && orderNameControl.touched">
@@ -319,6 +319,17 @@
                 </div>
               </div>
               <!-- /col -->
-
+  
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="order-number" class="text-muted">Валюта</label>
+                  <select [(ngModel)]="model.currencySysName" class="form-control" (change)="emitUpdateTemplate()">
+                    <option *ngFor="let currency of model.currencies" [value]="currency">{{currency}}</option>
+                  </select>
+    
+                </div>
+              </div>
+              <!-- /col -->
+              
             </div>
             <!-- /row -->

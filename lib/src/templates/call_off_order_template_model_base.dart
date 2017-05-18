@@ -58,4 +58,14 @@ abstract class CallOffOrderTemplateModelBase extends Object
 
   @Json(exclude: true)
   DateFormat formatter = new DateFormat('dd.MM.yyyy');
+
+  /**
+   * Валюта наряд заказа
+   */
+  String currencySysName = '';
+
+  /**
+   * Список доступных валют (из договора)
+   */
+  List<String> currencies = new  List<String>();
 }
