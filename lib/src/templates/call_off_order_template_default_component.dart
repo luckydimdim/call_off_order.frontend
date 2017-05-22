@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 
-import 'package:intl/intl.dart';
-import 'package:logger/logger_service.dart';
-
 import 'package:daterangepicker/daterangepicker.dart';
 import 'package:daterangepicker/daterangepicker_directive.dart';
 
@@ -18,8 +15,6 @@ import 'call_off_order_template_default_model.dart';
     providers: const [CallOffService],
     directives: const [DateRangePickerDirective])
 class CallOffOrderTemplateDefaultComponent {
-  final LoggerService _logger;
-  final CallOffService _service;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
   @Input()
@@ -41,7 +36,7 @@ class CallOffOrderTemplateDefaultComponent {
   CallOffOrderTemplateDefaultModel model =
       new CallOffOrderTemplateDefaultModel();
 
-  CallOffOrderTemplateDefaultComponent(this._logger, this._service) {
+  CallOffOrderTemplateDefaultComponent() {
     var locale = new DateRangePickerLocale()
       ..format = 'DD.MM.YYYY'
       ..separator = ' - '
@@ -120,6 +115,4 @@ class CallOffOrderTemplateDefaultComponent {
   void finish() {
     onFinish.emit(null);
   }
-
-
 }
