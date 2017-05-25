@@ -14,7 +14,7 @@ import 'call_off_order_template_south_tambey_model.dart';
     templateUrl: 'call_off_order_template_south_tambey_component.html',
     providers: const [CallOffService],
     directives: const [DateRangePickerDirective])
-class CallOffOrderTemplateSouthTambeyComponent {
+class CallOffOrderTemplateSouthTambeyComponent implements OnInit  {
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
   DateRangePickerOptions mobDateRangePickerOptions =
       new DateRangePickerOptions();
@@ -35,8 +35,7 @@ class CallOffOrderTemplateSouthTambeyComponent {
   dynamic onFinish = new EventEmitter<dynamic>();
 
   @Input()
-  CallOffOrderTemplateSouthTambeyModel model =
-      new CallOffOrderTemplateSouthTambeyModel();
+  CallOffOrderTemplateSouthTambeyModel model = null;
 
   CallOffOrderTemplateSouthTambeyComponent() {
     var locale = new DateRangePickerLocale()
@@ -70,6 +69,12 @@ class CallOffOrderTemplateSouthTambeyComponent {
     mobDateRangePickerOptions = new DateRangePickerOptions()
       ..locale = locale
       ..singleDatePicker = true;
+  }
+
+  @override
+  ngOnInit() {
+    dateRangePickerOptions.minDate = model.minDateStr;
+    dateRangePickerOptions.maxDate = model.maxDateStr;
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {

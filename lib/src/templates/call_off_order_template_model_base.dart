@@ -46,6 +46,14 @@ abstract class CallOffOrderTemplateModelBase extends Object
   String get finishDateStr =>
       finishDate == null ? '' : formatter.format(finishDate);
 
+  DateTime minDate;
+  String get minDateStr =>
+      minDate == null ? '' : formatter.format(minDate);
+
+  DateTime maxDate;
+  String get maxDateStr =>
+      maxDate == null ? '' : formatter.format(maxDate);
+
   /**
    * Должность
    */

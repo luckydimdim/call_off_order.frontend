@@ -14,7 +14,7 @@ import 'call_off_order_template_default_model.dart';
     templateUrl: 'call_off_order_template_default_component.html',
     providers: const [CallOffService],
     directives: const [DateRangePickerDirective])
-class CallOffOrderTemplateDefaultComponent {
+class CallOffOrderTemplateDefaultComponent implements OnInit {
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
   @Input()
@@ -33,8 +33,7 @@ class CallOffOrderTemplateDefaultComponent {
   dynamic onFinish = new EventEmitter<dynamic>();
 
   @Input()
-  CallOffOrderTemplateDefaultModel model =
-      new CallOffOrderTemplateDefaultModel();
+  CallOffOrderTemplateDefaultModel model = null;
 
   CallOffOrderTemplateDefaultComponent() {
     var locale = new DateRangePickerLocale()
@@ -64,6 +63,12 @@ class CallOffOrderTemplateDefaultComponent {
       ];
 
     dateRangePickerOptions = new DateRangePickerOptions()..locale = locale;
+  }
+
+  @override
+  ngOnInit() {
+    dateRangePickerOptions.minDate = model.minDateStr;
+    dateRangePickerOptions.maxDate = model.maxDateStr;
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {

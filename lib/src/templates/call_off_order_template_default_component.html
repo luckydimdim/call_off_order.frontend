@@ -1,4 +1,6 @@
-            <p class="float-lg-left">Заполните данные о заказе и работнике</p>
+
+<div *ngIf="model != null">
+<p class="float-lg-left">Заполните данные о заказе и работнике</p>
             <p class="btn-group float-lg-right">
               <button type="button" class="btn btn-sm btn-success" (click)="finish()" *ngIf="!readOnly">
                 <i class="fa fa-save"></i> &nbsp; Завершить
@@ -175,3 +177,4 @@
               
             </div>
             <!-- /row -->
+</div>
