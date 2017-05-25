@@ -143,7 +143,7 @@ class CallOffService {
   /**
    * Изменение данных наряд-заказа
    */
-  updateCallOffOrder(CallOffOrder model) async {
+  Future updateCallOffOrder(CallOffOrder model) async {
     String jsonString = model.toJsonString();
 
     _logger.trace('Updating call off order $jsonString');
@@ -191,7 +191,7 @@ class CallOffService {
   /**
    * Изменение данных ставки
    */
-  updateRate(String callOffOrderId, CallOffRate model) async {
+  Future updateRate(String callOffOrderId, CallOffRate model) async {
     String jsonString = model.toJsonString();
 
     _logger.trace('Updating call off rate $jsonString');
@@ -212,7 +212,7 @@ class CallOffService {
   /**
    * Удаление наряд-заказа
    */
-  deleteCallOfOrder(String id) async {
+  Future deleteCallOfOrder(String id) async {
     _logger.trace(
         'Removing call off order. Url: ${_config.helper.callOffOrdersUrl}/$id');
 
@@ -230,7 +230,7 @@ class CallOffService {
   /**
    * Удаление ставки
    */
-  deleteRate(String callOffOrderId, String id) async {
+  Future deleteRate(String callOffOrderId, String id) async {
     _logger.trace(
         'Removing call off rate. Url: ${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id');
 

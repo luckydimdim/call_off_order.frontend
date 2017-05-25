@@ -123,7 +123,7 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Добавление ставки или группы ставок
    */
-  void addRate(CallOffRateComponent rate) {
+  Future addRate(CallOffRateComponent rate) async {
     CallOffRate newRate = null;
 
     // Если исходная ставка не задана или если задана,
@@ -136,7 +136,7 @@ class CallOffOrderComponent implements OnInit {
       newRate = _addRateChild(rate);
     }
 
-    _service.createRate(id, newRate);
+    await _service.createRate(id, newRate);
   }
 
   /**
@@ -238,8 +238,8 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Обновление ставки или группы ставок
    */
-  void updateRate(CallOffRateComponent rate) {
-    _service.updateRate(id, rate.model);
+  Future updateRate(CallOffRateComponent rate) async {
+    await _service.updateRate(id, rate.model);
   }
 
   @override
