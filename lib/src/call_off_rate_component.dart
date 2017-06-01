@@ -15,29 +15,29 @@ class CallOffRateComponent {
 
   @Output()
   // Событие добавления ставки во внешний компонент
-  dynamic addRate = new EventEmitter<CallOffRateComponent>();
+  dynamic addRate = new EventEmitter<CallOffRate>();
 
   @Output()
   // Событие удаления ставки во внешний компонент
-  dynamic removeRate = new EventEmitter<CallOffRateComponent>();
+  dynamic removeRate = new EventEmitter<CallOffRate>();
 
   @Output()
   // Событие обновления ставки во внешний компонент
-  dynamic updateRate = new EventEmitter<CallOffRateComponent>();
+  dynamic updateRate = new EventEmitter<CallOffRate>();
 
   // Публикует событие добавления ставки во внешний компонент
   void emitAddRate() {
-    addRate.emit(this);
+    addRate.emit(model);
   }
 
   // Публикует событие удаления ставки во внешний компонент
   void emitRemoveRate() {
-    removeRate.emit(this);
+    removeRate.emit(model);
   }
 
   // Публикует событие изменения ставки во внешний компонент
   void emitUpdateRate() {
-    updateRate.emit(this);
+    updateRate.emit(model);
   }
 
   Map<String, bool> controlStateClasses(NgControl control) => {

@@ -109,42 +109,37 @@ class CallOffOrderComponent implements OnInit {
       };
 
   /**
-   * Обновление наряд-заказа
+   * Обновление модели наряд-заказа
    */
-  Future updateTemplate(CallOffOrderTemplateModelBase template) async {
+  updateTemplate(CallOffOrderTemplateModelBase template) {
     model.template = template;
     callOfChanged.emit(model.toMap());
-
-    await _service.updateCallOffOrder(model);
-
-    return null;
   }
 
   /**
    * Добавление ставки или группы ставок
    */
-  Future addRate(CallOffRateComponent rate) async {
+  Future addRate(CallOffRate rateModel) async {
     CallOffRate newRate = null;
 
     // Если исходная ставка не задана или если задана,
     // но она корневая и не является группой
-    if (rate == null || (rate.model.parentId == null && rate.model.isRate)) {
+    if (rateModel == null || (rateModel.parentId == null && rateModel.isRate)) {
       // Создание группы ставок
       newRate = _addRateParent();
     } else {
       // Создание ставки
-      newRate = _addRateChild(rate);
+      newRate = _addRateChild(rateModel);
     }
-
-    await _service.createRate(id, newRate);
   }
 
   /**
    * Добавление группы ставок
    */
   CallOffRate _addRateParent() {
+
     var rate = new CallOffRate()
-      ..tempId = guid.v1()
+       ..id = guid.v1()
       ..parentId = null
       ..isRate = false
       ..canToggle = true
@@ -159,15 +154,16 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Добавление ставки
    */
-  CallOffRate _addRateChild(CallOffRateComponent sourceRateComponent) {
+  CallOffRate _addRateChild(CallOffRate rateModel) {
+
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
     CallOffRate sourceRate = model.rates
-        .singleWhere((item) => item.id == sourceRateComponent.model.id);
+        .singleWhere((item) => item.id == rateModel.id);
     int sourceRateIndex = model.rates.indexOf(sourceRate);
 
     var rate = new CallOffRate()
-      ..tempId = guid.v1()
+       ..id = guid.v1()
       ..parentId = sourceRate.isRate ? sourceRate.parentId : sourceRate.id
       ..isRate = true
       ..canToggle = false
@@ -192,10 +188,10 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Удаление ставки или группы
    */
-  Future removeRate(CallOffRateComponent sourceRateComponent) async {
+  Future removeRate(CallOffRate rateModel) async {
     // Получение индекса предыдущей по очереди ставки
     CallOffRate sourceRate = model.rates
-        .singleWhere((item) => item.id == sourceRateComponent.model.id);
+        .singleWhere((item) => item.id == rateModel.id);
 
     int rateIndex = model.rates.indexOf(sourceRate);
     int previousRateIndex = rateIndex - 1;
@@ -228,18 +224,14 @@ class CallOffOrderComponent implements OnInit {
       }
     }
 
-    model.rates.removeWhere((item) => item.id == sourceRateComponent.model.id);
-
-    await _service.deleteRate(id, sourceRateComponent.model.id);
-
-    return null;
+    model.rates.removeWhere((item) => item.id == rateModel.id);
   }
 
   /**
    * Обновление ставки или группы ставок
    */
-  Future updateRate(CallOffRateComponent rate) async {
-    await _service.updateRate(id, rate.model);
+  Future updateRate(int index, CallOffRate rateModel) async {
+    model.rates[index] = rateModel;
   }
 
   @override
@@ -252,7 +244,10 @@ class CallOffOrderComponent implements OnInit {
   /**
    * Нажатие на кнопку "Завершить"
    */
-  void finish() {
+  Future finish() async {
+
+    await _service.updateCallOffOrder(model);
+
     onFinish.emit(null);
   }
 }

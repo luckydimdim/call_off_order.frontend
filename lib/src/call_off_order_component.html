@@ -18,8 +18,8 @@
 
             <p>Укажите группы ставок и ставки</p>
 
-            <div *ngFor="let rate of model.rates">
-              <call-off-rate [model]="rate" [readOnly]="readOnly" (addRate)="addRate($event)" (removeRate)="removeRate($event)" (updateRate)="updateRate($event)"></call-off-rate>
+            <div *ngFor="let rate of model.rates; let i = index">
+              <call-off-rate [model]="rate" [readOnly]="readOnly" (addRate)="addRate($event)" (removeRate)="removeRate($event)" (updateRate)="updateRate(i, $event)"></call-off-rate>
             </div>
 
             <div>

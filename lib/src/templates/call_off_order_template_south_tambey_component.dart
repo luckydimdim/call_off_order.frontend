@@ -6,13 +6,11 @@ import 'package:angular2/core.dart';
 import 'package:daterangepicker/daterangepicker.dart';
 import 'package:daterangepicker/daterangepicker_directive.dart';
 
-import 'package:call_off_order/call_off_service.dart';
 import 'call_off_order_template_south_tambey_model.dart';
 
 @Component(
     selector: 'call-off-order-template-south-tambey',
     templateUrl: 'call_off_order_template_south_tambey_component.html',
-    providers: const [CallOffService],
     directives: const [DateRangePickerDirective])
 class CallOffOrderTemplateSouthTambeyComponent implements OnInit  {
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();

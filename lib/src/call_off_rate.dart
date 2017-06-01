@@ -11,10 +11,7 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   // Уникальный id ставки, берется из базы
   String id = null;
 
-  @Json(exclude: true)
-  // Id ставки, использующийся для построения UI
-  String tempId = null;
-
+  
   @Json(exclude: true)
   // GUID generator
   Uuid guid = new Uuid();
@@ -51,7 +48,6 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   @override
   dynamic fromJson(dynamic json) {
     super.fromJson(json);
-    tempId = guid.v1();
 
     return this;
   }

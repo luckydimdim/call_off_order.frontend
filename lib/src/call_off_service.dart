@@ -159,55 +159,7 @@ class CallOffService {
     }
   }
 
-  /**
-   * Создание новой ставки
-   */
-  Future<CallOffRate> createRate(
-      String callOffOrderId, CallOffRate model) async {
-    Response response = null;
 
-    String jsonString = model.toJsonString();
-
-    _logger.trace('Creating rate for call off order $callOffOrderId');
-
-    try {
-      response = await _http.post(
-          '${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates',
-          headers: {'Content-Type': 'application/json'},
-          body: jsonString);
-
-      _logger.trace('Call off rate created');
-    } catch (e) {
-      rethrow;
-    }
-
-    dynamic json = JSON.decode(response.body);
-
-    model.id = json['id'];
-
-    return model;
-  }
-
-  /**
-   * Изменение данных ставки
-   */
-  Future updateRate(String callOffOrderId, CallOffRate model) async {
-    String jsonString = model.toJsonString();
-
-    _logger.trace('Updating call off rate $jsonString');
-
-    try {
-      await _http.put(
-          '${ _config.helper.callOffOrdersUrl }/$callOffOrderId/rates/${model.id}',
-          headers: {'Content-Type': 'application/json'},
-          body: jsonString);
-      _logger.trace('Call off rate successfuly updated');
-    } catch (e) {
-      _logger.error('Failed to update call off rate: $e');
-
-      rethrow;
-    }
-  }
 
   /**
    * Удаление наряд-заказа
@@ -227,22 +179,4 @@ class CallOffService {
     }
   }
 
-  /**
-   * Удаление ставки
-   */
-  Future deleteRate(String callOffOrderId, String id) async {
-    _logger.trace(
-        'Removing call off rate. Url: ${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id');
-
-    try {
-      await _http.delete(
-          '${_config.helper.callOffOrdersUrl}/$callOffOrderId/rates/$id',
-          headers: {'Content-Type': 'application/json'});
-      _logger.trace('Call off rate $id removed');
-    } catch (e) {
-      _logger.error('Failed to remove call off rate: $e');
-
-      rethrow;
-    }
-  }
 }
