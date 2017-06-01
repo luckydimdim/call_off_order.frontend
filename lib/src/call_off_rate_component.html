@@ -41,8 +41,9 @@
           <div class="form-group"
                [class.has-danger]="!rateAmountControl.valid && (rateAmountControl.dirty || rateAmountControl.touched)"
                [class.has-success]="rateAmountControl.valid && rateAmountControl.touched">
-            <input type="number" class="form-control"
+            <input type="number" class="form-control" cmPositive
                    placeholder="Сумма"
+                   min="0"
                    autocomplete="off"
                    [disabled]="readOnly"
                    #rateAmountControl="ngForm"

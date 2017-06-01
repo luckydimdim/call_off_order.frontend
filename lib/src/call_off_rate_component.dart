@@ -1,10 +1,11 @@
 import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
+import 'package:angular_utils/cm_positive_number.dart';
 
 import 'package:call_off_order/src/call_off_rate.dart';
 
 @Component(
-    selector: 'call-off-rate', templateUrl: 'call_off_rate_component.html')
+    selector: 'call-off-rate', templateUrl: 'call_off_rate_component.html', directives: const[CmPositiveNumberDirective])
 class CallOffRateComponent {
   @Input()
   bool readOnly = true;
