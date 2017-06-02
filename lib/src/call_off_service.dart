@@ -10,6 +10,7 @@ import 'package:logger/logger_service.dart';
 
 import 'call_off_order.dart';
 import 'call_off_rate.dart';
+import 'call_off_order_to_create.dart';
 
 import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_model.dart';
@@ -57,11 +58,8 @@ class CallOffService {
     var jsonList = (JSON.decode(response.body) as List<dynamic>);
 
     for (var json in jsonList) {
-      CallOffOrderTemplateModelBase template =
-          instantiateModel(json['templateSysName']);
-
-      var callOffOrder = new CallOffOrder().fromJson(json);
-      callOffOrder.template = template.fromJson(json);
+      CallOffOrder callOffOrder = new CallOffOrder.initTemplate(json['templateSysName']).fromJson(json);
+      callOffOrder.template = callOffOrder.template.fromJson(json);
 
       result.add(callOffOrder);
     }
@@ -90,47 +88,26 @@ class CallOffService {
     _logger.trace('Call off order requested: $response.');
 
     dynamic json = JSON.decode(response.body);
-
-    CallOffOrderTemplateModelBase template =
-        instantiateModel(json['templateSysName']);
-
-    var model = new CallOffOrder().fromJson(json);
-    model.template = template.fromJson(json);
+    CallOffOrder model = new CallOffOrder.initTemplate(json['templateSysName']).fromJson(json);
+    model.template = model.template.fromJson(json);
 
     return model;
   }
 
   /**
-   * Фабричный метод
-   */
-  CallOffOrderTemplateModelBase instantiateModel(String templateSysName) {
-    CallOffOrderTemplateModelBase result;
-
-    switch (templateSysName) {
-      case 'SouthTambey':
-        result = new CallOffOrderTemplateSouthTambeyModel();
-        break;
-
-      default:
-        result = new CallOffOrderTemplateDefaultModel();
-        break;
-    }
-
-    return result;
-  }
-
-  /**
    * Создание нового наряд-заказа
    */
-  Future<String> createCallOffOrder(String contractId) async {
+  Future<String> createCallOffOrder(CallOffOrder model) async {
+
+    String jsonString = model.toJsonString();
 
     Response response = null;
 
-    _logger.trace('Creating call off order');
+    _logger.trace('Creating call off order $jsonString');
 
     try {
       response = await _http.post(_config.helper.callOffOrdersUrl,
-          headers: {'Content-Type': 'application/json'}, body: '{"contractId": "$contractId"}');
+          headers: {'Content-Type': 'application/json'}, body: jsonString);
 
       _logger.trace('Call off order created');
     } catch (e) {
@@ -138,6 +115,33 @@ class CallOffService {
     }
 
     return response.body;
+  }
+
+  /**
+   * Получение данных для создания наряд заказа
+   */
+  Future<CallOffOrderToCreate> callOffOrderToCreate(String contractId) async {
+    Response response = null;
+
+    _logger.trace(
+        'Requesting call off order to create. Url: ${ _config.helper.callOffOrdersUrl }/to-create/$contractId');
+
+    try {
+      response = await _http.get('${_config.helper.callOffOrdersUrl}/to-create/$contractId',
+          headers: {'Content-Type': 'application/json'});
+    } catch (e) {
+      _logger.error('Failed to get call off order to create: $e');
+
+      rethrow;
+    }
+
+    _logger.trace('Call off order  to create requested: $response.');
+
+    dynamic json = JSON.decode(response.body);
+
+    CallOffOrderToCreate model = new CallOffOrderToCreate().fromJson(json);
+
+    return model;
   }
 
   /**

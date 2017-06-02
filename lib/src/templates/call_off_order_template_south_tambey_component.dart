@@ -26,12 +26,6 @@ class CallOffOrderTemplateSouthTambeyComponent implements OnInit  {
    */
   dynamic updateTemplate = new EventEmitter<dynamic>();
 
-  @Output()
-  /**
-   * Событие жмакания на кнопку "Завершить"
-   */
-  dynamic onFinish = new EventEmitter<dynamic>();
-
   @Input()
   CallOffOrderTemplateSouthTambeyModel model = null;
 
@@ -127,12 +121,5 @@ class CallOffOrderTemplateSouthTambeyComponent implements OnInit  {
     if (model.finishDate == null) result = model.startDateStr;
 
     return result;
-  }
-
-  /**
-   * Нажатие на кнопку "Завершить"
-   */
-  void finish() {
-    onFinish.emit(null);
   }
 }

@@ -12,6 +12,7 @@ import 'call_off_rate.dart';
 import 'call_off_order.dart';
 import 'call_off_rate_component.dart';
 import 'call_off_service.dart';
+import 'call_off_order_to_create.dart';
 import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_component.dart';
 import 'templates/call_off_order_template_south_tambey_component.dart';
@@ -46,6 +47,9 @@ class CallOffOrderComponent implements OnInit {
   String id = '';
 
   @Input()
+  bool creatingMode = false;
+
+  @Input()
   String contractId = '';
 
   @Input()
@@ -63,7 +67,13 @@ class CallOffOrderComponent implements OnInit {
    */
   dynamic onFinish = new EventEmitter<dynamic>();
 
-  CallOffOrder model = new CallOffOrder();
+  @Output()
+  /**
+   * Событие жмакания на кнопку "Отмена"
+   */
+  dynamic onCancel = new EventEmitter<dynamic>();
+
+  CallOffOrder model = null;
   String dates = '';
 
   // GUID generator
@@ -238,16 +248,55 @@ class CallOffOrderComponent implements OnInit {
   Future ngOnInit() async {
     if (_authorizationService.isInRole(Role.Customer)) readOnly = false;
 
-    model = await _service.getCallOffOrder(id);
+    if (creatingMode) {
+      model = await createCallOff();
+    }
+    else {
+      model = await _service.getCallOffOrder(id);
+      if (!readOnly) {
+        readOnly = model.hasTimeSheets; // если есть табели, то нельзя редактировать
+      }
+    }
+
+  }
+
+  // создать заготовку для наряд заказа при его создании
+  Future<CallOffOrder> createCallOff() async {
+
+    CallOffOrder callOffOrder = new CallOffOrder.initTemplate(templateSysName);
+
+    CallOffOrderToCreate callOffOrderToCreate = await _service.callOffOrderToCreate(contractId);
+
+    callOffOrder.template.minDate = callOffOrderToCreate.minDate;
+    callOffOrder.template.maxDate = callOffOrderToCreate.maxDate;
+
+    callOffOrder.template.currencies = callOffOrderToCreate.currencies;
+    callOffOrder.template.currencySysName = callOffOrderToCreate.currencySysName;
+    callOffOrder.contractId = contractId;
+
+    return callOffOrder;
   }
 
   /**
    * Нажатие на кнопку "Завершить"
    */
   Future finish() async {
-
-    await _service.updateCallOffOrder(model);
+    if (creatingMode) {
+      model.id = await _service.createCallOffOrder(model);
+      creatingMode = false;
+      callOfChanged.emit(model.toMap());
+    }
+    else {
+      await _service.updateCallOffOrder(model);
+    }
 
     onFinish.emit(null);
+  }
+
+  /**
+   * Нажатие на кнопку "Омена"
+   */
+  Future cancel() async {
+    onCancel.emit(null);
   }
 }

@@ -11,7 +11,7 @@ class CallOffRateComponent {
   bool readOnly = true;
 
   @Input()
-  CallOffRate model = new CallOffRate();
+  CallOffRate model = null;
 
   @Output()
   // Событие добавления ставки во внешний компонент
