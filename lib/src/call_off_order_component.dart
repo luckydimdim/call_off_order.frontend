@@ -16,6 +16,7 @@ import 'call_off_order_to_create.dart';
 import 'templates/call_off_order_template_model_base.dart';
 import 'templates/call_off_order_template_default_component.dart';
 import 'templates/call_off_order_template_south_tambey_component.dart';
+import 'templates/rate_unit.dart';
 
 @Component(
     selector: 'call-off-order',
@@ -154,7 +155,7 @@ class CallOffOrderComponent implements OnInit {
       ..isRate = false
       ..canToggle = true
       ..showMinus = true
-      ..unitName = 'день';
+      ..unit = RateUnit.day;
 
     model.rates.add(rate);
 
@@ -179,7 +180,7 @@ class CallOffOrderComponent implements OnInit {
       ..canToggle = false
       ..showMinus = true
       ..showPlus = true
-      ..unitName = 'день';
+      ..unit = RateUnit.day;
 
     model.rates.insert(sourceRateIndex + 1, rate);
 

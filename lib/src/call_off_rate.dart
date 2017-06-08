@@ -2,6 +2,8 @@ import 'package:converters/json_converter.dart';
 import 'package:converters/map_converter.dart';
 import 'package:converters/reflector.dart';
 import 'package:uuid/uuid.dart';
+import 'templates/rate_unit.dart';
+import 'rate_utils.dart';
 
 /**
  * Ставка наряд-заказа
@@ -27,7 +29,8 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   double amount = 0.0;
 
   // Начальное значение единицы измерения ставки
-  String unitName = 'день';
+  @Json(exclude: true)
+  RateUnit unit = RateUnit.day;
 
   // Id группы
   String parentId = null;
@@ -49,6 +52,17 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   dynamic fromJson(dynamic json) {
     super.fromJson(json);
 
+    unit = RateUtils.convertFromInt(json['unit']);
+
     return this;
+  }
+
+  @override
+  Map toJson() {
+    var map = super.toJson();
+
+    map['unit'] = RateUtils.convertToInt(unit);
+
+    return map;
   }
 }

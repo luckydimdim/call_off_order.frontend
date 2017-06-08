@@ -64,8 +64,8 @@
           <div class="input-group-btn">
             <button type="button" class="btn btn-light dropdown-toggle" [disabled]="readOnly"
                     *ngIf="model.isRate"
-                    (click)="model.unitName = model.unitName == 'день' ? 'час' : 'день'; emitUpdateRate();">
-              <span class="small-caps">{{ model.unitName }}</span>
+                    (click)="onRateUnitClicked()">
+              <span class="small-caps">{{ getUnitName(model.unit) }}</span>
             </button>
 
             <button *ngIf="!readOnly" type="button" class="btn btn-secondary text-muted cm-minus"

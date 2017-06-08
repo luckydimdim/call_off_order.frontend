@@ -3,9 +3,13 @@ import 'package:angular2/core.dart';
 import 'package:angular_utils/cm_positive_number.dart';
 
 import 'package:call_off_order/src/call_off_rate.dart';
+import 'templates/rate_unit.dart';
+import 'rate_utils.dart';
 
 @Component(
-    selector: 'call-off-rate', templateUrl: 'call_off_rate_component.html', directives: const[CmPositiveNumberDirective])
+    selector: 'call-off-rate',
+    templateUrl: 'call_off_rate_component.html',
+    directives: const[CmPositiveNumberDirective])
 class CallOffRateComponent {
   @Input()
   bool readOnly = true;
@@ -40,7 +44,8 @@ class CallOffRateComponent {
     updateRate.emit(model);
   }
 
-  Map<String, bool> controlStateClasses(NgControl control) => {
+  Map<String, bool> controlStateClasses(NgControl control) =>
+      {
         'ng-dirty': control.dirty ?? false,
         'ng-pristine': control.pristine ?? false,
         'ng-touched': control.touched ?? false,
@@ -48,4 +53,30 @@ class CallOffRateComponent {
         'ng-valid': control.valid ?? false,
         'ng-invalid': control.valid == false
       };
+
+  String getUnitName(RateUnit rateUnit) {
+    return RateUtils.getUnitName(rateUnit).toLowerCase();
+  }
+
+  /**
+   * Кликнули по ед. измерения
+   */
+  void onRateUnitClicked() {
+    switch (model.unit) {
+      case RateUnit.hour:
+        model.unit = RateUnit.day;
+        break;
+      case RateUnit.day:
+        model.unit = RateUnit.month;
+        break;
+      case RateUnit.month:
+        model.unit = RateUnit.hour;
+        break;
+      default:
+        model.unit = RateUnit.day;
+    }
+
+    emitUpdateRate();
+  }
+
 }
