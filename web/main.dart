@@ -29,7 +29,7 @@ bool get isDebug =>
       const Provider(LocationStrategy, useClass: HashLocationStrategy)
     ],
     template:
-        '<master-layout><call-off-order [id]="\'26270cfa2422b2c4ebf158285e17b738\'"></call-off-order></master-layout>',
+        '<master-layout><call-off-order [id]="\'dfe5a2a0f3799d6d6f20deffb105ec11\'"></call-off-order></master-layout>',
     directives: const [MasterLayoutComponent, CallOffOrderComponent])
 class AppComponent {}
 

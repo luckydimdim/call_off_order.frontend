@@ -5,7 +5,7 @@
                 <div class="form-group"
                      [class.has-danger]="!orderNumberControl.valid && (orderNumberControl.dirty || orderNumberControl.touched)"
                      [class.has-success]="orderNumberControl.valid && orderNumberControl.touched">
-                  <label for="order-number" class="text-muted">Номер заказа</label>
+                  <label for="order-number" class="text-muted">Номер</label>
                   <input type="text" class="form-control"
                          id="order-number"
                          autocomplete="off"
@@ -260,7 +260,7 @@
 
             <div class="row">
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="order-dates" class="text-muted">Период оказания услуги</label>
                   <div class="input-group cursor-pointer"
@@ -290,7 +290,7 @@
               </div>
               <!-- /col -->
 
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="form-group"
                      [class.has-danger]="!orderNameControl.valid && (orderNameControl.dirty || orderNameControl.touched)"
                      [class.has-success]="orderNameControl.valid && orderNameControl.touched">
