@@ -105,5 +105,4 @@ class CallOffOrderTemplateDefaultComponent implements OnInit {
 
     return result;
   }
-
 }

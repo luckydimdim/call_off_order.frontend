@@ -9,7 +9,7 @@ import 'rate_utils.dart';
 @Component(
     selector: 'call-off-rate',
     templateUrl: 'call_off_rate_component.html',
-    directives: const[CmPositiveNumberDirective])
+    directives: const [CmPositiveNumberDirective])
 class CallOffRateComponent {
   @Input()
   bool readOnly = true;
@@ -44,8 +44,7 @@ class CallOffRateComponent {
     updateRate.emit(model);
   }
 
-  Map<String, bool> controlStateClasses(NgControl control) =>
-      {
+  Map<String, bool> controlStateClasses(NgControl control) => {
         'ng-dirty': control.dirty ?? false,
         'ng-pristine': control.pristine ?? false,
         'ng-touched': control.touched ?? false,
@@ -78,5 +77,4 @@ class CallOffRateComponent {
 
     emitUpdateRate();
   }
-
 }

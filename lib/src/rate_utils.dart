@@ -1,7 +1,6 @@
 import 'templates/rate_unit.dart';
 
 class RateUtils {
-
   /**
    * Конвертация ед. изм. ставки из строки
    */
@@ -49,5 +48,4 @@ class RateUtils {
         return '???';
     }
   }
-
 }

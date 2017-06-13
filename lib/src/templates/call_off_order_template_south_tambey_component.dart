@@ -12,7 +12,7 @@ import 'call_off_order_template_south_tambey_model.dart';
     selector: 'call-off-order-template-south-tambey',
     templateUrl: 'call_off_order_template_south_tambey_component.html',
     directives: const [DateRangePickerDirective])
-class CallOffOrderTemplateSouthTambeyComponent implements OnInit  {
+class CallOffOrderTemplateSouthTambeyComponent implements OnInit {
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
   DateRangePickerOptions mobDateRangePickerOptions =
       new DateRangePickerOptions();

@@ -58,7 +58,8 @@ class CallOffService {
     var jsonList = (JSON.decode(response.body) as List<dynamic>);
 
     for (var json in jsonList) {
-      CallOffOrder callOffOrder = new CallOffOrder.initTemplate(json['templateSysName']).fromJson(json);
+      CallOffOrder callOffOrder =
+          new CallOffOrder.initTemplate(json['templateSysName']).fromJson(json);
       callOffOrder.template = callOffOrder.template.fromJson(json);
 
       result.add(callOffOrder);
@@ -88,7 +89,8 @@ class CallOffService {
     _logger.trace('Call off order requested: $response.');
 
     dynamic json = JSON.decode(response.body);
-    CallOffOrder model = new CallOffOrder.initTemplate(json['templateSysName']).fromJson(json);
+    CallOffOrder model =
+        new CallOffOrder.initTemplate(json['templateSysName']).fromJson(json);
     model.template = model.template.fromJson(json);
 
     return model;
@@ -98,7 +100,6 @@ class CallOffService {
    * Создание нового наряд-заказа
    */
   Future<String> createCallOffOrder(CallOffOrder model) async {
-
     String jsonString = model.toJsonString();
 
     Response response = null;
@@ -127,7 +128,8 @@ class CallOffService {
         'Requesting call off order to create. Url: ${ _config.helper.callOffOrdersUrl }/to-create/$contractId');
 
     try {
-      response = await _http.get('${_config.helper.callOffOrdersUrl}/to-create/$contractId',
+      response = await _http.get(
+          '${_config.helper.callOffOrdersUrl}/to-create/$contractId',
           headers: {'Content-Type': 'application/json'});
     } catch (e) {
       _logger.error('Failed to get call off order to create: $e');
@@ -163,8 +165,6 @@ class CallOffService {
     }
   }
 
-
-
   /**
    * Удаление наряд-заказа
    */
@@ -182,5 +182,4 @@ class CallOffService {
       rethrow;
     }
   }
-
 }

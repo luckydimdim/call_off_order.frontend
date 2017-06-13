@@ -11,7 +11,6 @@ import 'package:converters/reflector.dart';
  */
 @reflectable
 class CallOffOrderToCreate extends Object with JsonConverter, MapConverter {
-
   String contractId = '';
 
   String currencySysName = '';

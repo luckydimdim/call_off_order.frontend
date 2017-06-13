@@ -27,11 +27,9 @@ class CallOffOrder extends Object with JsonConverter, MapConverter {
   // есть табели
   bool hasTimeSheets = false;
 
-  CallOffOrder(){
+  CallOffOrder() {}
 
-  }
-
-  CallOffOrder.initTemplate(String templateSysName){
+  CallOffOrder.initTemplate(String templateSysName) {
     switch (templateSysName) {
       case 'SouthTambey':
         template = new CallOffOrderTemplateSouthTambeyModel();

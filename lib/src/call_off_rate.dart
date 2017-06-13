@@ -13,7 +13,6 @@ class CallOffRate extends Object with JsonConverter, MapConverter {
   // Уникальный id ставки, берется из базы
   String id = null;
 
-  
   @Json(exclude: true)
   // GUID generator
   Uuid guid = new Uuid();

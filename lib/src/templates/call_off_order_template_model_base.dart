@@ -47,12 +47,10 @@ abstract class CallOffOrderTemplateModelBase extends Object
       finishDate == null ? '' : formatter.format(finishDate);
 
   DateTime minDate;
-  String get minDateStr =>
-      minDate == null ? '' : formatter.format(minDate);
+  String get minDateStr => minDate == null ? '' : formatter.format(minDate);
 
   DateTime maxDate;
-  String get maxDateStr =>
-      maxDate == null ? '' : formatter.format(maxDate);
+  String get maxDateStr => maxDate == null ? '' : formatter.format(maxDate);
 
   /**
    * Должность
@@ -75,5 +73,5 @@ abstract class CallOffOrderTemplateModelBase extends Object
   /**
    * Список доступных валют (из договора)
    */
-  List<String> currencies = new  List<String>();
+  List<String> currencies = new List<String>();
 }

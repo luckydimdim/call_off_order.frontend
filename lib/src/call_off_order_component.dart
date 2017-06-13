@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:auth/auth_service.dart';
 import 'package:daterangepicker/daterangepicker.dart';
-
+import 'package:angular_utils/cm_loading_btn_directive.dart';
 import 'call_off_rate.dart';
 import 'call_off_order.dart';
 import 'call_off_rate_component.dart';
@@ -27,7 +27,8 @@ import 'templates/rate_unit.dart';
     directives: const [
       CallOffRateComponent,
       CallOffOrderTemplateDefaultComponent,
-      CallOffOrderTemplateSouthTambeyComponent
+      CallOffOrderTemplateSouthTambeyComponent,
+      CmLoadingBtnDirective,
     ])
 class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
@@ -148,9 +149,8 @@ class CallOffOrderComponent implements OnInit {
    * Добавление группы ставок
    */
   CallOffRate _addRateParent() {
-
     var rate = new CallOffRate()
-       ..id = guid.v1()
+      ..id = guid.v1()
       ..parentId = null
       ..isRate = false
       ..canToggle = true
@@ -166,15 +166,14 @@ class CallOffOrderComponent implements OnInit {
    * Добавление ставки
    */
   CallOffRate _addRateChild(CallOffRate rateModel) {
-
     // Получение индекса родительской ставки для того чтобы
     // вставить дочернюю ставку сразу после нее
-    CallOffRate sourceRate = model.rates
-        .singleWhere((item) => item.id == rateModel.id);
+    CallOffRate sourceRate =
+        model.rates.singleWhere((item) => item.id == rateModel.id);
     int sourceRateIndex = model.rates.indexOf(sourceRate);
 
     var rate = new CallOffRate()
-       ..id = guid.v1()
+      ..id = guid.v1()
       ..parentId = sourceRate.isRate ? sourceRate.parentId : sourceRate.id
       ..isRate = true
       ..canToggle = false
@@ -201,8 +200,8 @@ class CallOffOrderComponent implements OnInit {
    */
   Future removeRate(CallOffRate rateModel) async {
     // Получение индекса предыдущей по очереди ставки
-    CallOffRate sourceRate = model.rates
-        .singleWhere((item) => item.id == rateModel.id);
+    CallOffRate sourceRate =
+        model.rates.singleWhere((item) => item.id == rateModel.id);
 
     int rateIndex = model.rates.indexOf(sourceRate);
     int previousRateIndex = rateIndex - 1;
@@ -251,28 +250,28 @@ class CallOffOrderComponent implements OnInit {
 
     if (creatingMode) {
       model = await createCallOff();
-    }
-    else {
+    } else {
       model = await _service.getCallOffOrder(id);
       if (!readOnly) {
-        readOnly = model.hasTimeSheets; // если есть табели, то нельзя редактировать
+        readOnly =
+            model.hasTimeSheets; // если есть табели, то нельзя редактировать
       }
     }
-
   }
 
   // создать заготовку для наряд заказа при его создании
   Future<CallOffOrder> createCallOff() async {
-
     CallOffOrder callOffOrder = new CallOffOrder.initTemplate(templateSysName);
 
-    CallOffOrderToCreate callOffOrderToCreate = await _service.callOffOrderToCreate(contractId);
+    CallOffOrderToCreate callOffOrderToCreate =
+        await _service.callOffOrderToCreate(contractId);
 
     callOffOrder.template.minDate = callOffOrderToCreate.minDate;
     callOffOrder.template.maxDate = callOffOrderToCreate.maxDate;
 
     callOffOrder.template.currencies = callOffOrderToCreate.currencies;
-    callOffOrder.template.currencySysName = callOffOrderToCreate.currencySysName;
+    callOffOrder.template.currencySysName =
+        callOffOrderToCreate.currencySysName;
     callOffOrder.contractId = contractId;
 
     return callOffOrder;
@@ -286,8 +285,7 @@ class CallOffOrderComponent implements OnInit {
       model.id = await _service.createCallOffOrder(model);
       creatingMode = false;
       callOfChanged.emit(model.toMap());
-    }
-    else {
+    } else {
       await _service.updateCallOffOrder(model);
     }
 
