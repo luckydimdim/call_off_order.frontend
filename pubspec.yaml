@@ -34,6 +34,8 @@ dependencies:
       git: http://cm-ylng-msk-04/git/converters.frontend.git
     http_wrapper:
       git: http://cm-ylng-msk-04/git/http_wrapper.frontend.git
+    angular_utils:
+      git: http://cm-ylng-msk-04/git/angular_utils.frontend.git
 dev_dependencies:
     test: ^0.12.18                        # A library for writing dart unit tests. https://pub.dartlang.org/packages/test
     yaml: ^2.1.12                         # A parser for YAML. https://pub.dartlang.org/packages/yaml

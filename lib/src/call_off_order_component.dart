@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:auth/auth_service.dart';
 import 'package:daterangepicker/daterangepicker.dart';
-import 'package:angular_utils/cm_loading_btn_directive.dart';
+import 'package:angular_utils/directives.dart';
 import 'call_off_rate.dart';
 import 'call_off_order.dart';
 import 'call_off_rate_component.dart';
@@ -29,6 +29,7 @@ import 'templates/rate_unit.dart';
       CallOffOrderTemplateDefaultComponent,
       CallOffOrderTemplateSouthTambeyComponent,
       CmLoadingBtnDirective,
+      CmLoadingSpinComponent
     ])
 class CallOffOrderComponent implements OnInit {
   static const String route_name = 'CallOffOrder';
