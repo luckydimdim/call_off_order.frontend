@@ -44,7 +44,7 @@ class CallOffOrderComponent implements OnInit {
   final AuthorizationService _authorizationService;
   DateRangePickerOptions dateRangePickerOptions = new DateRangePickerOptions();
 
-  bool readOnly = true;
+  bool readOnly = false;
 
   @Input()
   String id = '';
@@ -247,7 +247,7 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
-    if (_authorizationService.isInRole(Role.Customer)) readOnly = false;
+    if (_authorizationService.isInRole(Role.Contractor)) readOnly = true;
 
     if (creatingMode) {
       model = await createCallOff();
