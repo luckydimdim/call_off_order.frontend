@@ -74,4 +74,9 @@ abstract class CallOffOrderTemplateModelBase extends Object
    * Список доступных валют (из договора)
    */
   List<String> currencies = new List<String>();
+
+  /**
+   * Возможность удаления
+   */
+  bool canDelete;
 }

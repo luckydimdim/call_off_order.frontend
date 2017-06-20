@@ -247,7 +247,7 @@ class CallOffOrderComponent implements OnInit {
 
   @override
   Future ngOnInit() async {
-    if (_authorizationService.isInRole(Role.Contractor)) readOnly = true;
+    if (_authorizationService.isOneRole(Role.Contractor)) readOnly = true;
 
     if (creatingMode) {
       model = await createCallOff();
